@@ -1,42 +1,9 @@
-import Header from "@/components/Header";
-import ListOpportunities from "@/components/ListOpportunities";
 import Navbar from "@/components/Navbar";
-
-// export default function Home() {
-//   return (
-//     <div className="text-green-500">
-//       <Header>
-//         <div>
-//           <h1>Welcome BACK!</h1>
-//           <div>
-//             <ListOpportunities
-//               image="/images/liked.png"
-//               name="Liked Opportunities"
-//               href="liked"
-//             />
-//           </div>
-//         </div>
-//       </Header>
-//       <div>
-//         <div>
-//           <h1>Opps on dashboard</h1>
-//         </div>
-//         <div>
-//           Lists of your opps
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 import AuthSystem from "@/components/AuthSystem";
 
 export const revalidate = 0;
 
 export default function Home() {
-
-  
-
-
   return (
     <div>
       <Navbar>

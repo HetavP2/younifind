@@ -1,1 +1,0 @@
-you can add a separate layout.tsx to private route if you want.

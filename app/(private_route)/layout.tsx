@@ -1,11 +1,10 @@
-import Sidebar from "@/components/Sidebarvideo";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
-import Navbar from "@/components/Navbar";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
+
 
 export default async function PrivateLayout({
   children,
