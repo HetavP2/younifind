@@ -1,0 +1,42 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import SupabaseProvider from "@/providers/SupabaseProvider";
+import UserProvider from "@/providers/UserProvider";
+
+interface AdminLayoutProps {
+  children: React.ReactNode;
+}
+
+export default async function AdminLayout({ children }: AdminLayoutProps) {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const { data: adminInfo, error } = await supabase
+    .from("admins")
+    .select()
+    .filter("adminId", "in", `(${session.user.id})`)
+        .single();
+    
+
+    if (adminInfo === null) {
+        redirect("/login");
+    }
+
+    
+  return (
+    <html lang="en">
+      <body>
+        <SupabaseProvider>
+          <UserProvider>{children}</UserProvider>
+        </SupabaseProvider>
+      </body>
+    </html>
+  );
+}

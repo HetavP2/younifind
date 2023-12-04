@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Sidebar from "@/components/Sidebarvideo";
+import SupabaseProvider from "@/providers/SupabaseProvider";
+import UserProvider from "@/providers/UserProvider";
+import Navbar from "@/components/Navbar";
+import ToasterProvider from "@/providers/ToasterProvider";
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Opportunity",
+  description: "Find wonderful opportunities in the world.",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <ToasterProvider />
+          <SupabaseProvider>
+            <UserProvider>{children}</UserProvider>
+          </SupabaseProvider>
+      </body>
+    </html>
+  );
+}
