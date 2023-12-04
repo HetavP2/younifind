@@ -3,6 +3,8 @@ import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 import { cookies } from "next/headers";
 import { toast } from "react-hot-toast";
+import OppInput from "./OppInput";
+import OppTextarea from "./OppTextarea";
 
 const AddOppForm: React.FC = () => {
   const addOpp = async (formData: FormData) => {
@@ -120,11 +122,7 @@ const AddOppForm: React.FC = () => {
                       >
                         Title
                       </label>
-                      <input
-                        type="text"
-                        name="title"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      />
+                      <OppInput id="title" name="title" />
                     </div>
                   </div>
                   <div className="w-full lg:w-6/12 px-4">
@@ -135,11 +133,7 @@ const AddOppForm: React.FC = () => {
                       >
                         Organization
                       </label>
-                      <input
-                        type="text"
-                        name="provider"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      />
+                      <OppInput id="provider" name="provider" />
                     </div>
                   </div>
                   <div className="w-full lg:w-6/12 px-4">
@@ -150,11 +144,7 @@ const AddOppForm: React.FC = () => {
                       >
                         Location
                       </label>
-                      <input
-                        type="text"
-                        name="location"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      />
+                      <OppInput id="location" name="location" />
                     </div>
                   </div>
                 </div>
@@ -167,11 +157,7 @@ const AddOppForm: React.FC = () => {
                       >
                         Description
                       </label>
-                      <textarea
-                        name="description"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        rows={4}
-                      ></textarea>
+                      <OppTextarea name="description" rows={4} />
                     </div>
                   </div>
                 </div>
@@ -184,10 +170,7 @@ const AddOppForm: React.FC = () => {
                       >
                         Expiry date
                       </label>
-                      <input
-                        type="date"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      />
+                      <OppInput id="date" type="date" name="date" />
                     </div>
                   </div>
                 </div>
@@ -201,7 +184,7 @@ const AddOppForm: React.FC = () => {
                   <div className="w-full lg:w-12/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        htmlFor="pet-select"
+                        htmlFor="industry"
                         className="block uppercase text-blueGray-600 text-xs font-bold
                                     mb-2"
                       >
@@ -213,7 +196,7 @@ const AddOppForm: React.FC = () => {
                                     bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
                                     transition-all duration-150"
                         name="industry"
-                        id="pet-select"
+                        id="industry"
                       >
                         <option value="">--Please choose an option--</option>
                         <option value="Environmental Science">
