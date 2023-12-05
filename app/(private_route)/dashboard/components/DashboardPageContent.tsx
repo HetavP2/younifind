@@ -15,7 +15,7 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
   return userOpps ? (
     <div>
       <DashboardClient />
-      {/* <pre>{JSON.stringify(userOpps, null, 2)}</pre> */}
+      <pre>{JSON.stringify(userOpps, null, 2)}</pre>
       {oppImages.map((image) => {
         return <div key={image.id}>{image.title}</div>;
       })}
