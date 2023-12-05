@@ -1,11 +1,11 @@
 // 'use client';
 import React from "react";
-import { Opportunity, oppImage } from "@/types";
+import { Opportunity, OppImage } from "@/types";
 import DashboardClient from "@/components/DashboardClient";
 
 interface DashboardPageContentProps {
   userOpps: Opportunity[] | null;
-  oppImages: oppImage[];
+  oppImages: OppImage[];
 }
 
 const DashboardPageContent: React.FC<DashboardPageContentProps> = ({

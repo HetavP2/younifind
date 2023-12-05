@@ -24,7 +24,7 @@ export interface Opportunity {
   location: string;
 }
 
-export interface oppImage {
+export interface OppImage {
   id: string;
   user_id: string;
   provider: string;
