@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
+import sendOpportunityApprovalEmail from "@/actions/sendOpportunityApprovalEmail";
 
 const AddOppForm: React.FC = () => {
   const addOpp = async (formData: FormData) => {
@@ -55,7 +56,7 @@ const AddOppForm: React.FC = () => {
           .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
             cacheControl: "3600",
             upsert: false,
-            contentType: 'image/png',
+            contentType: "image/png",
           });
       if (oppImageData) {
         await supabase.from("opportunities").insert({
@@ -75,10 +76,14 @@ const AddOppForm: React.FC = () => {
           image_path: oppImageData.path,
         });
       }
+
       // if (oppImageError) {
       //   return toast.error("FAILED image upload");
       // }
       // toast.success("Opportunity added successfully");
+      if (!approved) {
+        await sendOpportunityApprovalEmail();
+      }
     }
   };
   return (

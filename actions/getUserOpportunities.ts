@@ -4,6 +4,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 const getUserOpportunities = async (): Promise<Opportunity[]> => {
+  'use server'
   const supabase = createServerComponentClient({
     cookies: cookies,
   });

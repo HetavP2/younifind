@@ -2,12 +2,9 @@ import React from "react";
 import { Opportunity } from "@/types";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
-import useLoadImage from "@/hooks/useLoadImage";
 import Image from "next/image";
 
-interface OpportunityCardProps extends Opportunity {
-  data: Opportunity;
-}
+interface OpportunityCardProps extends Opportunity {}
 
 const OpportunityCard: React.FC<OpportunityCardProps> = async (
   {
@@ -23,22 +20,22 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
     mode,
     typelabel,
     approved,
-    data,
+    image_path,
     ...props
   },
   ref
 ) => {
-  const imagePath = await useLoadImage(data);
-  //   const oppImage = await getOppImages();
-  // const oppImages = getOpportunityImages({ userId: user_id });
-
   //make a card and put values like {title}, {provider} every relevant column opportunity table
-  console.log(imagePath);
-  
-  return <Image className="object-cover" src={imagePath || '/images/younifind.png'} fill alt='Image' />;
+  return image_path ? (
+    <Image
+      className="object-cover"
+      src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image_path}`}
+      fill
+      alt="Image"
+    />
+  ) : (
+    <h1>No image provided default imagehere</h1>
+  );
 };
 
 export default OpportunityCard;
-
-//useless
-//   return <pre>{JSON.stringify(userOpps, null, 2)}</pre>;

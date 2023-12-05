@@ -11,6 +11,7 @@ interface AuthSystemProps {
 const AuthSystem: React.FC<AuthSystemProps> = async ({
   className
 }) => {
+  
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { session },

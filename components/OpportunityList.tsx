@@ -16,7 +16,6 @@ export default async function OpportunityList() {
           <OpportunityCard
             key={opportunity.id}
             image_path={opportunity.image_path}
-            data={opportunity}
             user_id={session.user.id}
             title={opportunity.title}
             description={opportunity.description}

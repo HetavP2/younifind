@@ -13,7 +13,7 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
   return userOpps && userOpps?.length >= 0 ? (
     <div className="">
       <DashboardClient />
-      {/* <OpportunityList /> */}
+      <OpportunityList />
     </div>
   ) : (
     <div>
