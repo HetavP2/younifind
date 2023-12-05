@@ -8,11 +8,11 @@ export interface UserDetails {
 }
 
 export interface Opportunity {
-  id: string;
+  id?: string;
   user_id: string;
   approved: boolean;
   description: string;
-//   embedding: string;
+  //   embedding: string;
   industry: string;
   isfor: string;
   provider: string;
@@ -22,12 +22,6 @@ export interface Opportunity {
   mode: string;
   typelabel: string;
   location: string;
+  image_path: string;
 }
 
-export interface OppImage {
-  id: string;
-  user_id: string;
-  provider: string;
-  title: string;
-  image_path: string;
-};

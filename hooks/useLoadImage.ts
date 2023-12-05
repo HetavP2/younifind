@@ -1,12 +1,21 @@
-import { OppImage } from "@/types";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import React from "react";
+import { Opportunity } from "@/types";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const useLoadImage = (oppImage: OppImage) => {
-    const supabaseClient = useSupabaseClient();
+const useLoadImage = async (oppImage: Opportunity) => {
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
 
-    if (!oppImage) {
-        return null;
-    }
+  if (!oppImage) {
+    return null;
+  }
+  const { data } = await supabase.storage
+    .from("opportunity-images")
+    .getPublicUrl(oppImage.image_path);
 
-    // const { data: oppImageData}
-}
+  return data.publicUrl;
+};
+
+export default useLoadImage;

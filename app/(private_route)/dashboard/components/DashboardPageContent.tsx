@@ -1,28 +1,23 @@
-// 'use client';
 import React from "react";
-import { Opportunity, OppImage } from "@/types";
+import { Opportunity } from "@/types";
 import DashboardClient from "@/components/DashboardClient";
+import OpportunityList from "@/components/OpportunityList";
 
 interface DashboardPageContentProps {
   userOpps: Opportunity[] | null;
-  oppImages: OppImage[];
 }
 
 const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
   userOpps,
-  oppImages,
 }) => {
-  return userOpps ? (
-    <div>
+  return userOpps && userOpps?.length >= 0 ? (
+    <div className="">
       <DashboardClient />
-      <pre>{JSON.stringify(userOpps, null, 2)}</pre>
-      {oppImages.map((image) => {
-        return <div key={image.id}>{image.title}</div>;
-      })}
+      {/* <OpportunityList /> */}
     </div>
   ) : (
     <div>
-      <div className="w-2/3 mx-auto  bg-royalblue p-4 text-center font-medium rounded-md">
+      <div className="w-2/3 mx-auto  p-4 text-center font-medium rounded-md">
         No Opportunities Created Yet. <br />
         <br /> Click <span></span>
         <a className="text-royalyellow" href="/opportunities/new">

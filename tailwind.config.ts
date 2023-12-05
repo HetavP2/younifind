@@ -7,8 +7,33 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        royalblue: "#0C234D",
+        royalyellow: "#F7CE3D"
+      },
+    },
   },
   plugins: [],
 }
 export default config
+
+// /** @type {import('tailwindcss').Config} */
+// module.exports = {
+//   content: [
+//     "./templates//*.html",
+//     "./static/src//.js",
+//     "./node_modules/flowbite/**/.js"
+//   ],
+//   theme: {
+//     extend: {
+//       colors: {
+//         royalblue: "#0C234D",
+//         royalyellow: "#F7CE3D"
+//       },
+//     },
+//   },
+//   plugins: [
+//     require("flowbite/plugin")
+//   ],
+// }

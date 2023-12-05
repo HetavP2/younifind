@@ -48,21 +48,6 @@ const AddOppForm: React.FC = () => {
       if (adminInfo !== null) {
         approved = true;
       }
-      await supabase.from("opportunities").insert({
-        id,
-        title,
-        provider,
-        location,
-        season,
-        industry,
-        isfor,
-        mode,
-        type,
-        approved,
-        typelabel,
-        description,
-        user_id: user.id,
-      });
       const random_uuid = crypto.randomUUID();
       const { data: oppImageData, error: oppImageError } =
         await supabase.storage
@@ -70,20 +55,29 @@ const AddOppForm: React.FC = () => {
           .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
             cacheControl: "3600",
             upsert: false,
-            contentType: "image/*",
+            contentType: 'image/png',
           });
-
-      // if (oppImageError) {
-      //   return toast.error("FAILED image upload");
-      // }
       if (oppImageData) {
-        await supabase.from("opportunityImages").insert({
+        await supabase.from("opportunities").insert({
+          id,
           title,
           provider,
+          location,
+          season,
+          industry,
+          isfor,
+          mode,
+          type,
+          approved,
+          typelabel,
+          description,
           user_id: user.id,
           image_path: oppImageData.path,
         });
       }
+      // if (oppImageError) {
+      //   return toast.error("FAILED image upload");
+      // }
       // toast.success("Opportunity added successfully");
     }
   };
@@ -325,15 +319,11 @@ const AddOppForm: React.FC = () => {
                     >
                       Upload picture for the opportunity
                     </label>
-                    <input
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
-                                    bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
-                                    transition-all duration-150"
-                      aria-describedby="user_avatar_help"
+                    <OppInput
                       id="image"
                       type="file"
-                      name="opportunityImage"
                       accept="image/*"
+                      name="opportunityImage"
                     />
                     <div
                       className="mt-1 text-sm text-gray-500 dark:text-gray-300"
