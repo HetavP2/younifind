@@ -22,6 +22,13 @@ export interface Opportunity {
   mode: string;
   typelabel: string;
   location: string;
-  image_path: string;
 }
+
+export interface OpportunityImages {
+  id?: string;
+  opportunity_id: number;
+  file_path: string;
+  file_name: string;
+}
+
 

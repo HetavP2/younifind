@@ -6,20 +6,27 @@ import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
 import sendOpportunityApprovalEmail from "@/actions/sendOpportunityApprovalEmail";
-import UppyInput from "./UppyInput"
+import UppyInput from "./UppyInput";
 
-const AddOppForm: React.FC = () => {
-  const addOpp = async (formData: FormData) => {
-    "use server";
+
+const AddOppForm: React.FC = async () => {
+
+
+const supabase = createServerActionClient<Database>({
+  cookies,
+});
+const {
+  data: { user },
+} = await supabase.auth.getUser();
     function getRandomInt(max: number): number {
       return Math.floor(Math.random() * max);
     }
-    const supabase = createServerActionClient<Database>({
-      cookies,
-    });
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+const opportunityID = getRandomInt(999999);
+
+  const addOpp = async (formData: FormData) => {
+    "use server";
+
+    
     const id = getRandomInt(999999);
     const title = String(formData.get("title"));
     const provider = String(formData.get("provider"));
@@ -76,7 +83,6 @@ const AddOppForm: React.FC = () => {
           typelabel,
           description,
           user_id: user.id,
-          image_path: oppImageData.path,
         });
       }
 
@@ -90,6 +96,8 @@ const AddOppForm: React.FC = () => {
       }
     }
   };
+
+ 
   return (
     <div>
       <link
@@ -342,8 +350,7 @@ const AddOppForm: React.FC = () => {
                       recognized.
                     </div>
 
-                  <UppyInput />
-
+                    <UppyInput opportunityID={opportunityID} user={user} />
                   </div>
                 </div>
                 <br />
