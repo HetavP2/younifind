@@ -21,7 +21,7 @@ const TableRow: React.FC<TableRowProps> = ({
   mode,
   typelabel,
   approved,
-  image_path,
+  // image_path,
   ...props
 }) => {
   const router = useRouter();
