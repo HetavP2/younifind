@@ -38,6 +38,15 @@ const UppyInput = ({ user, opportunityID }) => {
       file_name: fileName,
     });
 
+    // const { data: oppImageData, error: oppImageError } =
+    //     await supabase.storage
+    //       .from("opportunity-images")
+    //       .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
+    //         cacheControl: "3600",
+    //         upsert: false,
+    //         contentType: "image/*",
+    //       });
+
     return error;
   };
 
@@ -72,6 +81,8 @@ const UppyInput = ({ user, opportunityID }) => {
       `user-${user.id}/oppImg-${random_uuid}`
     );
 
+    
+
     console.log(addToSupabaseResponse);
 
     file.meta = {
@@ -82,6 +93,8 @@ const UppyInput = ({ user, opportunityID }) => {
       contentType: file.type,
     };
   });
+
+  
 
   return <Dashboard uppy={uppy} />;
 };
