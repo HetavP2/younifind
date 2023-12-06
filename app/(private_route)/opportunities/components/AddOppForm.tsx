@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
 import sendOpportunityApprovalEmail from "@/actions/sendOpportunityApprovalEmail";
+import UppyInput from "./UppyInput"
 
 const AddOppForm: React.FC = () => {
   const addOpp = async (formData: FormData) => {
@@ -30,6 +31,8 @@ const AddOppForm: React.FC = () => {
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
     const opportunityImage = String(formData.get("opportunityImage"));
+    console.log(opportunityImage);
+    
 
     let type = typelabel;
     if (typelabel === "Work Opportunity") {
@@ -56,7 +59,7 @@ const AddOppForm: React.FC = () => {
           .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
             cacheControl: "3600",
             upsert: false,
-            contentType: "image/png",
+            contentType: "image/.png",
           });
       if (oppImageData) {
         await supabase.from("opportunities").insert({
@@ -80,6 +83,7 @@ const AddOppForm: React.FC = () => {
       // if (oppImageError) {
       //   return toast.error("FAILED image upload");
       // }
+      
       // toast.success("Opportunity added successfully");
       if (!approved) {
         await sendOpportunityApprovalEmail();
@@ -337,6 +341,9 @@ const AddOppForm: React.FC = () => {
                       Use pictures to help your opportunity get better
                       recognized.
                     </div>
+
+                  <UppyInput />
+
                   </div>
                 </div>
                 <br />
