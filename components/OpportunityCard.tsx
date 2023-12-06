@@ -3,11 +3,15 @@ import { Opportunity } from "@/types";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
+import getOpportunityImages from "@/actions/getOpportunityImages";
 
-interface OpportunityCardProps extends Opportunity {}
+interface OpportunityCardProps extends Opportunity {
+  // oppImages: Array<string> || null;
+}
 
 const OpportunityCard: React.FC<OpportunityCardProps> = async (
   {
+    id,
     title,
     user_id,
     description,
@@ -20,19 +24,26 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
     mode,
     typelabel,
     approved,
-    image_path,
     ...props
   },
   ref
 ) => {
+  let oppImages;
+  if (id) {
+    oppImages = await getOpportunityImages(parseInt(id));
+  }
+  console.log(oppImages)
   //make a card and put values like {title}, {provider} every relevant column opportunity table
-  return image_path ? (
-    <Image
-      className="object-cover"
-      src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image_path}`}
-      fill
-      alt="Image"
-    />
+  return oppImages ? (
+    oppImages.map((image) => (
+      
+          <Image
+            className="object-cover"
+            src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
+            fill
+            alt="Image"
+          />
+        ))
   ) : (
     <h1>No image provided default imagehere</h1>
   );
