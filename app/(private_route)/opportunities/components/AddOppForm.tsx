@@ -20,7 +20,7 @@ const AddOppForm: React.FC = async () => {
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = String(formData.get("expiryDate"));
 
-    const res = addOpportunity({
+    await addOpportunity({
       title,
       provider,
       location,
@@ -291,7 +291,6 @@ const AddOppForm: React.FC = async () => {
                       Use pictures to help your opportunity get better
                       recognized.
                     </div>
-
                   </div>
                 </div>
                 <br />

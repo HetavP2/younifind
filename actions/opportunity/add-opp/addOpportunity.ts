@@ -3,18 +3,17 @@
 
 import { Database } from "@/types_db";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import React from "react";
 import { cookies } from "next/headers";
 import sendOpportunityApprovalEmail from "./sendOpportunityApprovalEmail";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Opportunity, OpportunityImages } from "@/types";
+import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages: FormDataEntryValue[];
 }
 
-const addOpportunity: React.FC<AddOpportunityProps> = async ({
+const addOpportunity = async ({
   provider,
   location,
   season,
@@ -24,12 +23,9 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
   typelabel,
   description,
   allOpportunityImages,
-  //   opportunity_id,
-  //   file_path,
-  //   file_name,
   title,
   expiry_date,
-}) => {
+}: AddOpportunityProps): Promise<void> => {
   const supabase = createServerActionClient<Database>({
     cookies,
   });
@@ -92,7 +88,5 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
       await sendOpportunityApprovalEmail();
     }
   }
-
-  return 2;
 };
 export default addOpportunity;
