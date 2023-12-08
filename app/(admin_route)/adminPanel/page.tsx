@@ -1,4 +1,4 @@
-import getAllAdminOpportunities from "@/actions/opportunity/get-opportunities/getAllAdminOpportunities";
+import getAllAdminOpportunities from "@/actions/opportunity/get-opps/getAllAdminOpportunities";
 import TableRow from "./components/TableRow";
 import React from "react";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";

@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
-import sendOpportunityApprovalEmail from "@/actions/opportunity/add-opportunity/sendOpportunityApprovalEmail";
+import sendOpportunityApprovalEmail from "@/actions/opportunity/add-opp/sendOpportunityApprovalEmail";
 import UppyInput from "./UppyInput";
-import addOpportunity from "@/actions/opportunity/add-opportunity/addOpportunity";
+import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 
 const AddOppForm: React.FC = async () => {
   const addOpp = async (formData: FormData) => {

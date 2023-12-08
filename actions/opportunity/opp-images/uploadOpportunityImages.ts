@@ -6,51 +6,48 @@ import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 import { cookies } from "next/headers";
 
-interface uploadOpportunityImagesProps {
+interface UploadOpportunityImagesProps {
     id: number;
     user_id: string;
   allOpportunityImages: FormDataEntryValue[];
 }
 
-const uploadOpportunityImages: React.FC<uploadOpportunityImagesProps> = async ({
-    id,
-    user_id,
+const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
+  id,
+  user_id,
   allOpportunityImages,
 }) => {
   const supabase = createServerActionClient<Database>({
     cookies,
   });
-    try {
-      const uploadPromises = allOpportunityImages.map(async (image) => {
-        let random_uuid = crypto.randomUUID();
-        const { data: oppImageData, error: oppImageError } =
-          await supabase.storage
-            .from("opportunity-images")
-            .upload(`user-${user_id}/oppImg-${random_uuid}`, image, {
-              cacheControl: "3600",
-              upsert: false,
-            });
-          
-          if (oppImageData) {
-            await supabase.from("opportunity_images").insert({
-              opportunity_id: id,
-              file_path: oppImageData.path,
-            });
-          }
+  try {
+    const uploadPromises = allOpportunityImages.map(async (image) => {
+      let random_uuid = crypto.randomUUID();
+      const { data: oppImageData, error: oppImageError } =
+        await supabase.storage
+          .from("opportunity-images")
+          .upload(`user-${user_id}/oppImg-${random_uuid}`, image, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
-        // Handle oppImageData and oppImageError as needed
-      });
+      if (oppImageData) {
+        await supabase.from("opportunity_images").insert({
+          opportunity_id: id,
+          file_path: oppImageData.path,
+        });
+      }
 
-      // Wait for all uploads to complete
-        await Promise.all(uploadPromises);
-        
-        
+      // Handle oppImageData and oppImageError as needed
+    });
 
-      console.log("All images uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading images:", error);
-    }
+    // Wait for all uploads to complete
+    await Promise.all(uploadPromises);
 
+    console.log("All images uploaded successfully");
+  } catch (error) {
+    console.error("Error uploading images:", error);
+  }
 
   // });
   // //       await supabase.from("opportunity_images").insert({
@@ -59,8 +56,6 @@ const uploadOpportunityImages: React.FC<uploadOpportunityImagesProps> = async ({
   // //   file_path: 's',
   // //     });
   // )
-
-
 
   return 2;
 };

@@ -1,8 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import OpportunityCard from "./OpportunityCard";
-import getUserOpportunities from "@/actions/opportunity/get-opportunities/getUserOpportunities";
-import getOpportunityImages from "@/actions/opportunity/get-opportunities/getOpportunityImages";
+import getUserOpportunities from "@/actions/opportunity/get-opps/getUserOpportunities";
+import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 
 export default async function OpportunityList() {
   const supabase = createServerComponentClient({ cookies });

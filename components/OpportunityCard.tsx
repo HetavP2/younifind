@@ -3,7 +3,7 @@ import { Opportunity } from "@/types";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
-import getOpportunityImages from "@/actions/opportunity/get-opportunities/getOpportunityImages";
+import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 
 interface OpportunityCardProps extends Opportunity {
   // oppImages: Array<string> || null;
