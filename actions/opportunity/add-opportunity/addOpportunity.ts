@@ -8,10 +8,10 @@ import { cookies } from "next/headers";
 import sendOpportunityApprovalEmail from "./sendOpportunityApprovalEmail";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Opportunity, OpportunityImages } from "@/types";
-import uploadOpportunityImages from "./uploadOpportunityImages";
+import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 
 interface AddOpportunityProps extends Opportunity {
-    allOpportunityImages: FormDataEntryValue[];
+  allOpportunityImages: FormDataEntryValue[];
 }
 
 const addOpportunity: React.FC<AddOpportunityProps> = async ({
@@ -22,11 +22,11 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
   isfor,
   mode,
   typelabel,
-    description,
+  description,
   allOpportunityImages,
-//   opportunity_id,
-//   file_path,
-//   file_name,
+  //   opportunity_id,
+  //   file_path,
+  //   file_name,
   title,
   expiry_date,
 }) => {
@@ -57,11 +57,11 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
       .single();
     if (adminInfo !== null) {
       approved = true;
-      }
-      const id = getRandomInt(999999);
-      
-      await supabase.from("opportunities").insert({
-        id,
+    }
+    const id = getRandomInt(999999);
+
+    await supabase.from("opportunities").insert({
+      id,
       title,
       provider,
       location,
@@ -76,10 +76,13 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
       user_id: user.id,
       expiry_date: expiry_date,
     });
-      
-      const res = uploadOpportunityImages({ id, user_id: user.id, allOpportunityImages });
-      
-      
+
+    const res = uploadOpportunityImages({
+      id,
+      user_id: user.id,
+      allOpportunityImages,
+    });
+
     // if (oppImageError) {
     //   return toast.error("FAILED image upload");
     // }
@@ -88,8 +91,8 @@ const addOpportunity: React.FC<AddOpportunityProps> = async ({
     if (!approved) {
       await sendOpportunityApprovalEmail();
     }
-    }
-    
-    return 2;
+  }
+
+  return 2;
 };
 export default addOpportunity;

@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
-import sendOpportunityApprovalEmail from "@/actions/sendOpportunityApprovalEmail";
+import sendOpportunityApprovalEmail from "@/actions/opportunity/add-opportunity/sendOpportunityApprovalEmail";
 import UppyInput from "./UppyInput";
-import addOpportunity from "@/actions/addOpportunity";
+import addOpportunity from "@/actions/opportunity/add-opportunity/addOpportunity";
 
 const AddOppForm: React.FC = async () => {
   const addOpp = async (formData: FormData) => {
@@ -37,7 +37,7 @@ const AddOppForm: React.FC = async () => {
     const expiryDate = String(formData.get("expiryDate"));
 
     // console.log(opportunityImages);
-    
+
     const res = addOpportunity({
       title,
       provider,
@@ -359,7 +359,7 @@ const AddOppForm: React.FC = async () => {
                       name="opportunityImages"
                       multiple
                     />
-                    
+
                     <div
                       className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                       id="user_avatar_help"

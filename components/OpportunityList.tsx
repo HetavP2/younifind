@@ -1,8 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import OpportunityCard from "./OpportunityCard";
-import getUserOpportunities from "@/actions/getUserOpportunities";
-import getOpportunityImages from "@/actions/getOpportunityImages";
+import getUserOpportunities from "@/actions/opportunity/get-opportunities/getUserOpportunities";
+import getOpportunityImages from "@/actions/opportunity/get-opportunities/getOpportunityImages";
 
 export default async function OpportunityList() {
   const supabase = createServerComponentClient({ cookies });
@@ -10,7 +10,6 @@ export default async function OpportunityList() {
     data: { session },
   } = await supabase.auth.getSession();
   const userOpportunities = await getUserOpportunities();
-
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
