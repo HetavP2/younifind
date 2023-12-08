@@ -1,29 +1,13 @@
-import { Database } from "@/types_db";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
-import { cookies } from "next/headers";
 import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
-import sendOpportunityApprovalEmail from "@/actions/opportunity/add-opp/sendOpportunityApprovalEmail";
-import UppyInput from "./UppyInput";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 
 const AddOppForm: React.FC = async () => {
   const addOpp = async (formData: FormData) => {
     "use server";
-    // const supabase = createServerActionClient<Database>({
-    //   cookies,
-    // });
-    // const {
-    //   data: { user },
-    // } = await supabase.auth.getUser();
-    // function getRandomInt(max: number): number {
-    //   return Math.floor(Math.random() * max);
-    // }
-    // const opportunityID = getRandomInt(999999);
 
-    // const id = getRandomInt(999999);
     const title = String(formData.get("title"));
     const provider = String(formData.get("provider"));
     const location = String(formData.get("location"));
@@ -35,8 +19,6 @@ const AddOppForm: React.FC = async () => {
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = String(formData.get("expiryDate"));
-
-    // console.log(opportunityImages);
 
     const res = addOpportunity({
       title,
@@ -50,68 +32,10 @@ const AddOppForm: React.FC = async () => {
       description,
       expiry_date: expiryDate,
       allOpportunityImages: opportunityImages,
-      // opportunity_id: 23,
-      // file_path: "as",
-      // file_name: "sad",
       approved: false,
       user_id: "acc",
       type: "a",
     });
-
-    // let type = typelabel;
-    // if (typelabel === "Work Opportunity") {
-    //   type = "work";
-    // } else {
-    //   type = "education";
-    // }
-
-    // let approved = false;
-
-    // if (user) {
-    //   const { data: adminInfo, error } = await supabase
-    //     .from("admins")
-    //     .select()
-    //     .filter("adminId", "in", `(${user.id})`)
-    //     .single();
-    //   if (adminInfo !== null) {
-    //     approved = true;
-    //   }
-    // const random_uuid = crypto.randomUUID();
-    // const { data: oppImageData, error: oppImageError } =
-    //   await supabase.storage
-    //     .from("opportunity-images")
-    //     .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
-    //       cacheControl: "3600",
-    //       upsert: false,
-    //       contentType: "image/",
-    //     });
-    // if (oppImageData) {
-    //   await supabase.from("opportunities").insert({
-    //     title,
-    //     provider,
-    //     location,
-    //     season,
-    //     industry,
-    //     isfor,
-    //     mode,
-    //     type,
-    //     approved,
-    //     typelabel,
-    //     description,
-    //     user_id: user.id,
-    //     expiry_date: expiryDate,
-    //   });
-    // }
-
-    // if (oppImageError) {
-    //   return toast.error("FAILED image upload");
-    // }
-
-    // toast.success("Opportunity added successfully");
-    // if (!approved) {
-    //   await sendOpportunityApprovalEmail();
-    // }
-    // }
   };
 
   return (
@@ -368,7 +292,6 @@ const AddOppForm: React.FC = async () => {
                       recognized.
                     </div>
 
-                    {/* <UppyInput opportunityID={opportunityID} user={user} /> */}
                   </div>
                 </div>
                 <br />

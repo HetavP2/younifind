@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import React from "react";
-import { AuthButtonProps } from "./AuthButton";
 import AuthButton from "./AuthButton";
 
 interface AuthSystemProps {
