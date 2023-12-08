@@ -7,27 +7,23 @@ import OppInput from "./OppInput";
 import OppTextarea from "./OppTextarea";
 import sendOpportunityApprovalEmail from "@/actions/sendOpportunityApprovalEmail";
 import UppyInput from "./UppyInput";
-
+import addOpportunity from "@/actions/addOpportunity";
 
 const AddOppForm: React.FC = async () => {
-
-
-const supabase = createServerActionClient<Database>({
-  cookies,
-});
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-    function getRandomInt(max: number): number {
-      return Math.floor(Math.random() * max);
-    }
-const opportunityID = getRandomInt(999999);
-
   const addOpp = async (formData: FormData) => {
     "use server";
+    // const supabase = createServerActionClient<Database>({
+    //   cookies,
+    // });
+    // const {
+    //   data: { user },
+    // } = await supabase.auth.getUser();
+    // function getRandomInt(max: number): number {
+    //   return Math.floor(Math.random() * max);
+    // }
+    // const opportunityID = getRandomInt(999999);
 
-    
-    const id = getRandomInt(999999);
+    // const id = getRandomInt(999999);
     const title = String(formData.get("title"));
     const provider = String(formData.get("provider"));
     const location = String(formData.get("location"));
@@ -37,67 +33,87 @@ const opportunityID = getRandomInt(999999);
     const mode = String(formData.get("mode"));
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
-    const opportunityImage = String(formData.get("opportunityImage"));
-    console.log(opportunityImage);
+    const opportunityImages = formData.getAll("opportunityImages");
+    const expiryDate = String(formData.get("expiryDate"));
+
+    // console.log(opportunityImages);
     
+    const res = addOpportunity({
+      title,
+      provider,
+      location,
+      season,
+      industry,
+      isfor,
+      mode,
+      typelabel,
+      description,
+      expiry_date: expiryDate,
+      allOpportunityImages: opportunityImages,
+      // opportunity_id: 23,
+      // file_path: "as",
+      // file_name: "sad",
+      approved: false,
+      user_id: "acc",
+      type: "a",
+    });
 
-    let type = typelabel;
-    if (typelabel === "Work Opportunity") {
-      type = "work";
-    } else {
-      type = "education";
-    }
+    // let type = typelabel;
+    // if (typelabel === "Work Opportunity") {
+    //   type = "work";
+    // } else {
+    //   type = "education";
+    // }
 
-    let approved = false;
+    // let approved = false;
 
-    if (user) {
-      const { data: adminInfo, error } = await supabase
-        .from("admins")
-        .select()
-        .filter("adminId", "in", `(${user.id})`)
-        .single();
-      if (adminInfo !== null) {
-        approved = true;
-      }
-      const random_uuid = crypto.randomUUID();
-      const { data: oppImageData, error: oppImageError } =
-        await supabase.storage
-          .from("opportunity-images")
-          .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: "image/.png",
-          });
-      if (oppImageData) {
-        await supabase.from("opportunities").insert({
-          id,
-          title,
-          provider,
-          location,
-          season,
-          industry,
-          isfor,
-          mode,
-          type,
-          approved,
-          typelabel,
-          description,
-          user_id: user.id,
-        });
-      }
+    // if (user) {
+    //   const { data: adminInfo, error } = await supabase
+    //     .from("admins")
+    //     .select()
+    //     .filter("adminId", "in", `(${user.id})`)
+    //     .single();
+    //   if (adminInfo !== null) {
+    //     approved = true;
+    //   }
+    // const random_uuid = crypto.randomUUID();
+    // const { data: oppImageData, error: oppImageError } =
+    //   await supabase.storage
+    //     .from("opportunity-images")
+    //     .upload(`user-${user.id}/oppImg-${random_uuid}`, opportunityImage, {
+    //       cacheControl: "3600",
+    //       upsert: false,
+    //       contentType: "image/",
+    //     });
+    // if (oppImageData) {
+    //   await supabase.from("opportunities").insert({
+    //     title,
+    //     provider,
+    //     location,
+    //     season,
+    //     industry,
+    //     isfor,
+    //     mode,
+    //     type,
+    //     approved,
+    //     typelabel,
+    //     description,
+    //     user_id: user.id,
+    //     expiry_date: expiryDate,
+    //   });
+    // }
 
-      // if (oppImageError) {
-      //   return toast.error("FAILED image upload");
-      // }
-      
-      // toast.success("Opportunity added successfully");
-      if (!approved) {
-        await sendOpportunityApprovalEmail();
-      }
-    }
+    // if (oppImageError) {
+    //   return toast.error("FAILED image upload");
+    // }
+
+    // toast.success("Opportunity added successfully");
+    // if (!approved) {
+    //   await sendOpportunityApprovalEmail();
+    // }
+    // }
   };
 
- 
   return (
     <div>
       <link
@@ -181,7 +197,7 @@ const opportunityID = getRandomInt(999999);
                       >
                         Expiry date
                       </label>
-                      <OppInput id="date" type="date" name="date" />
+                      <OppInput id="date" type="date" name="expiryDate" />
                     </div>
                   </div>
                 </div>
@@ -340,8 +356,10 @@ const opportunityID = getRandomInt(999999);
                       id="image"
                       type="file"
                       accept="image/*"
-                      name="opportunityImage"
+                      name="opportunityImages"
+                      multiple
                     />
+                    
                     <div
                       className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                       id="user_avatar_help"
@@ -350,7 +368,7 @@ const opportunityID = getRandomInt(999999);
                       recognized.
                     </div>
 
-                    <UppyInput opportunityID={opportunityID} user={user} />
+                    {/* <UppyInput opportunityID={opportunityID} user={user} /> */}
                   </div>
                 </div>
                 <br />

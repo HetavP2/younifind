@@ -24,6 +24,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
     mode,
     typelabel,
     approved,
+    expiry_date,
     ...props
   },
   ref
@@ -32,18 +33,17 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
   if (id) {
     oppImages = await getOpportunityImages(parseInt(id));
   }
-  console.log(oppImages)
   //make a card and put values like {title}, {provider} every relevant column opportunity table
   return oppImages ? (
     oppImages.map((image) => (
-      
-          <Image
-            className="object-cover"
-            src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
-            fill
-            alt="Image"
-          />
-        ))
+      <Image
+        className="object-cover"
+        src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
+        width={100}
+        height={100}
+        alt="Image"
+      />
+    ))
   ) : (
     <h1>No image provided default imagehere</h1>
   );

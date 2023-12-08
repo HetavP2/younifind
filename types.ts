@@ -22,6 +22,7 @@ export interface Opportunity {
   mode: string;
   typelabel: string;
   location: string;
+  expiry_date: string;
 }
 
 export interface OpportunityImages {

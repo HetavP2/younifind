@@ -166,7 +166,6 @@ export default async function AdminPanel() {
             <TableRow
               id={opportunity.id}
               key={opportunity.id}
-              image_path={opportunity.image_path}
               user_id={session.user.id}
               title={opportunity.title}
               description={opportunity.description}
@@ -179,6 +178,7 @@ export default async function AdminPanel() {
               mode={opportunity.mode}
               typelabel={opportunity.typelabel}
               approved={opportunity.approved}
+              expiry_date={opportunity.expiry_date}
             />
           ))}
         </tbody>

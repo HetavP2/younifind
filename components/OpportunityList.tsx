@@ -31,6 +31,7 @@ export default async function OpportunityList() {
             typelabel={opportunity.typelabel}
             approved={opportunity.approved}
             id={opportunity.id}
+            expiry_date={opportunity.expiry_date}
           />
         ))}
       </>
