@@ -5,6 +5,8 @@ import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import sendEmail from "@/actions/sendEmail";
+import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 
 interface TableRowProps extends Opportunity {}
 
@@ -23,6 +25,7 @@ const TableRow: React.FC<TableRowProps> = ({
   typelabel,
   approved,
   admin_notes,
+  contact_email,
   ...props
 }) => {
   const router = useRouter();
@@ -52,6 +55,16 @@ const TableRow: React.FC<TableRowProps> = ({
       .eq("id", id)
       .select();
   };
+
+  // cant do async in client components
+  // const handleClick = async () => {
+  //   await sendEmail({
+  //     to: [contact_email],
+  //     subject: "Please review your opportunity",
+  //     template: ReviewOpportunityAgain(admin_notes),
+  //   });
+  // };
+
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
       <td className="w-4 p-4">
@@ -96,6 +109,14 @@ const TableRow: React.FC<TableRowProps> = ({
           }}
           value={adminNotes}
         />
+      </td>
+      <td className="px-6 py-4">
+        <button
+          // onClick={handleClick}
+          className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+        >
+          Resend for review
+        </button>
       </td>
       <td className="px-6 py-4">{location}</td>
       <td className="px-6 py-4">{season}</td>

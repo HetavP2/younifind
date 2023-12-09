@@ -31,6 +31,7 @@ export default async function OpportunityList() {
             id={opportunity.id}
             expiry_date={opportunity.expiry_date}
             contact_email={opportunity.contact_email}
+            admin_notes={}
           />
         ))}
       </>
