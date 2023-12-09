@@ -160,6 +160,9 @@ export default async function AdminPanel() {
               Image
             </th>
             <th scope="col" className="px-6 py-3">
+              Contact Email
+            </th>
+            <th scope="col" className="px-6 py-3">
               Status
             </th>
             <th scope="col" className="px-6 py-3">

@@ -1,6 +1,7 @@
 "use server";
+//its fuckin up cause its use server but if we remove it it wont be able to find the RESEND_API_KEY
+
 import { Resend } from "resend";
-import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 
 interface SendEmailProps {
   to: Array<string>;
@@ -12,14 +13,16 @@ const sendEmail = async ({
   to,
   subject,
   template,
-}: SendEmailProps): Promise<void> => {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const { data } = await resend.emails.send({
-    from: "onboarding@resend.dev",
-    to: to,
-    subject: subject,
-    react: template,
-  });
+}: SendEmailProps): Promise<string> => {
+  // const resend = new Resend(process.env.RESEND_API_KEY);
+  // const { data } = await resend.emails.send({
+  //   from: "onboarding@resend.dev",
+  //   to: to,
+  //   subject: subject,
+  //   react: template,
+  // });
+  console.log("clicked fun lets see")
+  return 'success';
 };
 
 export default sendEmail;
