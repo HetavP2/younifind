@@ -19,6 +19,7 @@ const AddOppForm: React.FC = async () => {
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = String(formData.get("expiryDate"));
+    const contactEmail = String(formData.get("contactEmail"));
 
     await addOpportunity({
       id: 'sa',
@@ -36,6 +37,7 @@ const AddOppForm: React.FC = async () => {
       approved: false,
       user_id: "acc",
       type: "a",
+      contact_email: contactEmail,
     });
   };
 
@@ -97,6 +99,17 @@ const AddOppForm: React.FC = async () => {
                         Location
                       </label>
                       <OppInput id="location" name="location" />
+                    </div>
+                  </div>
+                  <div className="w-full lg:w-6/12 px-4">
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Contact Email
+                      </label>
+                      <OppInput id="contactEmail" name="contactEmail" />
                     </div>
                   </div>
                 </div>
@@ -280,7 +293,6 @@ const AddOppForm: React.FC = async () => {
                     <OppInput
                       id="image"
                       type="file"
-                      accept="image/*"
                       name="opportunityImages"
                       multiple
                     />

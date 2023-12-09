@@ -27,6 +27,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
     typelabel,
     approved,
     expiry_date,
+    contact_email,
     ...props
   },
   ref

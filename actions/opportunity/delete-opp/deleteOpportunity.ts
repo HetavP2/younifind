@@ -1,11 +1,11 @@
 // EXAMPLE OF GETTING DATA FROM SUPABASE- help with org
+"use server";
 import { Opportunity } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import deleteOpportunityImages from "../opp-images/deleteOpportunityImages";
 
 const deleteOpportunity = async (oppId: string): Promise<void> => {
-  "use server";
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
