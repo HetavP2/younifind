@@ -1,9 +1,10 @@
 "use client";
 
+import OppTextarea from "@/components/OppTextarea";
 import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 interface TableRowProps extends Opportunity {}
 
@@ -21,12 +22,14 @@ const TableRow: React.FC<TableRowProps> = ({
   mode,
   typelabel,
   approved,
+  admin_notes,
   ...props
 }) => {
   const router = useRouter();
-  const handleOnChange = async (checked: boolean) => {
-    const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient();
+  const [adminNotes, setAdminNotes] = useState(admin_notes);
 
+  const handleOnChange = async (checked: boolean) => {
     const { data, error } = await supabase
       .from("opportunities")
       .update({ approved: checked })
@@ -40,6 +43,14 @@ const TableRow: React.FC<TableRowProps> = ({
     if (data) {
       router.refresh();
     }
+  };
+
+  const handleOnChangeNotes = async (value: any) => {
+    const { data, error } = await supabase
+      .from("opportunities")
+      .update({ admin_notes: value })
+      .eq("id", id)
+      .select();
   };
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -76,6 +87,16 @@ const TableRow: React.FC<TableRowProps> = ({
           <div className="font-normal text-gray-500">{provider}</div>
         </div>
       </th>
+      <td className="px-6 py-4">
+        <OppTextarea
+          cols={500}
+          onChange={(e) => {
+            setAdminNotes(e.target.value);
+            handleOnChangeNotes(e.target.value);
+          }}
+          value={adminNotes}
+        />
+      </td>
       <td className="px-6 py-4">{location}</td>
       <td className="px-6 py-4">{season}</td>
       <td className="px-6 py-4">{isfor}</td>

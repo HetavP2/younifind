@@ -136,6 +136,9 @@ export default async function AdminPanel() {
               Name & Author
             </th>
             <th scope="col" className="px-6 py-3">
+              Notes
+            </th>
+            <th scope="col" className="px-6 py-3">
               Location
             </th>
             <th scope="col" className="px-6 py-3">
@@ -179,6 +182,7 @@ export default async function AdminPanel() {
               typelabel={opportunity.typelabel}
               approved={opportunity.approved}
               expiry_date={opportunity.expiry_date}
+              admin_notes={opportunity.admin_notes}
             />
           ))}
         </tbody>
