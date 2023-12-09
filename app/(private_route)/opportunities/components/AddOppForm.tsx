@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
-import OppTextarea from "./OppTextarea";
+import OppTextarea from "../../../../components/OppTextarea";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 
 const AddOppForm: React.FC = async () => {
@@ -21,6 +21,7 @@ const AddOppForm: React.FC = async () => {
     const expiryDate = String(formData.get("expiryDate"));
 
     await addOpportunity({
+      id: 'sa',
       title,
       provider,
       location,

@@ -21,7 +21,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   const { data: adminInfo, error } = await supabase
     .from("admins")
     .select()
-    .filter("adminId", "in", `(${session.user.id})`)
+    .filter("email", "in", `(${session.user.email})`)
         .single();
     
 

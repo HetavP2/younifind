@@ -1,14 +1,11 @@
-import Stripe from "stripe";
-
 export interface UserDetails {
   id: string;
   full_name: string;
   avatar_url?: string;
-  // email: string;
 }
 
 export interface Opportunity {
-  id?: string;
+  id: string;
   user_id: string;
   approved: boolean;
   description: string;
@@ -23,6 +20,8 @@ export interface Opportunity {
   typelabel: string;
   location: string;
   expiry_date: string;
+  created_at?: string;
+  admin_notes?: string;
 }
 
 export interface OpportunityImages {
@@ -30,6 +29,13 @@ export interface OpportunityImages {
   opportunity_id: number;
   file_path: string;
   file_name: string;
+  created_at?: string;
 }
 
 
+export interface Admins {
+  id?: string;
+  admin_id: string;
+  email: string;
+  created_at?: string;
+}
