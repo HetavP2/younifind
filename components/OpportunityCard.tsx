@@ -4,6 +4,8 @@ import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
+import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
+import Router from "next/navigation";
 
 interface OpportunityCardProps extends Opportunity {
   // oppImages: Array<string> || null;
@@ -47,6 +49,13 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
   // ) : (
   //   <h1>No image provided default imagehere</h1>
   // );
+
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
+    await deleteOpportunity(String(id));
+    Router.redirect("/dashboard");
+  };
+
   return (
     <div className="bg-slate-100  flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
@@ -61,16 +70,21 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
         style={{ borderTopLeftRadius: "80px", borderBottomLeftRadius: "90px" }}
       >
         {" "}
-        <div className="flex flex-col bg-green-500 items-end w-full  gap-2">
-          <button className="bg-red-500 text-md font-medium px-4 py-1 rounded-md border-white border-md text-white">
-            Delete Opportunity
-          </button>
-          <button className="bg-royalblue text-md font-medium px-4 py-1 rounded-md border-white border-md text-white">
-            View On Younifind
-          </button>
-          <button className="bg-royalblue text-md font-medium px-4 py-1 rounded-md border-white border-md text-white">
-            Edit Opportunity
-          </button>
+        <div className=" w-full flex justify-end">
+          <div className="flex flex-col  w-2/3 gap-2">
+            <button
+              onClick={(e) => handleDelete(e)}
+              className="bg-red-500 text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200"
+            >
+              Delete Opportunity
+            </button>
+            <button className="bg-royalblue text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
+              View On Younifind
+            </button>
+            <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
+              Edit Opportunity
+            </button>
+          </div>
         </div>
       </div>
     </div>

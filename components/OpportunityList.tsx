@@ -16,7 +16,7 @@ export default async function OpportunityList() {
         {userOpportunities.map((opportunity) => (
           <div
             className="bg-royalyellow hover:bg-royalblue transition linear duration-200 p-4 w-full rounded-md"
-            title="Edit Opportunity"
+            title={"Manage Opportunity"}
           >
             <OpportunityCard
               key={opportunity.id}
