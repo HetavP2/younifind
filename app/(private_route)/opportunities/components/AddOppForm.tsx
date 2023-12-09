@@ -109,7 +109,7 @@ const AddOppForm: React.FC = async () => {
                       >
                         Contact Email
                       </label>
-                      <OppInput id="contactEmail" name="contactEmail" />
+                      <OppInput type="email" id="contactEmail" name="contactEmail" />
                     </div>
                   </div>
                 </div>
