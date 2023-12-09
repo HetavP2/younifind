@@ -12,27 +12,32 @@ export default async function OpportunityList() {
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
-      <>
+      <div className="w-2/3 gap-3 p-2 mx-auto py-8 flex items-center">
         {userOpportunities.map((opportunity) => (
-          <OpportunityCard
-            key={opportunity.id}
-            user_id={session.user.id}
-            title={opportunity.title}
-            description={opportunity.description}
-            industry={opportunity.industry}
-            provider={opportunity.provider}
-            season={opportunity.season}
-            isfor={opportunity.season}
-            type={opportunity.type}
-            location={opportunity.location}
-            mode={opportunity.mode}
-            typelabel={opportunity.typelabel}
-            approved={opportunity.approved}
-            id={opportunity.id}
-            expiry_date={opportunity.expiry_date}
-          />
+          <div
+            className="bg-royalyellow hover:bg-royalblue transition linear duration-200 p-4 w-full rounded-md"
+            title="Edit Opportunity"
+          >
+            <OpportunityCard
+              key={opportunity.id}
+              user_id={session.user.id}
+              title={opportunity.title}
+              description={opportunity.description}
+              industry={opportunity.industry}
+              provider={opportunity.provider}
+              season={opportunity.season}
+              isfor={opportunity.season}
+              type={opportunity.type}
+              location={opportunity.location}
+              mode={opportunity.mode}
+              typelabel={opportunity.typelabel}
+              approved={opportunity.approved}
+              id={opportunity.id}
+              expiry_date={opportunity.expiry_date}
+            />
+          </div>
         ))}
-      </>
+      </div>
     );
   }
 }
