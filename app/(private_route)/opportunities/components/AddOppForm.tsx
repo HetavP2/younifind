@@ -3,8 +3,10 @@ import { toast } from "react-hot-toast";
 import OppInput from "./OppInput";
 import OppTextarea from "../../../../components/OppTextarea";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
+import { redirect } from "next/navigation";
 
 const AddOppForm: React.FC = async () => {
+  let todayDate = String(new Date().toISOString())
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -39,6 +41,8 @@ const AddOppForm: React.FC = async () => {
       type: "a",
       contact_email: contactEmail,
     });
+
+    redirect('/dashboard')
   };
 
   return (
@@ -109,7 +113,11 @@ const AddOppForm: React.FC = async () => {
                       >
                         Contact Email
                       </label>
-                      <OppInput type="email" id="contactEmail" name="contactEmail" />
+                      <OppInput
+                        type="email"
+                        id="contactEmail"
+                        name="contactEmail"
+                      />
                     </div>
                   </div>
                 </div>
@@ -135,7 +143,12 @@ const AddOppForm: React.FC = async () => {
                       >
                         Expiry date
                       </label>
-                      <OppInput id="date" type="date" name="expiryDate" />
+                      <OppInput
+                        id="date"
+                        type="datetime-local"
+                        name="expiryDate"
+                        min={todayDate}
+                      />
                     </div>
                   </div>
                 </div>

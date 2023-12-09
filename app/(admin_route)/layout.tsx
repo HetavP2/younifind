@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -33,6 +34,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <html lang="en">
       <body>
+        <ToasterProvider />
         <SupabaseProvider>
           <UserProvider>{children}</UserProvider>
         </SupabaseProvider>

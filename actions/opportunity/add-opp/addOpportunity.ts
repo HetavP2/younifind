@@ -9,10 +9,10 @@ import sendEmail from "@/actions/sendEmail";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
-import {ApprovalPendingEmailTemplate} from "@/components/email-templates/ApprovalPendingEmailTemplate";
+import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 
 interface AddOpportunityProps extends Opportunity {
-  allOpportunityImages: FormDataEntryValue[];
+  allOpportunityImages?: FormDataEntryValue[];
 }
 
 const addOpportunity = async ({
@@ -74,21 +74,22 @@ const addOpportunity = async ({
       description,
       user_id: user.id,
       expiry_date: expiry_date,
-      contact_email
+      contact_email,
     });
 
-    const res = uploadOpportunityImages({
-      id,
-      user_id: user.id,
-      allOpportunityImages,
-    });
+    if (allOpportunityImages) {
+      const res = uploadOpportunityImages({
+        id,
+        user_id: user.id,
+        allOpportunityImages,
+      });
+    }
 
     // if (oppImageError) {
     //   return toast.error("FAILED image upload");
     // }
 
     // toast.success("Opportunity added successfully");
-
 
     if (!approved) {
       await sendEmail({
@@ -97,7 +98,6 @@ const addOpportunity = async ({
         template: ApprovalPendingEmailTemplate(),
       });
     }
-
   }
 };
 export default addOpportunity;
