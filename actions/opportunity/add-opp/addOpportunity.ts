@@ -25,6 +25,7 @@ const addOpportunity = async ({
   allOpportunityImages,
   title,
   expiry_date,
+  contact_email,
 }: AddOpportunityProps): Promise<void> => {
   const supabase = createServerActionClient<Database>({
     cookies,
@@ -71,6 +72,7 @@ const addOpportunity = async ({
       description,
       user_id: user.id,
       expiry_date: expiry_date,
+      contact_email
     });
 
     const res = uploadOpportunityImages({

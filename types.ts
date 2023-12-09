@@ -22,6 +22,7 @@ export interface Opportunity {
   expiry_date: string;
   created_at?: string;
   admin_notes?: string;
+  contact_email: string;
 }
 
 export interface OpportunityImages {
