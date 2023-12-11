@@ -10,8 +10,8 @@ interface DashboardPageContentProps {
 const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
   userOpps,
 }) => {
-  console.log(userOpps);
-
+  
+  
   return userOpps && userOpps?.length >= 0 ? (
     <div className="">
       <DashboardClient />

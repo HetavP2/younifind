@@ -5,6 +5,10 @@ import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import sendEmail from "@/actions/sendEmail";
+import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
+import toast from "react-hot-toast";
+
 
 interface TableRowProps extends Opportunity {}
 
@@ -23,11 +27,13 @@ const TableRow: React.FC<TableRowProps> = ({
   typelabel,
   approved,
   admin_notes,
+  contact_email,
   ...props
 }) => {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const [adminNotes, setAdminNotes] = useState(admin_notes);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleOnChange = async (checked: boolean) => {
     const { data, error } = await supabase
@@ -39,6 +45,8 @@ const TableRow: React.FC<TableRowProps> = ({
     if (error) {
       console.log(error);
     }
+
+    toast.success("Success!");
 
     if (data) {
       router.refresh();
@@ -52,6 +60,33 @@ const TableRow: React.FC<TableRowProps> = ({
       .eq("id", id)
       .select();
   };
+
+  const handleClick = async () => {
+    try {
+      await sendEmail({
+        to: [contact_email],
+        subject: "Please review your opportunity",
+        template: ReviewOpportunityAgain(admin_notes),
+      });
+
+      console.log("Email sent successfully");
+    } catch (error) {
+      console.error("Error sending email:", error);
+
+      // Optionally, rethrow the error if needed
+      throw error;
+    }
+    //additional stuff only if previous code works.
+    // const { data, error } = await supabase
+    //   .from("opportunities")
+    //   .update({ admin_notes: null })
+    //   .eq("id", id)
+    //   .select();
+    setButtonDisabled(true);
+
+    toast.success("Email Sent!");
+  };
+
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
       <td className="w-4 p-4">
@@ -87,22 +122,44 @@ const TableRow: React.FC<TableRowProps> = ({
           <div className="font-normal text-gray-500">{provider}</div>
         </div>
       </th>
-      <td className="px-6 py-4">
-        <OppTextarea
-          cols={500}
-          onChange={(e) => {
-            setAdminNotes(e.target.value);
-            handleOnChangeNotes(e.target.value);
-          }}
-          value={adminNotes}
-        />
-      </td>
+      {approved ? (
+        <>
+          <td className="px-6 py-4"></td>
+          <td className="px-6 py-4"></td>
+        </>
+      ) : (
+        <>
+          <td className="px-6 py-4">
+            <OppTextarea
+              cols={500}
+              onChange={(e) => {
+                setAdminNotes(e.target.value);
+                handleOnChangeNotes(e.target.value);
+              }}
+              value={adminNotes}
+            />
+          </td>
+          <td className="px-6 py-4">
+            <button
+              type="button"
+              onClick={handleClick}
+              //i think this should be saved in db, like email sent so different teachers dont just spam that button
+              disabled={buttonDisabled}
+              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+            >
+              Resend for review
+            </button>
+          </td>
+        </>
+      )}
+
       <td className="px-6 py-4">{location}</td>
       <td className="px-6 py-4">{season}</td>
       <td className="px-6 py-4">{isfor}</td>
       <td className="px-6 py-4">{mode}</td>
       <td className="px-6 py-4">{description}</td>
       <td className="px-6 py-4">Image</td>
+      <td className="px-6 py-4">{contact_email}</td>
 
       <td className="px-6 py-4">
         <div className="flex items-center">

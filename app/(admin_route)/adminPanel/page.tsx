@@ -139,6 +139,9 @@ export default async function AdminPanel() {
               Notes
             </th>
             <th scope="col" className="px-6 py-3">
+              Action
+            </th>
+            <th scope="col" className="px-6 py-3">
               Location
             </th>
             <th scope="col" className="px-6 py-3">
@@ -155,6 +158,9 @@ export default async function AdminPanel() {
             </th>
             <th scope="col" className="px-6 py-3">
               Image
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Contact Email
             </th>
             <th scope="col" className="px-6 py-3">
               Status
