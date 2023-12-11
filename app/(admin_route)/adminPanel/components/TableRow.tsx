@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import sendEmail from "@/actions/sendEmail";
 import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 import toast from "react-hot-toast";
-
+import { Resend } from "resend";
 
 interface TableRowProps extends Opportunity {}
 
@@ -63,10 +63,18 @@ const TableRow: React.FC<TableRowProps> = ({
 
   const handleClick = async () => {
     try {
-      await sendEmail({
-        to: [contact_email],
+      // await sendEmail({
+      //   to: [contact_email],
+      //   subject: "Please review your opportunity",
+      //   template: ReviewOpportunityAgain(admin_notes),
+      // });
+
+      const resend = new Resend("re_MSfsHmDN_TGD7caduXJ3myUKrQzo8MqmL");
+      const { data } = await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: contact_email,
         subject: "Please review your opportunity",
-        template: ReviewOpportunityAgain(admin_notes),
+        react: ReviewOpportunityAgain(admin_notes),
       });
 
       console.log("Email sent successfully");
