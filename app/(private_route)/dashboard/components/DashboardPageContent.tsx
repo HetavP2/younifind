@@ -16,7 +16,7 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
     <div className="">
       <DashboardClient />
 
-      <OpportunityList />
+      {/* <OpportunityList /> */}
     </div>
   ) : (
     <div>

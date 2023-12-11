@@ -1,14 +1,15 @@
 // EXAMPLE OF GETTING DATA FROM SUPABASE- help with org
 import { OpportunityImages } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createServerComponentClient, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { cookies } from "next/headers";
 
 
 const getOpportunityImages = async (opportunityId: number): Promise<OpportunityImages[]> => {
-  'use server'
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
+  // 'use server'
+  // const supabase = createServerComponentClient({
+  //   cookies: cookies,
+  // });
+  const supabase = createClientComponentClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();

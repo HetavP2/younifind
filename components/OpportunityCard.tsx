@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Opportunity } from "@/types";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
@@ -6,12 +8,15 @@ import Image from "next/image";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
 import Router from "next/navigation";
+import Link from "next/link";
+import { BiLink } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 interface OpportunityCardProps extends Opportunity {
   // oppImages: Array<string> || null;
 }
 
-const OpportunityCard: React.FC<OpportunityCardProps> = async (
+const OpportunityCard: React.FC<OpportunityCardProps> = (
   {
     id,
     title,
@@ -32,29 +37,35 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
   },
   ref
 ) => {
-  let oppImages;
-  if (id) {
-    oppImages = await getOpportunityImages(parseInt(id));
-  }
-  //make a card and put values like {title}, {provider} every relevant column opportunity table
-  // return oppImages ? (
-  //   oppImages.map((image) => (
-  //     <Image
-  //       className="object-cover"
-  //       src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
-  //       width={100}
-  //       height={100}
-  //       alt="Image"
-  //     />
-  //   ))
-  // ) : (
-  //   <h1>No image provided default imagehere</h1>
-  // );
+  const [oppImages, setOppImages] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data: any = await getOpportunityImages(parseInt(id));
+        setOppImages(data);
+      } catch (error) {
+        // Handle errors, e.g., log or display an error message
+        console.error("Error fetching opportunity images:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+{/* <Image */}
+    //       className="object-cover"
+    //       src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_name}`}
+    //       width={100}
+    //       height={100}
+    //       alt="Image"
+    //     />
 
   const handleDelete = async (e: any) => {
     e.preventDefault();
     await deleteOpportunity(String(id));
-    Router.redirect("/dashboard");
+    router.refresh();
   };
 
   return (
@@ -65,14 +76,30 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
           {provider} - {industry}
         </div>
         <div className="text-md mt-4">{description}</div>
+        <div className="flex flex-col">
+          {oppImages ? (
+            oppImages.map((image: any) => (
+              <a
+                className="text-md font-medium text-royalblue"
+                href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
+                target="blank"
+              >
+                <BiLink className="mr-2" />
+                {image.file_name}
+              </a>
+            ))
+          ) : (
+            <p>No files attached.</p>
+          )}
+        </div>
       </div>
       <div
         className="w-1/3 rounded-md bg-slate-200 pl-[20px] relative flex-column p-4 items-center justify-center"
         style={{ borderTopLeftRadius: "80px", borderBottomLeftRadius: "90px" }}
       >
         {" "}
-        <div className=" w-full flex justify-end">
-          <div className="flex flex-col  w-2/3 gap-2">
+        <div className=" w-full flex  justify-center">
+          <div className="flex flex-col items-center justify-center w-3/4 gap-2">
             <button
               onClick={(e) => handleDelete(e)}
               className="bg-red-500 text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200"
@@ -80,7 +107,12 @@ const OpportunityCard: React.FC<OpportunityCardProps> = async (
               Delete Opportunity
             </button>
             <button className="bg-royalblue text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
-              View On Younifind
+              <a
+                href={`https://search-peel-demo.vercel.app/opportunity/${id}`}
+                target="_blank"
+              >
+                View Opportunity
+              </a>
             </button>
             <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
               Edit Opportunity
