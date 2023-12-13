@@ -61,11 +61,12 @@ const addOpportunity = async ({
     approved = true;
   }
   const id = getRandomInt(999999);
+  let oppId;
 
   const { error: errorAddingOpp } = await supabase
     .from("opportunities")
-    .insert({
-      id,
+    .upsert({
+      id: oppId,
       title,
       provider,
       location,
@@ -80,7 +81,8 @@ const addOpportunity = async ({
       user_id: user.id,
       expiry_date: expiry_date,
       contact_email,
-    });
+    })
+    .select();
 
   if (allOpportunityImages) {
     const res = uploadOpportunityImages({

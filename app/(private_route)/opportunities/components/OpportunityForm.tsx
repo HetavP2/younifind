@@ -1,10 +1,75 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
+import { Opportunity } from "@/types";
+import { useSearchParams } from "next/navigation";
+import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 
-export default function AddOpportunityForm() {
+
+interface OpportunityFormProps extends Partial<Opportunity> {}
+
+
+const OpportunityForm: React.FC<OpportunityFormProps> = ({
+  provider,
+  location,
+  season,
+  approved,
+  industry,
+  isfor,
+  mode,
+  typelabel,
+  description,
+  title,
+  expiry_date,
+  contact_email,
+  type,
+}) => {
+  const params = useSearchParams();
+  const oppId = parseInt(params.get('oppId'));
+  const [oppData, setOppData] = useState<Opportunity>({
+    id: '',
+    user_id: '',
+    provider: "",
+    location: "",
+    season: "",
+    approved: false,
+    industry: "",
+    isfor: "",
+    mode: "",
+    typelabel: "",
+    description: "",
+    title: "",
+    expiry_date: "",
+    contact_email: "",
+    type: "",
+  });
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true;
+      const fetchOppData = async () => {
+        try {
+          const [opportunity] = await getOpportunity(oppId);
+
+          console.log(opportunity);
+          
+          setOppData(opportunity);
+          // const data: any = await getOpportunityImages(parseInt(id));
+          // setOppImages(data);
+          
+        } catch (error) {
+          // Handle errors, e.g., log or display an error message
+          console.error("Error fetching opportunity data:", error);
+        }
+      };
+    
+      fetchOppData();
+    }
+  }, []);
+  
   return (
     <>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
@@ -19,7 +84,7 @@ export default function AddOpportunityForm() {
             >
               Title
             </label>
-            <OppInput id="title" name="title" />
+            <OppInput id="title" name="title" value={oppData.title} />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -30,7 +95,7 @@ export default function AddOpportunityForm() {
             >
               Organization
             </label>
-            <OppInput id="provider" name="provider" />
+            <OppInput id="provider" name="provider" value={provider} />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -41,7 +106,7 @@ export default function AddOpportunityForm() {
             >
               Location
             </label>
-            <OppInput id="location" name="location" />
+            <OppInput id="location" name="location" value={location} />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -52,7 +117,7 @@ export default function AddOpportunityForm() {
             >
               Contact Email
             </label>
-            <OppInput id="contactEmail" name="contactEmail" />
+            <OppInput id="contactEmail" name="contactEmail" value={contact_email}/>
           </div>
         </div>
       </div>
@@ -65,7 +130,7 @@ export default function AddOpportunityForm() {
             >
               Description
             </label>
-            <OppTextarea name="description" rows={4} />
+            <OppTextarea name="description" rows={4} value={description} />
           </div>
         </div>
       </div>
@@ -78,7 +143,7 @@ export default function AddOpportunityForm() {
             >
               Expiry date
             </label>
-            <OppInput id="date" type="date" name="expiryDate" />
+            <OppInput id="date" type="date" name="expiryDate" value={expiry_date} />
           </div>
         </div>
       </div>
@@ -105,6 +170,7 @@ export default function AddOpportunityForm() {
                                     transition-all duration-150"
               name="industry"
               id="industry"
+              defaultValue={industry}
             >
               <option value="">--Please choose an option--</option>
               <option value="Environmental Science">
@@ -138,6 +204,7 @@ export default function AddOpportunityForm() {
                                     transition-all duration-150"
               name="typelabel"
               id="pet-select"
+              defaultValue={typelabel}
             >
               <option value="">--Please choose an option--</option>
               <option value="Work Opportunity">Work Opportunity</option>
@@ -161,6 +228,7 @@ export default function AddOpportunityForm() {
                                     transition-all duration-150"
               name="season"
               id="pet-select"
+              defaultValue={season}
             >
               <option value="">--Please choose an option--</option>
               <option value="All Year">All Year</option>
@@ -188,6 +256,7 @@ export default function AddOpportunityForm() {
                                     transition-all duration-150"
               name="isfor"
               id="pet-select"
+              defaultValue={isfor}
             >
               <option value="">--Please choose an option--</option>
               <option value="Underrepresented Students">
@@ -213,6 +282,7 @@ export default function AddOpportunityForm() {
                                     transition-all duration-150"
               name="mode"
               id="pet-select"
+              defaultValue={mode}
             >
               <option value="">--Please choose an option--</option>
               <option value="Online">Online</option>
@@ -248,4 +318,6 @@ export default function AddOpportunityForm() {
       </button>
     </>
   );
-}
+};
+
+export default OpportunityForm;

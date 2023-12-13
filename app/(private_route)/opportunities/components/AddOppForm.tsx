@@ -1,10 +1,11 @@
 import React from "react";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
-import AddOpportunityForm from "./AddOpportunityForm";
+import OpportunityForm from "./OpportunityForm";
 import {redirect} from 'next/navigation';
 
 const AddOppForm: React.FC = async () => {
-  let todayDate = String(new Date().toISOString())
+  
+  // let todayDate = String(new Date().toISOString())
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -70,13 +71,13 @@ const AddOppForm: React.FC = async () => {
             <div className="rounded-t bg-white mb-0 px-6 py-6">
               <div className="text-center flex justify-between">
                 <h6 className="text-blueGray-700 text-xl font-bold">
-                  Add an Opportunity
+                  Opportunity Details
                 </h6>
               </div>
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form action={addOpp}>
-                <AddOpportunityForm />
+                <OpportunityForm />
               </form>
             </div>
           </div>
