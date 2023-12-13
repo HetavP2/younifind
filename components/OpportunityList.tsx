@@ -19,6 +19,7 @@ export default async function OpportunityList() {
               <div
                 className="bg-royalyellow hover:bg-royalblue transition  linear duration-200 p-4 w-full rounded-md"
                 title={"Manage Opportunity"}
+                key={opportunity.id}
               >
                 <OpportunityCard
                   key={opportunity.id}

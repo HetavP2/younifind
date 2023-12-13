@@ -85,7 +85,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
                 href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
                 target="blank"
               >
-                <BiLink className="mr-2 text-xl text-black " />
+                <BiLink className="mr-2 text-xl text-black " key={image.file_path}/>
                 View File
               </a>
             ))
