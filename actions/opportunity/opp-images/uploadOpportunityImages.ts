@@ -30,15 +30,16 @@ const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
             cacheControl: "3600",
             upsert: false,
           });
+      
+      
 
       if (oppImageData) {
         await supabase.from("opportunity_images").insert({
           opportunity_id: id,
           file_path: oppImageData.path,
-          // file_name:oppImageData.path
         });
       }
-
+      
       // Handle oppImageData and oppImageError as needed
     });
 

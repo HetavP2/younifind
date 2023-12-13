@@ -61,12 +61,11 @@ const addOpportunity = async ({
     approved = true;
   }
   const id = getRandomInt(999999);
-  let oppId;
 
   const { error: errorAddingOpp } = await supabase
     .from("opportunities")
     .upsert({
-      id: oppId,
+      id,
       title,
       provider,
       location,
@@ -99,6 +98,7 @@ const addOpportunity = async ({
   }
 
   if (errorAddingOpp) {
+    console.log("STATUS HERE FOR ERRORADDINGOPP: " + errorAddingOpp.code + errorAddingOpp.details + errorAddingOpp.details)
     return "error";
   } else {
     return "success";
