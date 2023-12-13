@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
     <header>
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white ">
         <a className="text-md font-bold leading-none" href="/">
-          <img width="200" src="public/images/younifind.png" />
+          <img width="200" src="/images/younifind.png" />
         </a>
         <div className="lg:hidden">
           <button className="navbar-burger flex items-center text-blue-600 p-3">
