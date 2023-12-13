@@ -9,7 +9,7 @@ export interface Opportunity {
   user_id: string;
   approved: boolean;
   description: string;
-  //   embedding: string;
+  embedding?: Array<any>;
   industry: string;
   isfor: string;
   provider: string;

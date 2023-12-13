@@ -62,6 +62,18 @@ const addOpportunity = async ({
   }
   const id = getRandomInt(999999);
 
+      const response = await fetch("https://api.openai.com/v1/embeddings", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            Authorization: `Bearer ${process.env.OPENAIKEY}`
+        }, body: JSON.stringify({
+            input: title + description + industry + provider + location, model: 'text-embedding-ada-002'
+        })
+    })
+    const responseData = await response.json();
+    const embedding = responseData.data[0].embedding;
+
   const { error: errorAddingOpp } = await supabase
     .from("opportunities")
     .upsert({
@@ -80,6 +92,7 @@ const addOpportunity = async ({
       user_id: user.id,
       expiry_date: expiry_date,
       contact_email,
+      embedding
     })
     .select();
 
