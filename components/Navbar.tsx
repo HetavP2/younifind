@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import AuthButton from "./AuthButton";
 
 import React from "react";
+import { log } from "util";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -50,6 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
     ],
     [pathname]
   );
+
   return (
     <header>
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white ">

@@ -4,11 +4,13 @@ import OppTextarea from "@/components/OppTextarea";
 import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import sendEmail from "@/actions/sendEmail";
 import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 import toast from "react-hot-toast";
 import { Resend } from "resend";
+import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
+import { BiLink } from "react-icons/bi";
 
 interface TableRowProps extends Opportunity {}
 
@@ -34,6 +36,21 @@ const TableRow: React.FC<TableRowProps> = ({
   const supabase = createClientComponentClient();
   const [adminNotes, setAdminNotes] = useState(admin_notes);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [oppImages, setOppImages] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data: any = await getOpportunityImages(parseInt(id));
+        setOppImages(data);
+      } catch (error) {
+        // Handle errors, e.g., log or display an error message
+        console.error("Error fetching opportunity images:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const handleOnChange = async (checked: boolean) => {
     const { data, error } = await supabase
@@ -63,20 +80,11 @@ const TableRow: React.FC<TableRowProps> = ({
 
   const handleClick = async () => {
     try {
-      // await sendEmail({
-      //   to: [contact_email],
-      //   subject: "Please review your opportunity",
-      //   template: ReviewOpportunityAgain(admin_notes),
-      // });
-
-      const resend = new Resend("re_MSfsHmDN_TGD7caduXJ3myUKrQzo8MqmL");
-      const { data } = await resend.emails.send({
-        from: "onboarding@resend.dev",
-        to: contact_email,
+      await sendEmail({
+        to: [contact_email],
         subject: "Please review your opportunity",
-        react: ReviewOpportunityAgain(admin_notes),
+        template: ReviewOpportunityAgain(admin_notes),
       });
-
       console.log("Email sent successfully");
     } catch (error) {
       console.error("Error sending email:", error);
@@ -139,7 +147,7 @@ const TableRow: React.FC<TableRowProps> = ({
         <>
           <td className="px-6 py-4">
             <OppTextarea
-              cols={500}
+              cols={600}
               onChange={(e) => {
                 setAdminNotes(e.target.value);
                 handleOnChangeNotes(e.target.value);
@@ -166,7 +174,22 @@ const TableRow: React.FC<TableRowProps> = ({
       <td className="px-6 py-4">{isfor}</td>
       <td className="px-6 py-4">{mode}</td>
       <td className="px-6 py-4">{description}</td>
-      <td className="px-6 py-4">Image</td>
+      <td className="px-6 py-4">
+        {oppImages ? (
+          oppImages.map((image: any) => (
+            <a
+              className="text-md font-medium text-royalyellow flex items-center"
+              href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
+              target="blank"
+            >
+              <BiLink className="mr-2 text-xl text-black " />
+              View File
+            </a>
+          ))
+        ) : (
+          <p></p>
+        )}
+      </td>
       <td className="px-6 py-4">{contact_email}</td>
 
       <td className="px-6 py-4">

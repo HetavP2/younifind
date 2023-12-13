@@ -9,9 +9,7 @@ const deleteOpportunity = async (oppId: string): Promise<void> => {
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
-  const {
-    data: { session },
-    } = await supabase.auth.getSession();
+
     
 const { data: opportunityImagesPaths, error } = await supabase
   .from("opportunity_images")

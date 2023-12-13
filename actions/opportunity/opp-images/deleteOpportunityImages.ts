@@ -18,9 +18,10 @@ const deleteOpportunityImages: React.FC<DeleteOpportunityImagesProps> = async ({
     if (imagePaths) {
       const uploadPromises = imagePaths.map(async (path) => {
         if (path) {
+          
           const { data, error: oppImageError } = await supabase.storage
             .from("opportunity-images")
-            .remove([path]);
+            .remove([path.file_path]);
         }
 
         // Handle oppImageData and oppImageError as needed

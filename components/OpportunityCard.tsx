@@ -13,7 +13,6 @@ import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
 interface OpportunityCardProps extends Opportunity {
-  // oppImages: Array<string> || null;
 }
 
 const OpportunityCard: React.FC<OpportunityCardProps> = (
@@ -80,12 +79,12 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
           {oppImages ? (
             oppImages.map((image: any) => (
               <a
-                className="text-md font-medium text-royalblue"
+                className="text-md font-medium text-royalblue flex items-center"
                 href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
                 target="blank"
               >
-                <BiLink className="mr-2" />
-                {image.file_name}
+                <BiLink className="mr-2 text-xl text-black " />
+                View File
               </a>
             ))
           ) : (

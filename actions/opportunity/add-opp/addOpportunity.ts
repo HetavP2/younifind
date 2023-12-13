@@ -6,7 +6,6 @@ import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import sendEmail from "@/actions/sendEmail";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
@@ -28,13 +27,18 @@ const addOpportunity = async ({
   title,
   expiry_date,
   contact_email,
-}: AddOpportunityProps): Promise<void> => {
+}: AddOpportunityProps): Promise<string> => {
   const supabase = createServerActionClient<Database>({
     cookies,
   });
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    return "please login in";
+  }
+
   function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
@@ -48,18 +52,19 @@ const addOpportunity = async ({
 
   let approved = false;
 
-  if (user) {
-    const { data: adminInfo, error } = await supabase
-      .from("admins")
-      .select()
-      .filter("adminId", "in", `(${user.id})`)
-      .single();
-    if (adminInfo !== null) {
-      approved = true;
-    }
-    const id = getRandomInt(999999);
+  const { data: adminInfo, error } = await supabase
+    .from("admins")
+    .select()
+    .filter("adminId", "in", `(${user.id})`)
+    .single();
+  if (adminInfo !== null) {
+    approved = true;
+  }
+  const id = getRandomInt(999999);
 
-    await supabase.from("opportunities").insert({
+  const { error: errorAddingOpp } = await supabase
+    .from("opportunities")
+    .insert({
       id,
       title,
       provider,
@@ -77,27 +82,26 @@ const addOpportunity = async ({
       contact_email,
     });
 
-    if (allOpportunityImages) {
-      const res = uploadOpportunityImages({
-        id,
-        user_id: user.id,
-        allOpportunityImages,
-      });
-    }
+  if (allOpportunityImages) {
+    const res = uploadOpportunityImages({
+      id,
+      user_id: user.id,
+      allOpportunityImages,
+    });
+  }
 
-    // if (oppImageError) {
-    //   return toast.error("FAILED image upload");
-    // }
+  if (!approved) {
+    await sendEmail({
+      to: ["hetav.j.patel@gmail.com", "vangara.anirudhbharadwaj@gmail.com"],
+      subject: "Please Approve Opportunity",
+      template: ApprovalPendingEmailTemplate(),
+    });
+  }
 
-    // toast.success("Opportunity added successfully");
-
-    if (!approved) {
-      await sendEmail({
-        to: ["hetav.j.patel@gmail.com", "vangara.anirudhbharadwaj@gmail.com"],
-        subject: "Please Approve Opportunity",
-        template: ApprovalPendingEmailTemplate(),
-      });
-    }
+  if (errorAddingOpp) {
+    return "error";
+  } else {
+    return "success";
   }
 };
 export default addOpportunity;
