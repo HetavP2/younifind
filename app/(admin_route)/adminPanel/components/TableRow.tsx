@@ -79,19 +79,7 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   const handleClick = async () => {
-    try {
-      await sendEmail({
-        to: [contact_email],
-        subject: "Please review your opportunity",
-        template: ReviewOpportunityAgain(admin_notes),
-      });
-      console.log("Email sent successfully");
-    } catch (error) {
-      console.error("Error sending email:", error);
-
-      // Optionally, rethrow the error if needed
-      throw error;
-    }
+    
     //additional stuff only if previous code works.
     // const { data, error } = await supabase
     //   .from("opportunities")
@@ -147,7 +135,7 @@ const TableRow: React.FC<TableRowProps> = ({
         <>
           <td className="px-6 py-4">
             <OppTextarea
-              cols={600}
+              cols={900}
               onChange={(e) => {
                 setAdminNotes(e.target.value);
                 handleOnChangeNotes(e.target.value);
@@ -187,7 +175,7 @@ const TableRow: React.FC<TableRowProps> = ({
             </a>
           ))
         ) : (
-          <p></p>
+          <span></span>
         )}
       </td>
       <td className="px-6 py-4">{contact_email}</td>
@@ -207,14 +195,14 @@ const TableRow: React.FC<TableRowProps> = ({
           )}
         </div>
       </td>
-      <td className="px-6 py-4">
+      {/* <td className="px-6 py-4">
         <a
           href="#"
           className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
         >
           Come back soon!
         </a>
-      </td>
+      </td> */}
     </tr>
   );
 };

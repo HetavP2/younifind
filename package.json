@@ -22,7 +22,7 @@
     "@uppy/tus": "^3.4.0",
     "@uppy/webcam": "^3.3.4",
     "flowbite-react": "^0.7.0",
-    "next": "14.0.3",
+    "next": "^14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",

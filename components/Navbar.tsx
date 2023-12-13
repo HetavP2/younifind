@@ -36,18 +36,6 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         active: pathname === "/contact",
         href: "/contact",
       },
-      // {
-      //   // icon: BiSearch,
-      //   label: "Log In",
-      //   active: pathname === "/login",
-      //   href: "/login",
-      // },
-      // {
-      //   // icon: BiSearch,
-      //   label: "Sign Up",
-      //   active: pathname === "/register",
-      //   href: "/register",
-      // },
     ],
     [pathname]
   );
@@ -56,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
     <header>
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white ">
         <a className="text-md font-bold leading-none" href="/">
-          <img width="200" src="../static/images/younifind.png" />
+          <img width="200" src="public/images/younifind.png" />
         </a>
         <div className="lg:hidden">
           <button className="navbar-burger flex items-center text-blue-600 p-3">
@@ -75,6 +63,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             return (
               <li>
                 <Link
+                  target="_blank"
                   className="text-sm font-semibold text-gray-400 hover:text-gray-500 mx-1"
                   href={item.href}
                 >

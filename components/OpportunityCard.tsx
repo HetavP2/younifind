@@ -71,6 +71,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     <div className="bg-slate-100  flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
+        {approved ? <span>✅</span> : <span>🕔</span>}
         <div className="flex font-medium">
           {provider} - {industry}
         </div>
@@ -113,7 +114,12 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
                 View Opportunity
               </a>
             </button>
-            <a href={`/opportunities/new?oppId=${id}`} className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">Edit Opportunity</a>
+            <a
+              href={`/opportunities/new?oppId=${id}`}
+              className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200"
+            >
+              Edit Opportunity
+            </a>
             {/* <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
               Edit Opportunity
             </button> */}

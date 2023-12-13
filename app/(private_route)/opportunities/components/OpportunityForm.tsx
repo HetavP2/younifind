@@ -29,46 +29,46 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   const params = useSearchParams();
   const oppId = parseInt(params.get('oppId'));
   const [oppData, setOppData] = useState<Opportunity>({
-    id: '',
-    user_id: '',
-    provider: "",
-    location: "",
-    season: "",
-    approved: false,
-    industry: "",
-    isfor: "",
-    mode: "",
-    typelabel: "",
-    description: "",
-    title: "",
-    expiry_date: "",
-    contact_email: "",
-    type: "",
+    id: null,
+    user_id: null,
+    provider: null,
+    location: null,
+    season: null,
+    approved: null,
+    industry: null,
+    isfor: null,
+    mode: null,
+    typelabel: null,
+    description: null,
+    title: null,
+    expiry_date: null,
+    contact_email: null,
+    type: null,
   });
-  const initialized = useRef(false);
+  // const initialized = useRef(false);
 
-  useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      const fetchOppData = async () => {
-        try {
-          const [opportunity] = await getOpportunity(oppId);
+  // useEffect(() => {
+  //   if (!initialized.current) {
+  //     initialized.current = true;
+  //     const fetchOppData = async () => {
+  //       try {
+  //         const [opportunity] = await getOpportunity(oppId);
 
-          console.log(opportunity);
+  //         console.log(opportunity);
           
-          setOppData(opportunity);
-          // const data: any = await getOpportunityImages(parseInt(id));
-          // setOppImages(data);
+  //         setOppData(opportunity);
+  //         // const data: any = await getOpportunityImages(parseInt(id));
+  //         // setOppImages(data);
           
-        } catch (error) {
-          // Handle errors, e.g., log or display an error message
-          console.error("Error fetching opportunity data:", error);
-        }
-      };
+  //       } catch (error) {
+  //         // Handle errors, e.g., log or display an error message
+  //         console.error("Error fetching opportunity data:", error);
+  //       }
+  //     };
     
-      fetchOppData();
-    }
-  }, []);
+  //     fetchOppData();
+  //   }
+  // }, []);
   
   return (
     <>
@@ -117,7 +117,11 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Contact Email
             </label>
-            <OppInput id="contactEmail" name="contactEmail" value={contact_email}/>
+            <OppInput
+              id="contactEmail"
+              name="contactEmail"
+              value={contact_email}
+            />
           </div>
         </div>
       </div>
@@ -143,7 +147,12 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Expiry date
             </label>
-            <OppInput id="date" type="date" name="expiryDate" value={expiry_date} />
+            <OppInput
+              id="date"
+              type="date"
+              name="expiryDate"
+              value={expiry_date}
+            />
           </div>
         </div>
       </div>
@@ -171,6 +180,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="industry"
               id="industry"
               defaultValue={industry}
+              required
             >
               <option value="">--Please choose an option--</option>
               <option value="Environmental Science">
@@ -205,6 +215,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="typelabel"
               id="pet-select"
               defaultValue={typelabel}
+              required
             >
               <option value="">--Please choose an option--</option>
               <option value="Work Opportunity">Work Opportunity</option>
@@ -229,6 +240,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="season"
               id="pet-select"
               defaultValue={season}
+              required
             >
               <option value="">--Please choose an option--</option>
               <option value="All Year">All Year</option>
@@ -257,6 +269,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="isfor"
               id="pet-select"
               defaultValue={isfor}
+              required
             >
               <option value="">--Please choose an option--</option>
               <option value="Underrepresented Students">
@@ -283,6 +296,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="mode"
               id="pet-select"
               defaultValue={mode}
+              required
             >
               <option value="">--Please choose an option--</option>
               <option value="Online">Online</option>
