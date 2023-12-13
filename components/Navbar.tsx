@@ -7,6 +7,7 @@ import AuthButton from "./AuthButton";
 
 import React from "react";
 import { log } from "util";
+import Script from "next/script";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -127,49 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
           </div>
         </nav>
       </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-      {/* <script>
-    // Burger menus
-    document.addEventListener('DOMContentLoaded', function() {
-        // open
-        const burger = document.querySelectorAll('.navbar-burger');
-        const menu = document.querySelectorAll('.navbar-menu');
-    
-        if (burger.length && menu.length) {
-            for (var i = 0; i < burger.length; i++) {
-                burger[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    
-        // close
-        const close = document.querySelectorAll('.navbar-close');
-        const backdrop = document.querySelectorAll('.navbar-backdrop');
-    
-        if (close.length) {
-            for (var i = 0; i < close.length; i++) {
-                close[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    
-        if (backdrop.length) {
-            for (var i = 0; i < backdrop.length; i++) {
-                backdrop[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    });
-    </script> */}
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></Script>
     </header>
   );
 };
