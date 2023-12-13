@@ -166,6 +166,7 @@ const TableRow: React.FC<TableRowProps> = ({
         {oppImages ? (
           oppImages.map((image: any) => (
             <a
+              key={image.file_path}
               className="text-md font-medium text-royalyellow flex items-center"
               href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
               target="blank"

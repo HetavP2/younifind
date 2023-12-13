@@ -61,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         <ul className="hidden absolute top-1/2 right-20 transform -translate-y-1/2 lg:ml-auto lg:mr-3 py-2 px-6 -translate-x-1/2 lg:flex lg:mx-auto lg:w-auto lg:space-x-6">
           {routes.map((item) => {
             return (
-              <li>
+              <li key={item.href}>
                 <Link
                   target="_blank"
                   className="text-sm font-semibold text-gray-400 hover:text-gray-500 mx-1"
@@ -108,7 +108,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             <ul>
               {routes.map((item) => {
                 return (
-                  <li className="mb-1">
+                  <li className="mb-1" key={item.href}>
                     <Link
                       className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                       href={item.href}
