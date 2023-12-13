@@ -13,7 +13,7 @@ export default async function OpportunityList() {
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
       <div className="w-full h-screen">
-        <div className="w-4/5 h-full mx-auto flex items-center justify-center py-4">
+        <div className="w-4/5  h-full mx-auto flex items-center justify-center py-16">
           <div className="h-full overflow-y-auto flex flex-col gap-3">
             {userOpportunities.map((opportunity) => (
               <div
