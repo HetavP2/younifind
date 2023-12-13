@@ -12,33 +12,35 @@ export default async function OpportunityList() {
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
-      <div className="w-full">
-        <div className="w-4/5 mx-auto py-8 flex flex-col gap-2 justify-center items-center">
-          {userOpportunities.map((opportunity) => (
-            <div
-              className="bg-royalyellow hover:bg-royalblue transition  linear duration-200 p-4 w-full rounded-md"
-              title={"Manage Opportunity"}
-            >
-              <OpportunityCard
-                key={opportunity.id}
-                user_id={session.user.id}
-                title={opportunity.title}
-                description={opportunity.description}
-                industry={opportunity.industry}
-                provider={opportunity.provider}
-                season={opportunity.season}
-                isfor={opportunity.season}
-                type={opportunity.type}
-                location={opportunity.location}
-                mode={opportunity.mode}
-                typelabel={opportunity.typelabel}
-                approved={opportunity.approved}
-                id={opportunity.id}
-                expiry_date={opportunity.expiry_date}
-                contact_email={opportunity.contact_email}
-              />
-            </div>
-          ))}
+      <div className="w-full h-screen">
+        <div className="w-4/5 h-full mx-auto flex items-center justify-center py-4">
+          <div className="h-full overflow-y-auto flex flex-col gap-3">
+            {userOpportunities.map((opportunity) => (
+              <div
+                className="bg-royalyellow hover:bg-royalblue transition  linear duration-200 p-4 w-full rounded-md"
+                title={"Manage Opportunity"}
+              >
+                <OpportunityCard
+                  key={opportunity.id}
+                  user_id={session.user.id}
+                  title={opportunity.title}
+                  description={opportunity.description}
+                  industry={opportunity.industry}
+                  provider={opportunity.provider}
+                  season={opportunity.season}
+                  isfor={opportunity.season}
+                  type={opportunity.type}
+                  location={opportunity.location}
+                  mode={opportunity.mode}
+                  typelabel={opportunity.typelabel}
+                  approved={opportunity.approved}
+                  id={opportunity.id}
+                  expiry_date={opportunity.expiry_date}
+                  contact_email={opportunity.contact_email}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
