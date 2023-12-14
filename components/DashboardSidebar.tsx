@@ -13,29 +13,7 @@ interface DashboardSidebarProps {
 }
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
-  const params = useSearchParams();
 
-  // const [loggedIn, setLoggedIn] = useState(params.get("firstLogin"));
-  // let submissionStatus = params.get("submissionStatus") || "";
-
-  // useEffect(() => {
-  //   let firstLogin = params.get("firstLogin") || "";
-  //   if (String(firstLogin) === "true") {
-  //     toast.success("Logged In!");
-  //   } else if (String(submissionStatus) === "success") {
-  //     toast.success("Opportunity Added Successfully!");
-  //   }
-  // }, [submissionStatus]);
-
-  const [effectTriggered, setEffectTriggered] = useState(false);
-  let submissionStatus = params.get("submissionStatus") || "";
-  let firstLogin = params.get("firstLogin") || "";
-
-  useEffect(() => {
-    console.log('once');
-    
-  }, [])
-  
 
   return (
     <div className="border-b w-1/4 max-w-1/4">

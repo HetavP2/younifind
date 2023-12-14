@@ -3,6 +3,7 @@ import { Opportunity } from "@/types";
 import OpportunityList from "@/components/OpportunityList";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import AuthSystem from "@/components/AuthSystem";
+import DashboardAlerts from "@/components/DashboardAlerts";
 
 interface DashboardPageContentProps {
   userOpps: Opportunity[] | null;
@@ -15,6 +16,8 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
     <div className="flex w-full">
       {/* <div className="w-1/4 bg-blue-500">sfusfjiffs</div>
       <div className="w-3/4 bg-red-500">sfisfji0sfo0jsfjsofojs</div> */}
+
+      <DashboardAlerts />
 
       <DashboardSidebar>
         <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
