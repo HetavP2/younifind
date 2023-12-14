@@ -27,23 +27,23 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   type,
 }) => {
   const params = useSearchParams();
-  const oppId = parseInt(params.get('oppId'));
+  const oppId = String(params.get('oppId'));
   const [oppData, setOppData] = useState<Opportunity>({
-    id: null,
-    user_id: null,
-    provider: null,
-    location: null,
-    season: null,
-    approved: null,
-    industry: null,
-    isfor: null,
-    mode: null,
-    typelabel: null,
-    description: null,
-    title: null,
-    expiry_date: null,
-    contact_email: null,
-    type: null,
+    id: 'null',
+    user_id: 'null',
+    provider: 'null',
+    location: 'null',
+    season: 'null',
+    approved: false,
+    industry: 'null',
+    isfor: 'null',
+    mode: 'null',
+    typelabel: 'null',
+    description: 'null',
+    title: 'null',
+    expiry_date: 'null',
+    contact_email: 'null',
+    type: 'null',
   });
   // const initialized = useRef(false);
 
@@ -84,7 +84,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Title
             </label>
-            <OppInput id="title" name="title" value={oppData.title} />
+            <OppInput id="title" name="title" />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -95,7 +95,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Organization
             </label>
-            <OppInput id="provider" name="provider" value={provider} />
+            <OppInput id="provider" name="provider" />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -106,7 +106,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Location
             </label>
-            <OppInput id="location" name="location" value={location} />
+            <OppInput id="location" name="location" />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -134,7 +134,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Description
             </label>
-            <OppTextarea name="description" rows={4} value={description} />
+            <OppTextarea name="description" rows={4} />
           </div>
         </div>
       </div>
@@ -151,7 +151,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               id="date"
               type="date"
               name="expiryDate"
-              value={expiry_date}
             />
           </div>
         </div>
@@ -179,7 +178,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                                     transition-all duration-150"
               name="industry"
               id="industry"
-              defaultValue={industry}
               required
             >
               <option value="">--Please choose an option--</option>
@@ -214,7 +212,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                                     transition-all duration-150"
               name="typelabel"
               id="pet-select"
-              defaultValue={typelabel}
               required
             >
               <option value="">--Please choose an option--</option>
@@ -239,7 +236,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                                     transition-all duration-150"
               name="season"
               id="pet-select"
-              defaultValue={season}
               required
             >
               <option value="">--Please choose an option--</option>
@@ -268,7 +264,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                                     transition-all duration-150"
               name="isfor"
               id="pet-select"
-              defaultValue={isfor}
               required
             >
               <option value="">--Please choose an option--</option>
@@ -295,7 +290,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                                     transition-all duration-150"
               name="mode"
               id="pet-select"
-              defaultValue={mode}
               required
             >
               <option value="">--Please choose an option--</option>

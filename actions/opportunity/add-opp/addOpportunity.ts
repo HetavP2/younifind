@@ -95,12 +95,14 @@ const addOpportunity = async ({
       embedding
     })
     .select();
-
+  
+  if (allOpportunityImages) {
     const res = uploadOpportunityImages({
       id,
       user_id: user.id,
       allOpportunityImages,
     });
+  }
 
   if (!approved) {
     await sendEmail({

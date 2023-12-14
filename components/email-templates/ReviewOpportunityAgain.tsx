@@ -35,8 +35,6 @@ export const ReviewOpportunityAgain = (adminNotes: string | undefined) => (
 
         <Section style={buttonContainer}>
           <Button
-            pY={11}
-            pX={23}
             style={button}
             href="http://localhost:3000/dashboard"
           >
