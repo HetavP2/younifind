@@ -99,10 +99,10 @@ const addOpportunity = async ({
     .select();
   
   let uploadImagesStatus;
-  let emailSentStatus;
+  let emailSentStatus = 'NA';
 
   if (allOpportunityImages) {
-    uploadImagesStatus = uploadOpportunityImages({
+    uploadImagesStatus = await uploadOpportunityImages({
       id,
       user_id: user.id,
       allOpportunityImages,
@@ -116,6 +116,8 @@ const addOpportunity = async ({
       template: ApprovalPendingEmailTemplate(),
     });
   }
+  
+  
 
   if (errorAddingOpp === null && uploadImagesStatus && emailSentStatus) {
     return 'SuccessfullyAddedAnOpportunity';

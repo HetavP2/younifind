@@ -7,16 +7,16 @@ import React from "react";
 import { cookies } from "next/headers";
 
 interface UploadOpportunityImagesProps {
-    id: number;
-    user_id: string;
+  id: number;
+  user_id: string;
   allOpportunityImages: FormDataEntryValue[];
 }
 
-const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
+const uploadOpportunityImages = async ({
   id,
   user_id,
   allOpportunityImages,
-}) => {
+}: UploadOpportunityImagesProps): Promise<string> => {
   const supabase = createServerActionClient<Database>({
     cookies,
   });
@@ -30,8 +30,6 @@ const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
             cacheControl: "3600",
             upsert: false,
           });
-      
-      
 
       if (oppImageData) {
         await supabase.from("opportunity_images").insert({
@@ -39,7 +37,7 @@ const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
           file_path: oppImageData.path,
         });
       }
-      
+
       // Handle oppImageData and oppImageError as needed
     });
 
@@ -49,7 +47,7 @@ const uploadOpportunityImages: React.FC<UploadOpportunityImagesProps> = async ({
     console.log("All images uploaded successfully to storage and table");
   } catch (error) {
     console.error("Error uploading images:", error);
-    return ''
+    return "";
   }
 
   return "All images uploaded successfully to storage and table";
