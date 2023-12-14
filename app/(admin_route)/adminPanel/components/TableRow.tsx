@@ -79,16 +79,40 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   const handleClick = async () => {
-    
     //additional stuff only if previous code works.
     // const { data, error } = await supabase
     //   .from("opportunities")
     //   .update({ admin_notes: null })
     //   .eq("id", id)
     //   .select();
-    setButtonDisabled(true);
 
-    toast.success("Email Sent!");
+    const recipient = [contact_email];
+    const subject = "route.ts sent this";
+    const template = ReviewOpportunityAgain(admin_notes);
+
+    const res = await fetch(`http://localhost:3000/api/sendEmail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        recipient,
+        subject,
+        template,
+      }),
+    });
+
+    const emailResponse = await res.json();
+
+    if (emailResponse === null) {
+      toast.error('Could not send!')
+    } else {
+
+      toast.success("Email Sent!");
+      setButtonDisabled(false);
+    }
+
+
   };
 
   return (
@@ -171,7 +195,10 @@ const TableRow: React.FC<TableRowProps> = ({
               href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
               target="blank"
             >
-              <BiLink className="mr-2 text-xl text-black " key={image.file_path} />
+              <BiLink
+                className="mr-2 text-xl text-black "
+                key={image.file_path}
+              />
               View File
             </a>
           ))

@@ -11,9 +11,9 @@ import Router from "next/navigation";
 import Link from "next/link";
 import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-interface OpportunityCardProps extends Opportunity {
-}
+interface OpportunityCardProps extends Opportunity {}
 
 const OpportunityCard: React.FC<OpportunityCardProps> = (
   {
@@ -53,18 +53,15 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     fetchData();
   }, [id]);
 
-{/* <Image */}
-    //       className="object-cover"
-    //       src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_name}`}
-    //       width={100}
-    //       height={100}
-    //       alt="Image"
-    //     />
-
   const handleDelete = async (e: any) => {
     e.preventDefault();
-    await deleteOpportunity(String(id));
-    router.refresh();
+    const res = await deleteOpportunity(String(id));
+    if (res) {
+      toast.success("Deleted Opportunity");
+      router.refresh();
+    } else {
+      toast.error("Opportunity could not be deleted");
+    }
   };
 
   return (
@@ -85,7 +82,10 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
                 href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
                 target="blank"
               >
-                <BiLink className="mr-2 text-xl text-black " key={image.file_path}/>
+                <BiLink
+                  className="mr-2 text-xl text-black "
+                  key={image.file_path}
+                />
                 View File
               </a>
             ))

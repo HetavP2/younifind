@@ -21,7 +21,11 @@ const sendEmail = async ({
     subject: subject,
     react: template,
   });
-  return 'success';
+  if (data !== null) {
+    return "emailSentSuccessfully";
+  }
+
+  return "";
 };
 
 export default sendEmail;
