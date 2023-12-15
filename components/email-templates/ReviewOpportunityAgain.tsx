@@ -35,7 +35,7 @@ export const ReviewOpportunityAgain = (content: string | undefined) => (
 
         <Section style={buttonContainer}>
           <Button style={button} href="http://localhost:3000/dashboard">
-            Approve Now
+            Make Changes Now
           </Button>
         </Section>
         <Text style={paragraph}>

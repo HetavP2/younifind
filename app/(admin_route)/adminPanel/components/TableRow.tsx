@@ -5,10 +5,7 @@ import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import sendEmail from "@/actions/sendEmail";
-import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 import toast from "react-hot-toast";
-import { Resend } from "resend";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import { BiLink } from "react-icons/bi";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
@@ -54,19 +51,16 @@ const TableRow: React.FC<TableRowProps> = ({
   }, [id]);
 
   const handleOnChange = async (checked: boolean) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("opportunities")
-      .update({ approved: checked })
+      .update({ approved: checked, admin_notes: null })
       .eq("id", id)
       .select();
 
     if (error) {
-      console.log(error);
-    }
-
-    toast.success("Success!");
-
-    if (data) {
+      toast.error("Could not approve!");
+    } else {
+      toast.success("Success!");
       router.refresh();
     }
   };
@@ -77,11 +71,14 @@ const TableRow: React.FC<TableRowProps> = ({
       .update({ admin_notes: value })
       .eq("id", id)
       .select();
+
+    if (error !== null) {
+      toast.error("Error Adding Notes! Please try again.");
+    }
   };
 
   const handleClick = async () => {
-    const [{admin_notes: adminNotes}] = await getOpportunity(parseInt(id));
-
+    const [{ admin_notes: adminNotes }] = await getOpportunity(parseInt(id));
 
     const subject = "route.ts sent this";
 
@@ -101,14 +98,11 @@ const TableRow: React.FC<TableRowProps> = ({
     const emailResponse = await res.json();
 
     if (emailResponse === null) {
-      toast.error('Could not send!')
+      toast.error("Could not send!");
     } else {
-
       toast.success("Email Sent!");
-      setButtonDisabled(false);
+      setButtonDisabled(true);
     }
-
-
   };
 
   return (
