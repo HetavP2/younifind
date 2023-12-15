@@ -12,7 +12,7 @@ export default async function OpportunityList() {
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
-      <div className="w-2/3 gap-3 p-2 mx-auto py-8 flex items-center">
+      <div className="w-2/3 gap-3 p-2 mx-auto py-8 flex items-center ">
         {userOpportunities.map((opportunity) => (
           <div
             className="bg-royalyellow hover:bg-royalblue transition linear duration-200 p-4 w-full rounded-md"
