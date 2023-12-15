@@ -86,19 +86,18 @@ const TableRow: React.FC<TableRowProps> = ({
     //   .eq("id", id)
     //   .select();
 
-    const recipient = [contact_email];
     const subject = "route.ts sent this";
-    const template = ReviewOpportunityAgain(admin_notes);
 
-    const res = await fetch(`http://localhost:3000/api/sendEmail`, {
+    const res = await fetch(`/api/sendEmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        recipient,
+        recipient: [contact_email],
         subject,
-        template,
+        operation: "ReviewOpportunityAgain",
+        content: admin_notes,
       }),
     });
 

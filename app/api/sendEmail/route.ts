@@ -1,3 +1,4 @@
+import handleEmailRequest from "@/actions/handleEmailRequest";
 import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -5,14 +6,17 @@ import { Resend } from "resend";
 type SendEmail = {
   recipient: Array<string>;
   subject: string;
-  template: any;
+  operation: string;
+  content: any;
 };
 
 export async function POST(request: Request) {
     const emailData: SendEmail = await request.json();
+    // console.log(emailData)
 
-    const { recipient, subject, template } = emailData;
-    // console.log(template);
+  const { recipient, subject, operation, content } = emailData;
+  
+  const emailTemplate = await handleEmailRequest({operation, content});
     
     
 
@@ -22,9 +26,9 @@ export async function POST(request: Request) {
     try {
         const { data } = await resend.emails.send({
           from: "onboarding@resend.dev",
-          to: recipient,
+          to: ['hetav.j.patel@gmail.com'],
           subject: subject,
-          react: ReviewOpportunityAgain("notgood"),
+          react: emailTemplate,
         });
         return NextResponse.json(data);
     } catch (error) {

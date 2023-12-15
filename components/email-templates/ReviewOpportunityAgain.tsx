@@ -14,7 +14,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-export const ReviewOpportunityAgain = (adminNotes: string | undefined) => (
+export const ReviewOpportunityAgain = (content: string | undefined) => (
   <Html>
     <Head />
     <Preview>Please review your opportunity again</Preview>
@@ -31,13 +31,10 @@ export const ReviewOpportunityAgain = (adminNotes: string | undefined) => (
         <Heading style={heading}>
           Here is why it does not meet our standards:
         </Heading>
-        <Heading style={heading}>{adminNotes}</Heading>
+        <Heading style={heading}>{content}</Heading>
 
         <Section style={buttonContainer}>
-          <Button
-            style={button}
-            href="http://localhost:3000/dashboard"
-          >
+          <Button style={button} href="http://localhost:3000/dashboard">
             Approve Now
           </Button>
         </Section>
