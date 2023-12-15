@@ -4,7 +4,7 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-hot-toast";
 
@@ -16,6 +16,7 @@ export interface AuthButtonProps {
 const AuthButton: React.FC<AuthButtonProps> = ({ className, session }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleSignIn = async () => {
     await supabase.auth.signInWithOAuth({
@@ -27,7 +28,12 @@ const AuthButton: React.FC<AuthButtonProps> = ({ className, session }) => {
   };
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut();
-    router.refresh();
+
+    if (pathname === "/") {
+      router.refresh();
+    } else {
+      router.replace("/");
+    }
 
     if (error) {
       toast.error(error.message);
@@ -37,11 +43,17 @@ const AuthButton: React.FC<AuthButtonProps> = ({ className, session }) => {
   };
 
   return session ? (
-    <button onClick={handleSignOut} className={`px-2 py-1 bg-royalyellow text-white` + className}>
+    <button
+      onClick={handleSignOut}
+      className={`px-2 py-1 bg-royalyellow text-white` + className}
+    >
       Logout
     </button>
   ) : (
-    <button onClick={handleSignIn} className={`px-2 py-1  bg-royalyellow text-white` + className}>
+    <button
+      onClick={handleSignIn}
+      className={`px-2 py-1  bg-royalyellow text-white` + className}
+    >
       Login
     </button>
   );

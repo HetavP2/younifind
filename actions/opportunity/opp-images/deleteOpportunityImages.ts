@@ -8,10 +8,9 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 interface DeleteOpportunityImagesProps {
   imagePaths: Array<any> | null;
 }
-
-const deleteOpportunityImages: React.FC<DeleteOpportunityImagesProps> = async ({
+const deleteOpportunityImages = async ({
   imagePaths,
-}) => {
+}: DeleteOpportunityImagesProps): Promise<string> => {
   const supabase = createClientComponentClient<Database>();
 
   try {
@@ -20,7 +19,7 @@ const deleteOpportunityImages: React.FC<DeleteOpportunityImagesProps> = async ({
         if (path) {
           const { data, error: oppImageError } = await supabase.storage
             .from("opportunity-images")
-            .remove([path]);
+            .remove([path.file_path]);
         }
 
         // Handle oppImageData and oppImageError as needed
@@ -31,12 +30,13 @@ const deleteOpportunityImages: React.FC<DeleteOpportunityImagesProps> = async ({
 
     // Wait for all uploads to complete
 
-    console.log("All images deleted successfully");
-    return "success";
+    console.log("All images deleted successfully from bucket");
+    return "successAtDeletingImagesFromStorage";
   } catch (error) {
     console.error("Error deleting images from bucket:", error);
   }
 
-  return "not success";
+  return "noSuccessAtDeletingImagesFromStorage";
 };
+
 export default deleteOpportunityImages;

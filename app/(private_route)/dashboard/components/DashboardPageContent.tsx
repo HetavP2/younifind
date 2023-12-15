@@ -1,7 +1,9 @@
 import React from "react";
 import { Opportunity } from "@/types";
-import DashboardClient from "@/components/DashboardClient";
-import OpportunityList from "@/components/OpportunityList";
+import DashboardOpportunityList from "./DashboardOpportunityList";
+import DashboardSidebar from "./DashboardSidebar";
+import AuthSystem from "@/components/AuthSystem";
+import DashboardAlerts from "./DashboardAlerts";
 
 interface DashboardPageContentProps {
   userOpps: Opportunity[] | null;
@@ -10,13 +12,17 @@ interface DashboardPageContentProps {
 const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
   userOpps,
 }) => {
-  
-  
   return userOpps && userOpps?.length >= 0 ? (
-    <div className="">
-      <DashboardClient />
+    <div className="flex w-full">
+      {/* <div className="w-1/4 bg-blue-500">sfusfjiffs</div>
+      <div className="w-3/4 bg-red-500">sfisfji0sfo0jsfjsofojs</div> */}
 
-      {/* <OpportunityList /> */}
+      <DashboardAlerts />
+
+      <DashboardSidebar>
+        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
+      </DashboardSidebar>
+      <DashboardOpportunityList />
     </div>
   ) : (
     <div>
@@ -28,7 +34,9 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
         </a>
         to get started.
       </div>
-      <DashboardClient />
+      {/* <DashboardSidebar>
+        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
+      </DashboardSidebar> */}
     </div>
   );
 };

@@ -7,14 +7,13 @@ import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
-import Router from "next/navigation";
+import Router, { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-interface OpportunityCardProps extends Opportunity {
-  // oppImages: Array<string> || null;
-}
+interface OpportunityCardProps extends Opportunity {}
 
 const OpportunityCard: React.FC<OpportunityCardProps> = (
   {
@@ -39,6 +38,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
 ) => {
   const [oppImages, setOppImages] = useState([]);
   const router = useRouter();
+  const params = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,24 +54,23 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     fetchData();
   }, [id]);
 
-{/* <Image */}
-    //       className="object-cover"
-    //       src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_name}`}
-    //       width={100}
-    //       height={100}
-    //       alt="Image"
-    //     />
-
   const handleDelete = async (e: any) => {
     e.preventDefault();
-    await deleteOpportunity(String(id));
-    router.refresh();
+    const res = await deleteOpportunity(String(id));
+    if (res) {
+      toast.success("Deleted Opportunity");
+      // params.delete();
+      router.refresh();
+    } else {
+      toast.error("Opportunity could not be deleted");
+    }
   };
 
   return (
     <div className="bg-slate-100  flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
+        {approved ? <span>✅</span> : <span>🕔</span>}
         <div className="flex font-medium">
           {provider} - {industry}
         </div>
@@ -80,12 +79,16 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
           {oppImages ? (
             oppImages.map((image: any) => (
               <a
-                className="text-md font-medium text-royalblue"
+                key={image.file_path}
+                className="text-md font-medium text-royalblue flex items-center"
                 href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
                 target="blank"
               >
-                <BiLink className="mr-2" />
-                {image.file_name}
+                <BiLink
+                  className="mr-2 text-xl text-black "
+                  key={image.file_path}
+                />
+                View File
               </a>
             ))
           ) : (
@@ -114,9 +117,15 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
                 View Opportunity
               </a>
             </button>
-            <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
+            <a
+              href={`/opportunities/new?oppId=${id}`}
+              className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200"
+            >
               Edit Opportunity
-            </button>
+            </a>
+            {/* <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
+              Edit Opportunity
+            </button> */}
           </div>
         </div>
       </div>

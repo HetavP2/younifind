@@ -14,15 +14,18 @@ const sendEmail = async ({
   subject,
   template,
 }: SendEmailProps): Promise<string> => {
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  // const { data } = await resend.emails.send({
-  //   from: "onboarding@resend.dev",
-  //   to: to,
-  //   subject: subject,
-  //   react: template,
-  // });
-  console.log("clicked fun lets see")
-  return 'success';
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const { data } = await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: to,
+    subject: subject,
+    react: template,
+  });
+  if (data !== null) {
+    return "emailSentSuccessfully";
+  }
+
+  return "";
 };
 
 export default sendEmail;

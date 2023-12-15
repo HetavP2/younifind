@@ -34,8 +34,6 @@ export const ApprovalPendingEmailTemplate = () => (
         <Heading style={heading}>Opportunity Pending Approval</Heading>
         <Section style={buttonContainer}>
           <Button
-            pY={11}
-            pX={23}
             style={button}
             href="http://localhost:3000/adminPanel"
           >

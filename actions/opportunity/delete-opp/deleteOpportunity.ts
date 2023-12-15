@@ -5,30 +5,32 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import deleteOpportunityImages from "../opp-images/deleteOpportunityImages";
 
-const deleteOpportunity = async (oppId: string): Promise<void> => {
+const deleteOpportunity = async (oppId: string): Promise<string> => {
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
-  const {
-    data: { session },
-    } = await supabase.auth.getSession();
+
     
 const { data: opportunityImagesPaths, error } = await supabase
   .from("opportunity_images")
   .select('file_path')
         .filter("opportunity_id", "in", `(${oppId})`);
     
-    const res = deleteOpportunityImages({ imagePaths: opportunityImagesPaths });
+  const res = await deleteOpportunityImages({ imagePaths: opportunityImagesPaths });
+  console.log(res);
+  
 
-
-  const { data: userOpportunities, error: error2 } = await supabase
+  const { error: errorDeletingFromTable } = await supabase
     .from("opportunities")
     .delete()
     .eq("id", oppId);
-
-  if (error2) {
-    console.error(error2);
-  }
+  
+  
+  
+  if (errorDeletingFromTable === null && res === 'successAtDeletingImagesFromStorage') {
+    return "deletedEverywhere";
+  } 
+  return '';
 
 };
 

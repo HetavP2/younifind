@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import AuthButton from "./AuthButton";
 
 import React from "react";
+import { log } from "util";
+import Script from "next/script";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -35,26 +37,15 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         active: pathname === "/contact",
         href: "/contact",
       },
-      // {
-      //   // icon: BiSearch,
-      //   label: "Log In",
-      //   active: pathname === "/login",
-      //   href: "/login",
-      // },
-      // {
-      //   // icon: BiSearch,
-      //   label: "Sign Up",
-      //   active: pathname === "/register",
-      //   href: "/register",
-      // },
     ],
     [pathname]
   );
+
   return (
     <header>
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white ">
         <a className="text-md font-bold leading-none" href="/">
-          <img width="200" src="../static/images/younifind.png" />
+          <img width="200" src="/images/younifind.png" />
         </a>
         <div className="lg:hidden">
           <button className="navbar-burger flex items-center text-blue-600 p-3">
@@ -71,8 +62,9 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         <ul className="hidden absolute top-1/2 right-20 transform -translate-y-1/2 lg:ml-auto lg:mr-3 py-2 px-6 -translate-x-1/2 lg:flex lg:mx-auto lg:w-auto lg:space-x-6">
           {routes.map((item) => {
             return (
-              <li>
+              <li key={item.href}>
                 <Link
+                  target="_blank"
                   className="text-sm font-semibold text-gray-400 hover:text-gray-500 mx-1"
                   href={item.href}
                 >
@@ -117,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             <ul>
               {routes.map((item) => {
                 return (
-                  <li className="mb-1">
+                  <li className="mb-1" key={item.href}>
                     <Link
                       className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                       href={item.href}
@@ -136,49 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
           </div>
         </nav>
       </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-      {/* <script>
-    // Burger menus
-    document.addEventListener('DOMContentLoaded', function() {
-        // open
-        const burger = document.querySelectorAll('.navbar-burger');
-        const menu = document.querySelectorAll('.navbar-menu');
-    
-        if (burger.length && menu.length) {
-            for (var i = 0; i < burger.length; i++) {
-                burger[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    
-        // close
-        const close = document.querySelectorAll('.navbar-close');
-        const backdrop = document.querySelectorAll('.navbar-backdrop');
-    
-        if (close.length) {
-            for (var i = 0; i < close.length; i++) {
-                close[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    
-        if (backdrop.length) {
-            for (var i = 0; i < backdrop.length; i++) {
-                backdrop[i].addEventListener('click', function() {
-                    for (var j = 0; j < menu.length; j++) {
-                        menu[j].classList.toggle('hidden');
-                    }
-                });
-            }
-        }
-    });
-    </script> */}
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></Script>
     </header>
   );
 };
