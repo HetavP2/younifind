@@ -11,27 +11,22 @@ type SendEmail = {
 };
 
 export async function POST(request: Request) {
-    const emailData: SendEmail = await request.json();
-    // console.log(emailData)
+  const emailData: SendEmail = await request.json();
 
   const { recipient, subject, operation, content } = emailData;
-  
-  const emailTemplate = await handleEmailRequest({operation, content});
-    
-    
 
+  const emailTemplate = await handleEmailRequest({ operation, content });
 
-
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    try {
-        const { data } = await resend.emails.send({
-          from: "onboarding@resend.dev",
-          to: ['hetav.j.patel@gmail.com'],
-          subject: subject,
-          react: emailTemplate,
-        });
-        return NextResponse.json(data);
-    } catch (error) {
-        return NextResponse.json({ error });
-    }
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  try {
+    const { data } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: recipient,
+      subject: subject,
+      react: emailTemplate,
+    });
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
 }

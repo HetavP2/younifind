@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { Resend } from "resend";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import { BiLink } from "react-icons/bi";
+import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 
 interface TableRowProps extends Opportunity {}
 
@@ -79,12 +80,8 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   const handleClick = async () => {
-    //additional stuff only if previous code works.
-    // const { data, error } = await supabase
-    //   .from("opportunities")
-    //   .update({ admin_notes: null })
-    //   .eq("id", id)
-    //   .select();
+    const [{admin_notes: adminNotes}] = await getOpportunity(parseInt(id));
+
 
     const subject = "route.ts sent this";
 
@@ -97,7 +94,7 @@ const TableRow: React.FC<TableRowProps> = ({
         recipient: [contact_email],
         subject,
         operation: "ReviewOpportunityAgain",
-        content: admin_notes,
+        content: adminNotes,
       }),
     });
 
