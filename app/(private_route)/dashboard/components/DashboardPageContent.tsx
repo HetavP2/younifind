@@ -1,9 +1,9 @@
 import React from "react";
 import { Opportunity } from "@/types";
-import OpportunityList from "@/components/OpportunityList";
-import DashboardSidebar from "@/components/DashboardSidebar";
+import DashboardOpportunityList from "./DashboardOpportunityList";
+import DashboardSidebar from "./DashboardSidebar";
 import AuthSystem from "@/components/AuthSystem";
-import DashboardAlerts from "@/components/DashboardAlerts";
+import DashboardAlerts from "./DashboardAlerts";
 
 interface DashboardPageContentProps {
   userOpps: Opportunity[] | null;
@@ -22,7 +22,7 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
       <DashboardSidebar>
         <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
       </DashboardSidebar>
-      <OpportunityList />
+      <DashboardOpportunityList />
     </div>
   ) : (
     <div>

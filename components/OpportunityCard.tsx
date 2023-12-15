@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
-import Router from "next/navigation";
+import Router, { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
 ) => {
   const [oppImages, setOppImages] = useState([]);
   const router = useRouter();
+  const params = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,6 +59,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     const res = await deleteOpportunity(String(id));
     if (res) {
       toast.success("Deleted Opportunity");
+      // params.delete();
       router.refresh();
     } else {
       toast.error("Opportunity could not be deleted");

@@ -3,11 +3,9 @@
 import { HiOutlineHome } from "react-icons/hi";
 import { BiGlasses, BiSearch } from "react-icons/bi";
 import Link from "next/link";
-import toast from "react-hot-toast";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 interface DashboardSidebarProps {
   children: React.ReactNode;
 }
