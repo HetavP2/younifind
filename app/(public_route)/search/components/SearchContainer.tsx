@@ -241,7 +241,7 @@ const SearchContainer = () => {
               {/* Your content */}
               {recRecords?.map((record) => (
                 <div className="my-4 rounded-md shadow-xl">
-                  <a href={`/view/${record.id}`} target="_blank">
+                  <a href={`/opportunities/${record.id}`} target="_blank">
                     <ResultCard recordData={record} />
                   </a>
                 </div>
