@@ -47,7 +47,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
-
   return (
     <>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
@@ -345,7 +344,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             required={false}
             multiple
           />
-          {oppImages ? <ImageSelect oppImages={oppImages} /> : <span></span>}
+          {oppImages ? (
+            <>
+              <br />
+              <br /> <ImageSelect oppImages={oppImages} />
+            </>
+          ) : (
+            <span></span>
+          )}
 
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
