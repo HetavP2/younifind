@@ -3,13 +3,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
-import { Opportunity } from "@/types";
+import { Opportunity, OpportunityImages } from "@/types";
 import { useSearchParams } from "next/navigation";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
+import Image from "next/image";
+import ImageSelect from "./ImageSelect";
 
-
-interface OpportunityFormProps extends Partial<Opportunity> {}
-
+interface OpportunityFormProps extends Partial<Opportunity> {
+  oppImages: Array<OpportunityImages>;
+}
 
 const OpportunityForm: React.FC<OpportunityFormProps> = ({
   provider,
@@ -24,52 +26,28 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   title,
   expiry_date,
   contact_email,
-  type,
+  oppImages,
 }) => {
-  const params = useSearchParams();
-  const oppId = String(params.get('oppId'));
+  // let todayDate = String(new Date().toISOString());
   const [oppData, setOppData] = useState<Opportunity>({
-    id: 'null',
-    user_id: 'null',
-    provider: 'null',
-    location: 'null',
-    season: 'null',
+    id: "",
+    user_id: "",
+    provider: provider || "",
+    location: location || "",
+    season: season || "",
     approved: false,
-    industry: 'null',
-    isfor: 'null',
-    mode: 'null',
-    typelabel: 'null',
-    description: 'null',
-    title: 'null',
-    expiry_date: 'null',
-    contact_email: 'null',
-    type: 'null',
+    industry: industry || "",
+    isfor: isfor || "",
+    mode: mode || "",
+    typelabel: typelabel || "",
+    description: description || "",
+    title: title || "",
+    expiry_date: expiry_date || "",
+    contact_email: contact_email || "",
+    type: "",
   });
-  // const initialized = useRef(false);
 
-  // useEffect(() => {
-  //   if (!initialized.current) {
-  //     initialized.current = true;
-  //     const fetchOppData = async () => {
-  //       try {
-  //         const [opportunity] = await getOpportunity(oppId);
 
-  //         console.log(opportunity);
-          
-  //         setOppData(opportunity);
-  //         // const data: any = await getOpportunityImages(parseInt(id));
-  //         // setOppImages(data);
-          
-  //       } catch (error) {
-  //         // Handle errors, e.g., log or display an error message
-  //         console.error("Error fetching opportunity data:", error);
-  //       }
-  //     };
-    
-  //     fetchOppData();
-  //   }
-  // }, []);
-  
   return (
     <>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
@@ -84,7 +62,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Title
             </label>
-            <OppInput id="title" name="title" />
+            <OppInput
+              id="title"
+              name="title"
+              value={oppData.title}
+              onChange={(e) =>
+                setOppData({ ...oppData, title: e.target.value })
+              }
+            />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -95,7 +80,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Organization
             </label>
-            <OppInput id="provider" name="provider" />
+            <OppInput
+              id="provider"
+              name="provider"
+              value={oppData.provider}
+              onChange={(e) =>
+                setOppData({ ...oppData, provider: e.target.value })
+              }
+            />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -106,7 +98,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Location
             </label>
-            <OppInput id="location" name="location" />
+            <OppInput
+              id="location"
+              name="location"
+              value={oppData.location}
+              onChange={(e) =>
+                setOppData({ ...oppData, location: e.target.value })
+              }
+            />
           </div>
         </div>
         <div className="w-full lg:w-6/12 px-4">
@@ -120,7 +119,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             <OppInput
               id="contactEmail"
               name="contactEmail"
-              value={contact_email}
+              value={oppData.contact_email}
+              onChange={(e) =>
+                setOppData({ ...oppData, contact_email: e.target.value })
+              }
             />
           </div>
         </div>
@@ -134,7 +136,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               Description
             </label>
-            <OppTextarea name="description" rows={4} />
+            <OppTextarea
+              name="description"
+              rows={4}
+              value={oppData.description}
+              onChange={(e) =>
+                setOppData({ ...oppData, description: e.target.value })
+              }
+            />
           </div>
         </div>
       </div>
@@ -149,8 +158,12 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             </label>
             <OppInput
               id="date"
-              type="date"
+              type="datetime-local"
               name="expiryDate"
+              value={oppData.expiry_date}
+              onChange={(e) =>
+                setOppData({ ...oppData, expiry_date: e.target.value })
+              }
             />
           </div>
         </div>
@@ -179,6 +192,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="industry"
               id="industry"
               required
+              value={oppData.industry}
+              onChange={(e) =>
+                setOppData({ ...oppData, industry: e.target.value })
+              }
             >
               <option value="">--Please choose an option--</option>
               <option value="Environmental Science">
@@ -213,6 +230,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="typelabel"
               id="pet-select"
               required
+              value={oppData.typelabel}
+              onChange={(e) =>
+                setOppData({ ...oppData, typelabel: e.target.value })
+              }
             >
               <option value="">--Please choose an option--</option>
               <option value="Work Opportunity">Work Opportunity</option>
@@ -237,6 +258,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="season"
               id="pet-select"
               required
+              value={oppData.season}
+              onChange={(e) =>
+                setOppData({ ...oppData, season: e.target.value })
+              }
             >
               <option value="">--Please choose an option--</option>
               <option value="All Year">All Year</option>
@@ -259,6 +284,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             </label>
 
             <select
+              value={oppData.isfor}
+              onChange={(e) =>
+                setOppData({ ...oppData, isfor: e.target.value })
+              }
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
                                     bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
                                     transition-all duration-150"
@@ -285,6 +314,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             </label>
 
             <select
+              value={oppData.mode}
+              onChange={(e) => setOppData({ ...oppData, mode: e.target.value })}
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
                                     bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
                                     transition-all duration-150"
@@ -307,7 +338,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           >
             Upload picture for the opportunity
           </label>
-          <OppInput id="image" type="file" name="opportunityImages" multiple />
+          <OppInput
+            id="image"
+            type="file"
+            name="opportunityImages"
+            required={false}
+            multiple
+          />
+          {oppImages ? <ImageSelect oppImages={oppImages} /> : <span></span>}
 
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -322,7 +360,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
       >
-        Add
+        Done
       </button>
     </>
   );

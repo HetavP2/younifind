@@ -36,7 +36,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
               <Link
                 className="bg-white py-2 px-6 w-full rounded-md text-royalblue flex jusitfy-start items-center space-x-6  focus:outline-none"
                 href="/opportunities/new"
-                target="_blank"
               >
                 <HiOutlineHome className="text-xl mr-2" />
                 Add Opportunity

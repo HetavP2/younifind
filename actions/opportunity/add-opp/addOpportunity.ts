@@ -15,6 +15,7 @@ interface AddOpportunityProps extends Opportunity {
 }
 
 const addOpportunity = async ({
+  id: oppId,
   provider,
   location,
   season,
@@ -60,7 +61,11 @@ const addOpportunity = async ({
   if (adminInfo !== null) {
     approved = true;
   }
-  const id = getRandomInt(999999);
+  let id = parseInt(oppId);
+
+  if (Number.isNaN(id)) {
+    id = getRandomInt(999999);
+  }
 
   const response = await fetch("https://api.openai.com/v1/embeddings", {
     method: "POST",
@@ -98,10 +103,13 @@ const addOpportunity = async ({
     })
     .select();
   
-  let uploadImagesStatus;
+  let uploadImagesStatus = 'NA';
   let emailSentStatus = 'NA';
 
-  if (allOpportunityImages) {
+  console.log("ALL OPP IMAGES")
+  
+
+  if ( allOpportunityImages && allOpportunityImages[0].name !== 'undefined') {
     uploadImagesStatus = await uploadOpportunityImages({
       id,
       user_id: user.id,
@@ -120,7 +128,7 @@ const addOpportunity = async ({
   
 
   if (errorAddingOpp === null && uploadImagesStatus && emailSentStatus) {
-    return 'SuccessfullyAddedAnOpportunity';
+    return "SuccessfullyUpdatedAnOpportunity";
   } else {
     return 'ErrorAddingOpportunity';
   }

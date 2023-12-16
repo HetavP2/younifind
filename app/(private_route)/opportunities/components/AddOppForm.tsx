@@ -1,11 +1,31 @@
 import React from "react";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
-import {redirect} from 'next/navigation';
+import { redirect } from "next/navigation";
+import { Opportunity, OpportunityImages } from "@/types";
 
-const AddOppForm: React.FC = async () => {
+interface AddOppFormProps extends Partial<Opportunity> {
+  allOpportunityImages: Array<OpportunityImages>;
+
+}
+
+const AddOppForm: React.FC<AddOppFormProps> = async ({
+  id,
+  provider,
+  location,
+  season,
+  approved,
+  industry,
+  isfor,
+  mode,
+  typelabel,
+  description,
+  title,
+  expiry_date,
+  contact_email,
+  allOpportunityImages,
+}) => {
   
-  // let todayDate = String(new Date().toISOString())
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -19,21 +39,12 @@ const AddOppForm: React.FC = async () => {
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
-    const expiryDate = String(formData.get("expiryDate"));
+    const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
 
-    // console.log(opportunityImages);
-
-    // const file = opportunityImages.files[0];
-    // const fileType = file["type"];
-    // const validImageTypes = ["image/pdf", "image/jpeg", "image/png"];
-    // if (!validImageTypes.includes(fileType)) {
-    //   // invalid file type code goes here.
-
-    // }
 
     const submissionStatus = await addOpportunity({
-      id: "sa",
+      id: id || "a",
       title,
       provider,
       location,
@@ -50,8 +61,9 @@ const AddOppForm: React.FC = async () => {
       type: "a",
       contact_email: contactEmail,
     });
+    
 
-    redirect(`/dashboard?opportunityStatus=${submissionStatus}`)
+    redirect(`/dashboard?opportunityStatus=${submissionStatus}`);
   };
 
   return (
@@ -77,7 +89,22 @@ const AddOppForm: React.FC = async () => {
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form action={addOpp}>
-                <OpportunityForm />
+                <OpportunityForm
+                  key={id}
+                  title={title}
+                  description={description}
+                  industry={industry}
+                  provider={provider}
+                  season={season}
+                  isfor={isfor}
+                  location={location}
+                  mode={mode}
+                  typelabel={typelabel}
+                  approved={approved}
+                  expiry_date={expiry_date}
+                  contact_email={contact_email}
+                  oppImages={allOpportunityImages}
+                />
               </form>
             </div>
           </div>
