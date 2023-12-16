@@ -11,8 +11,6 @@ interface DashboardSidebarProps {
 }
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
-
-
   return (
     <div className="border-b w-1/4 max-w-1/4">
       <div className="py-16 h-screen flex justify-start items-center bg-royalblue flex-col">
@@ -55,7 +53,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
             <li className="my-6">
               <Link
                 className="bg-white py-2 px-6 w-full rounded-md text-royalblue flex jusitfy-start items-center space-x-6  focus:outline-none"
-                href="https://search-peel-demo.vercel.app/"
+                href="/search"
                 target="_blank"
               >
                 <BiSearch className="text-xl mr-2" />

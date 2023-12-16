@@ -2,7 +2,7 @@ import { Opportunity } from "@/types";
 import React from "react";
 import Navbar from "@/components/Navbar";
 import AuthSystem from "@/components/AuthSystem";
-import Sidebar from "./Sidebar";
+
 import FileCard from "./FileCard";
 
 interface OpportunitySubpageProps {

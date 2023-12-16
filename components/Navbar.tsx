@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         // icon: BiSearch,
         label: "Opportunities",
         active: pathname === "https://search-peel-demo.vercel.app/",
-        href: "https://search-peel-demo.vercel.app/",
+        href: "/search",
       },
       {
         // icon: BiSearch,

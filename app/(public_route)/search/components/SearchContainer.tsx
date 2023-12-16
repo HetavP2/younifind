@@ -129,7 +129,7 @@ const SearchContainer = () => {
 
   return (
     <>
-      <div className="min-h-full flex bg-gradient-to-br from-royalblue via-royalblue to-white md:h-screen">
+      <div className="h-full  flex bg-gradient-to-br from-royalblue via-royalblue to-white">
         <div className="FILTERS w-1/4 p-8">
           <div className="w-full flex flex-col gap-4 bg-white shadow-xl rounded-md p-2">
             <div className="w-full rounded-md bg-slate-100 p-2 ">
@@ -197,7 +197,7 @@ const SearchContainer = () => {
           </div>
         </div>
 
-        <main className="h-[700px]">
+        <main className="h-[800px]">
           <header className="">
             <div className="mx-auto max-w-7xl p-8">
               <div className="flex flex-row w-full gap-2 mb-4 bg-white shadow-xl p-4 rounded-md">
@@ -236,7 +236,7 @@ const SearchContainer = () => {
               </div>
             </div>
           </header>
-          <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll no-scrollbar h-2/3 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll no-scrollbar h-full sm:px-6 lg:px-8">
             <div className="">
               {/* Your content */}
               {recRecords?.map((record) => (
