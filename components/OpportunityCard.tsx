@@ -2,13 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { Opportunity } from "@/types";
-import { forwardRef } from "react";
-import { twMerge } from "tailwind-merge";
-import Image from "next/image";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
-import Router, { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

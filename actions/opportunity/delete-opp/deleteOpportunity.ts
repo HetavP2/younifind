@@ -1,6 +1,5 @@
 // EXAMPLE OF GETTING DATA FROM SUPABASE- help with org
 "use server";
-import { Opportunity } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import deleteOpportunityImages from "../opp-images/deleteOpportunityImages";

@@ -1,6 +1,5 @@
 "use server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { UUID } from "crypto";
 import { cookies } from "next/headers";
 
 const deleteOpportunityImageFromTable = async (

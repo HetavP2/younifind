@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
-import { useSearchParams } from "next/navigation";
-import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
-import Image from "next/image";
 import ImageSelect from "./ImageSelect";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
@@ -42,11 +39,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     typelabel: typelabel || "",
     description: description || "",
     title: title || "",
-    expiry_date: expiry_date || "",
+    expiry_date: String(expiry_date).slice(0, -9) || "",
     contact_email: contact_email || "",
     type: "",
   });
-
 
   return (
     <>
@@ -345,7 +341,17 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             required={false}
             multiple
           />
-          {oppImages ? <ImageSelect oppImages={oppImages} /> : <span></span>}
+          {oppImages ? (
+            <>
+              <br />
+              <br />{" "}
+              <div className="flex">
+                <ImageSelect oppImages={oppImages} />
+              </div>
+            </>
+          ) : (
+            <span></span>
+          )}
 
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"

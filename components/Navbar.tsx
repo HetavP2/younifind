@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo } from "react";
-import AuthButton from "./AuthButton";
+import { useMemo } from "react";
 
 import React from "react";
-import { log } from "util";
 import Script from "next/script";
 
 interface NavbarProps {
@@ -37,6 +35,12 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         active: pathname === "/contact",
         href: "/contact",
       },
+      {
+        // icon: BiSearch,
+        label: "Dashboard",
+        active: pathname === "/dashboard",
+        href: "/dashboard",
+      },
     ],
     [pathname]
   );
@@ -64,7 +68,6 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             return (
               <li key={item.href}>
                 <Link
-                  target="_blank"
                   className="text-sm font-semibold text-gray-400 hover:text-gray-500 mx-1"
                   href={item.href}
                 >

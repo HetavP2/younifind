@@ -1,8 +1,6 @@
 "use server";
 import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
-//its fuckin up cause its use server but if we remove it it wont be able to find the RESEND_API_KEY
 
-import { Resend } from "resend";
 
 interface handleEmailRequestProps {
   operation: string;
