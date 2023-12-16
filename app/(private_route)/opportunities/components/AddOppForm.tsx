@@ -1,11 +1,26 @@
 import React from "react";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
-import {redirect} from 'next/navigation';
+import { redirect } from "next/navigation";
+import { Opportunity } from "@/types";
 
-const AddOppForm: React.FC = async () => {
-  
-  // let todayDate = String(new Date().toISOString())
+interface AddOppFormProps extends Partial<Opportunity> {}
+
+const AddOppForm: React.FC<AddOppFormProps> = async ({
+  id,
+  provider,
+  location,
+  season,
+  approved,
+  industry,
+  isfor,
+  mode,
+  typelabel,
+  description,
+  title,
+  expiry_date,
+  contact_email,
+}) => {
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -33,7 +48,7 @@ const AddOppForm: React.FC = async () => {
     // }
 
     const submissionStatus = await addOpportunity({
-      id: "sa",
+      id: id || 'a',
       title,
       provider,
       location,
@@ -51,7 +66,7 @@ const AddOppForm: React.FC = async () => {
       contact_email: contactEmail,
     });
 
-    redirect(`/dashboard?opportunityStatus=${submissionStatus}`)
+    redirect(`/dashboard?opportunityStatus=${submissionStatus}`);
   };
 
   return (
@@ -77,7 +92,21 @@ const AddOppForm: React.FC = async () => {
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form action={addOpp}>
-                <OpportunityForm />
+                <OpportunityForm
+                  key={id}
+                  title={title}
+                  description={description}
+                  industry={industry}
+                  provider={provider}
+                  season={season}
+                  isfor={isfor}
+                  location={location}
+                  mode={mode}
+                  typelabel={typelabel}
+                  approved={approved}
+                  expiry_date={expiry_date}
+                  contact_email={contact_email}
+                />
               </form>
             </div>
           </div>

@@ -22,34 +22,25 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   title,
   expiry_date,
   contact_email,
-  type,
 }) => {
-  const params = useSearchParams();
-  const oppId = String(params.get("oppId"));
-  
-
-  
+// let todayDate = String(new Date().toISOString());
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
     user_id: "",
-    provider: "",
-    location: "",
-    season: "",
+    provider: provider || "",
+    location: location || "",
+    season: season || "",
     approved: false,
-    industry: "",
-    isfor: "",
-    mode: "",
-    typelabel: "",
-    description: "",
-    title: "",
-    expiry_date: "",
-    contact_email: "",
+    industry: industry || "",
+    isfor: isfor || "",
+    mode: mode || "",
+    typelabel: typelabel || "",
+    description: description || "",
+    title: title || "",
+    expiry_date: expiry_date || "",
+    contact_email: contact_email || "",
     type: "",
   });
-
-  
-
-
 
   return (
     <>
@@ -161,7 +152,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             </label>
             <OppInput
               id="date"
-              type="date"
+              type="datetime-local"
               name="expiryDate"
               value={oppData.expiry_date}
               onChange={(e) =>
@@ -356,7 +347,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
       >
-        Add
+        Done
       </button>
     </>
   );
