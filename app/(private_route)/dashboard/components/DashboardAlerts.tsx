@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 export default function DashboardAlerts() {
@@ -10,8 +10,17 @@ export default function DashboardAlerts() {
   let submissionStatus = params.get("opportunityStatus") || "";
   let firstLogin = params.get("firstLogin") || "";
 
+  const initialized = useRef(false);
+
   useEffect(() => {
-    toast.success("fix this");
+    if (!initialized.current) {
+      initialized.current = true;
+      if (firstLogin === "true") {
+        toast.success("Logged In");
+      } else if (submissionStatus === "SuccessfullyAddedAnOpportunity") {
+        toast.success("Successfully Added An Opportunity");
+      }
+    }
   }, []);
 
   return <></>;
