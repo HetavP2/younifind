@@ -11,7 +11,7 @@ export default function DashboardAlerts() {
   let firstLogin = params.get("firstLogin") || "";
 
   useEffect(() => {
-    toast.success("opp added");
+    toast.success("fix this");
   }, []);
 
   return <></>;
