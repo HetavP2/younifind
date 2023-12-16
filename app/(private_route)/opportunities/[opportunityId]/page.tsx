@@ -20,5 +20,5 @@ export default async function OpportunityDetails({
     }
     
     //pass things down here to subpage component
-  return <OpportunitySubpage title={opportunityDetails.title} />;
+  return <OpportunitySubpage oppDetails={opportunityDetails} />;
 }

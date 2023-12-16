@@ -17,10 +17,8 @@ export default function DashboardAlerts() {
       initialized.current = true;
       if (firstLogin === "true") {
         toast.success("Logged In");
-      } else if (submissionStatus === "SuccessfullyAddedAnOpportunity") {
-        toast.success("Added Opportunity");
       } else if (submissionStatus === "SuccessfullyUpdatedAnOpportunity") {
-        toast.success("Updated");
+        toast.success("Updated Opportunity");
       }
     }
   }, []);

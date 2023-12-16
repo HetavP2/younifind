@@ -103,10 +103,13 @@ const addOpportunity = async ({
     })
     .select();
   
-  let uploadImagesStatus;
+  let uploadImagesStatus = 'NA';
   let emailSentStatus = 'NA';
 
-  if (allOpportunityImages) {
+  console.log("ALL OPP IMAGES")
+  
+
+  if ( allOpportunityImages && allOpportunityImages[0].name !== 'undefined') {
     uploadImagesStatus = await uploadOpportunityImages({
       id,
       user_id: user.id,
@@ -125,7 +128,7 @@ const addOpportunity = async ({
   
 
   if (errorAddingOpp === null && uploadImagesStatus && emailSentStatus) {
-    return 'SuccessfullyAddedAnOpportunity';
+    return "SuccessfullyUpdatedAnOpportunity";
   } else {
     return 'ErrorAddingOpportunity';
   }

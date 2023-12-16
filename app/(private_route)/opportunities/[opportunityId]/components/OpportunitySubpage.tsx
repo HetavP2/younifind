@@ -1,24 +1,14 @@
 import { Opportunity } from '@/types';
 import React from 'react'
 
-interface OpportunitySubpageProps extends Partial<Opportunity> {}
+interface OpportunitySubpageProps {
+  oppDetails: any;
+}
 
 const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
-  provider,
-  location,
-  season,
-  approved,
-  industry,
-  isfor,
-  mode,
-  typelabel,
-  description,
-  title,
-  expiry_date,
-  contact_email,
-  type,
+  oppDetails
 }) => {
-    return <div>OpportunitySubpage for {title}</div>;
+    return <div>OpportunitySubpage for {oppDetails.title}</div>;
 };
 
 export default OpportunitySubpage

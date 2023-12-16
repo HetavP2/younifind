@@ -88,7 +88,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
                   className="mr-2 text-xl text-black "
                   key={image.file_path}
                 />
-                View File
+                {image.file_name}
               </a>
             ))
           ) : (

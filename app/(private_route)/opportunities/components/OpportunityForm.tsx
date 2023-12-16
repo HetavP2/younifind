@@ -338,12 +338,14 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           >
             Upload picture for the opportunity
           </label>
-          <OppInput id="image" type="file" name="opportunityImages" multiple />
-            {oppImages ? (
-              <ImageSelect oppImages={oppImages} />
-            ) : (
-              <span></span>
-            )}
+          <OppInput
+            id="image"
+            type="file"
+            name="opportunityImages"
+            required={false}
+            multiple
+          />
+          {oppImages ? <ImageSelect oppImages={oppImages} /> : <span></span>}
 
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
