@@ -19,7 +19,7 @@ export interface Opportunity {
   mode: string;
   typelabel: string;
   location: string;
-  expiry_date: string;
+  expiry_date: any;
   created_at?: string;
   admin_notes?: string;
   contact_email: string;

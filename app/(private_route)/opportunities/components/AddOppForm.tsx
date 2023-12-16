@@ -39,18 +39,9 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
-    const expiryDate = String(formData.get("expiryDate"));
+    const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
 
-    // console.log(opportunityImages);
-
-    // const file = opportunityImages.files[0];
-    // const fileType = file["type"];
-    // const validImageTypes = ["image/pdf", "image/jpeg", "image/png"];
-    // if (!validImageTypes.includes(fileType)) {
-    //   // invalid file type code goes here.
-
-    // }
 
     const submissionStatus = await addOpportunity({
       id: id || "a",
