@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 import { BiLink } from "react-icons/bi";
+import { GoTrash } from "react-icons/go";
 
 interface ImageSelectProps {
   oppImages: Array<OpportunityImages>;
@@ -16,7 +17,7 @@ interface ImageSelectProps {
 
 const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
   const router = useRouter();
-  const handleCheckboxChange = async (value: string, imageId: string) => {
+  const handleDelete = async (value: string, imageId: string) => {
     const opportunityImageResult = await deleteOpportunityImages({
       imagePaths: [{ file_path: value }],
     });
@@ -51,14 +52,15 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
             />
             {image.file_name}
           </a>
-          <input
-            type="checkbox"
-            className="checkbox"
+          <button
             id={image.id}
             value={image.file_path}
-            onChange={(e) => handleCheckboxChange(e.target.value, e.target.id)}
-            checked={true}
-          />
+            onClick={(e) =>
+              handleDelete(e.currentTarget.value, e.currentTarget.id)
+            }
+          >
+            <GoTrash />
+          </button>
         </>
       ) : (
         <>
@@ -68,14 +70,15 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
             alt="Image"
             src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
           />
-          <input
-            type="checkbox"
-            className="checkbox"
+          <button
             id={image.id}
             value={image.file_path}
-            onChange={(e) => handleCheckboxChange(e.target.value, e.target.id)}
-            checked={true}
-          />
+            onClick={(e) =>
+              handleDelete(e.currentTarget.value, e.currentTarget.id)
+            }
+          >
+            <GoTrash />
+          </button>
         </>
       )}
     </div>

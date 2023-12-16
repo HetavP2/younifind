@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
-import { useSearchParams } from "next/navigation";
-import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
-import Image from "next/image";
 import ImageSelect from "./ImageSelect";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
@@ -42,10 +39,18 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     typelabel: typelabel || "",
     description: description || "",
     title: title || "",
-    expiry_date: expiry_date || "",
+    expiry_date: new Date(expiry_date).toLocaleString() || "",
     contact_email: contact_email || "",
     type: "",
   });
+  console.log(oppData.expiry_date);
+  
+
+
+  // 2023-12-21T22:02:00+00:00 (fetch from db) to 2023-12-20T17:29
+
+  //closet i was but it aint 24 hr time, if it is we can just combine both and put a T in the middle. lol
+  //2023-12-16, 6:34:00 p.m.
 
   return (
     <>
