@@ -70,6 +70,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
       type: "a",
       contact_email: contactEmail,
     });
+    
 
     redirect(`/dashboard?opportunityStatus=${submissionStatus}`);
   };
