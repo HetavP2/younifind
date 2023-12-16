@@ -7,6 +7,7 @@ import { UUID } from "crypto";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 interface ImageSelectProps {
   oppImages: Array<OpportunityImages>;
@@ -19,10 +20,20 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
       imagePaths: [{ file_path: value }],
     });
 
-    const tableImageDelete: string | undefined =
+    const tableImageDeleteResult: string | undefined =
       await deleteOpportunityImageFromTable(imageId);
 
-    router.refresh();
+    if (
+      opportunityImageResult === "successAtDeletingImagesFromStorage" &&
+      tableImageDeleteResult === "deletedEverywhere"
+    ) {
+      toast.success("Image deleted successfully");
+      router.refresh();
+    } else {
+      toast.error("Error deleting image");
+      }
+      
+      
   };
 
   return oppImages.map((image: any) => (
