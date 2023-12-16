@@ -13,6 +13,8 @@ const deleteOpportunityImages = async ({
 }: DeleteOpportunityImagesProps): Promise<string> => {
   const supabase = createClientComponentClient<Database>();
 
+  
+
   try {
     if (imagePaths) {
       const uploadPromises = imagePaths.map(async (path) => {

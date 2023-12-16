@@ -35,6 +35,7 @@ const uploadOpportunityImages = async ({
         await supabase.from("opportunity_images").insert({
           opportunity_id: id,
           file_path: oppImageData.path,
+          user_id: user_id
         });
       }
 

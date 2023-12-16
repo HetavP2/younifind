@@ -2,9 +2,12 @@ import React from "react";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
-import { Opportunity } from "@/types";
+import { Opportunity, OpportunityImages } from "@/types";
 
-interface AddOppFormProps extends Partial<Opportunity> {}
+interface AddOppFormProps extends Partial<Opportunity> {
+  allOpportunityImages: Array<OpportunityImages>;
+
+}
 
 const AddOppForm: React.FC<AddOppFormProps> = async ({
   id,
@@ -20,7 +23,9 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   title,
   expiry_date,
   contact_email,
+  allOpportunityImages,
 }) => {
+  
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -48,7 +53,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     // }
 
     const submissionStatus = await addOpportunity({
-      id: id || 'a',
+      id: id || "a",
       title,
       provider,
       location,
@@ -106,6 +111,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
                   approved={approved}
                   expiry_date={expiry_date}
                   contact_email={contact_email}
+                  oppImages={allOpportunityImages}
                 />
               </form>
             </div>

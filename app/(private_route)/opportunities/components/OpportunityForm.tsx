@@ -3,11 +3,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
-import { Opportunity } from "@/types";
+import { Opportunity, OpportunityImages } from "@/types";
 import { useSearchParams } from "next/navigation";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
+import Image from "next/image";
+import ImageSelect from "./ImageSelect";
 
-interface OpportunityFormProps extends Partial<Opportunity> {}
+interface OpportunityFormProps extends Partial<Opportunity> {
+  oppImages: Array<OpportunityImages>;
+}
 
 const OpportunityForm: React.FC<OpportunityFormProps> = ({
   provider,
@@ -22,8 +26,9 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   title,
   expiry_date,
   contact_email,
+  oppImages,
 }) => {
-// let todayDate = String(new Date().toISOString());
+  // let todayDate = String(new Date().toISOString());
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
     user_id: "",
@@ -41,6 +46,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
+
 
   return (
     <>
@@ -333,6 +339,11 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             Upload picture for the opportunity
           </label>
           <OppInput id="image" type="file" name="opportunityImages" multiple />
+            {oppImages ? (
+              <ImageSelect oppImages={oppImages} />
+            ) : (
+              <span></span>
+            )}
 
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"

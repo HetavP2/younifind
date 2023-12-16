@@ -31,6 +31,7 @@ export interface OpportunityImages {
   file_path: string;
   file_name: string;
   created_at?: string;
+  user_id: string;
 }
 
 
