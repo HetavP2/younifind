@@ -39,18 +39,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     typelabel: typelabel || "",
     description: description || "",
     title: title || "",
-    expiry_date: new Date(expiry_date).toLocaleString() || "",
+    expiry_date: String(expiry_date).slice(0, -9) || "",
     contact_email: contact_email || "",
     type: "",
   });
-  console.log(oppData.expiry_date);
-  
-
-
-  // 2023-12-21T22:02:00+00:00 (fetch from db) to 2023-12-20T17:29
-
-  //closet i was but it aint 24 hr time, if it is we can just combine both and put a T in the middle. lol
-  //2023-12-16, 6:34:00 p.m.
 
   return (
     <>
@@ -352,7 +344,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           {oppImages ? (
             <>
               <br />
-              <br /> <ImageSelect oppImages={oppImages} />
+              <br />{" "}
+              <div className="flex">
+                <ImageSelect oppImages={oppImages} />
+              </div>
             </>
           ) : (
             <span></span>

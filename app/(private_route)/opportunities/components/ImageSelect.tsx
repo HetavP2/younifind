@@ -3,7 +3,6 @@
 import deleteOpportunityImageFromTable from "@/actions/opportunity/opp-images/deleteOpportunityImageFromTable";
 import deleteOpportunityImages from "@/actions/opportunity/opp-images/deleteOpportunityImages";
 import { OpportunityImages } from "@/types";
-import { UUID } from "crypto";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -36,8 +35,8 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
     }
   };
 
-  return oppImages.map((image: any) => (
-    <div className="container">
+  return  oppImages.map((image: any) => (
+    <div className="container ">
       {image.file_type === "application/pdf" ? (
         <>
           <a

@@ -17,7 +17,8 @@ export default async function OpportunityDetails({
 
   if (!opportunityDetails) {
     notFound();
-    }
+  }
+  
     
     //pass things down here to subpage component
   return <OpportunitySubpage oppDetails={opportunityDetails} />;

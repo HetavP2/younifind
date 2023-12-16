@@ -3,7 +3,6 @@
 
 import { Database } from "@/types_db";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import React from "react";
 import { cookies } from "next/headers";
 
 interface UploadOpportunityImagesProps {

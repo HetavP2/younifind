@@ -1,5 +1,4 @@
 import handleEmailRequest from "@/actions/handleEmailRequest";
-import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 

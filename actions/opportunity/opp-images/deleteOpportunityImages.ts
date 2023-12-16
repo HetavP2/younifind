@@ -2,12 +2,12 @@
 "use server";
 
 import { Database } from "@/types_db";
-import React from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface DeleteOpportunityImagesProps {
   imagePaths: Array<any> | null;
 }
+
 const deleteOpportunityImages = async ({
   imagePaths,
 }: DeleteOpportunityImagesProps): Promise<string> => {
