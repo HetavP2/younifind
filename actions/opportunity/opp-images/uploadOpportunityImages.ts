@@ -37,8 +37,8 @@ const uploadOpportunityImages = async ({
           opportunity_id: id,
           file_path: oppImageData.path,
           user_id: user_id,
-          file_name: image.name,
-          file_type: image.type, 
+          file_name: (image as any).name,
+          file_type: (image as any).type, 
         });
       }
 
