@@ -80,7 +80,8 @@ const addOpportunity = async ({
   });
   const responseData = await response.json();
   const embedding = responseData.data[0].embedding;
-
+  
+  
   const { error: errorAddingOpp } = await supabase
     .from("opportunities")
     .upsert({
@@ -103,13 +104,12 @@ const addOpportunity = async ({
     })
     .select();
   
+  
   let uploadImagesStatus = 'NA';
   let emailSentStatus = 'NA';
 
-  console.log("ALL OPP IMAGES")
-  
 
-  if ( allOpportunityImages && allOpportunityImages[0].name !== 'undefined') {
+  if ( allOpportunityImages && (allOpportunityImages[0] as any).name !== 'undefined') {
     uploadImagesStatus = await uploadOpportunityImages({
       id,
       user_id: user.id,

@@ -25,7 +25,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
-  // let todayDate = String(new Date().toISOString());
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
     user_id: "",
@@ -43,6 +42,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
+
+  
 
   return (
     <>

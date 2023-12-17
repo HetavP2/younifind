@@ -35,10 +35,10 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
     }
   };
 
-  return  oppImages.map((image: any) => (
-    <div className="container ">
+  return oppImages.map((image: any) => (
+    <div className="container" key={image.id}>
       {image.file_type === "application/pdf" ? (
-        <>
+        <div key={image.id}>
           <a
             key={image.file_path}
             className="text-md font-medium text-royalblue flex items-center"
@@ -54,31 +54,34 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
           <button
             id={image.id}
             value={image.file_path}
+            key={image.id}
             onClick={(e) =>
               handleDelete(e.currentTarget.value, e.currentTarget.id)
             }
           >
-            <GoTrash />
+            <GoTrash key={image.id} />
           </button>
-        </>
+        </div>
       ) : (
-        <>
+        <div key={image.id}>
           <Image
             width={200}
             height={25}
+            key={image.id}
             alt="Image"
             src={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
           />
           <button
             id={image.id}
+            key={image.id}
             value={image.file_path}
             onClick={(e) =>
               handleDelete(e.currentTarget.value, e.currentTarget.id)
             }
           >
-            <GoTrash />
+            <GoTrash key={image.id} />
           </button>
-        </>
+        </div>
       )}
     </div>
   ));

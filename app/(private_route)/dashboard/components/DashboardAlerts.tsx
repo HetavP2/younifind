@@ -21,7 +21,7 @@ export default function DashboardAlerts() {
         toast.success("Updated Opportunity");
       }
     }
-  }, []);
+  }, [firstLogin, submissionStatus]);
 
   return <></>;
 }

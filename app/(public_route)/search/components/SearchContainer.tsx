@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import ResultCard from "./Result";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
-import Select from "react-select";
+
 
 const SearchContainer = () => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
@@ -240,7 +240,7 @@ const SearchContainer = () => {
             <div className="">
               {/* Your content */}
               {recRecords?.map((record) => (
-                <div className="my-4 rounded-md shadow-xl">
+                <div className="my-4 rounded-md shadow-xl" key={record.id}>
                   <a href={`/opportunities/${record.id}`} target="_blank">
                     <ResultCard recordData={record} />
                   </a>

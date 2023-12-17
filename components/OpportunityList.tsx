@@ -15,6 +15,7 @@ export default async function OpportunityList() {
       <div className="w-2/3 gap-3 p-2 mx-auto py-8 flex items-center ">
         {userOpportunities.map((opportunity) => (
           <div
+            key={opportunity.id}
             className="bg-royalyellow hover:bg-royalblue transition linear duration-200 p-4 w-full rounded-md"
             title={"Manage Opportunity"}
           >
