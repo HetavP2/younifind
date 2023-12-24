@@ -14,9 +14,6 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
 }) => {
   return userOpps && userOpps?.length >= 0 ? (
     <div className="flex w-full">
-      {/* <div className="w-1/4 bg-blue-500">sfusfjiffs</div>
-      <div className="w-3/4 bg-red-500">sfisfji0sfo0jsfjsofojs</div> */}
-
       <DashboardAlerts />
 
       <DashboardSidebar>
@@ -34,9 +31,6 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
         </a>
         to get started.
       </div>
-      {/* <DashboardSidebar>
-        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
-      </DashboardSidebar> */}
     </div>
   );
 };

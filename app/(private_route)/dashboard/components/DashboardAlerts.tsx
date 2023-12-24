@@ -1,14 +1,16 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 export default function DashboardAlerts() {
+  const router = useRouter();
   const params = useSearchParams();
 
-  let submissionStatus = params.get("opportunityStatus") || "";
-  let firstLogin = params.get("firstLogin") || "";
+  let submissionStatus =
+    decodeURIComponent(params.get("opportunityStatus") || "") || "";
+  let firstLogin = decodeURIComponent(params.get("firstLogin") || "") || "";
 
   const initialized = useRef(false);
 
@@ -20,6 +22,7 @@ export default function DashboardAlerts() {
       } else if (submissionStatus === "SuccessfullyUpdatedAnOpportunity") {
         toast.success("Updated Opportunity");
       }
+      router.replace("/dashboard");
     }
   }, [firstLogin, submissionStatus]);
 

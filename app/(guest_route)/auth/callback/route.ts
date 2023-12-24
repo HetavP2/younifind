@@ -11,7 +11,9 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
+  const firstLogin = encodeURIComponent(true);
+
   return NextResponse.redirect(
-    requestUrl.origin + "/dashboard?firstLogin=true"
+    requestUrl.origin + `/dashboard?firstLogin=${firstLogin}`
   );
 }

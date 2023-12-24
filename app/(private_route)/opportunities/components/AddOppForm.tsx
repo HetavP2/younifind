@@ -3,6 +3,7 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
+import Filter from 'bad-words';
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -42,6 +43,14 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
 
+    // const filter = new Filter();
+    // const cleanText = filter.isProfane("Some bad here!");
+    // console.log(formData);
+    
+    
+
+
+
     
 
 
@@ -65,7 +74,9 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     });
     
 
-    redirect(`/dashboard?opportunityStatus=${submissionStatus}`);
+    redirect(
+      `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
+    );
   };
 
   return (

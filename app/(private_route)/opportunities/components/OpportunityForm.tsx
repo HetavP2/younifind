@@ -5,6 +5,7 @@ import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
+import Filter from "bad-words";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
@@ -42,6 +43,9 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
+
+  const filter = new Filter();
+  const cleanText = filter.isProfane("Some bad here!");
 
   
 
