@@ -41,3 +41,10 @@ export interface Admins {
   email: string;
   created_at?: string;
 }
+
+export interface OpportunityStatuses {
+  opportunity_id: number;
+  user_id?: string;
+  approved?: boolean;
+  created_at?: string;
+}

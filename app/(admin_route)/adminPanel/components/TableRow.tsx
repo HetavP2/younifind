@@ -51,13 +51,19 @@ const TableRow: React.FC<TableRowProps> = ({
   }, [id]);
 
   const handleOnChange = async (checked: boolean) => {
-    const { error } = await supabase
+    const { error: errorAddingNotes } = await supabase
       .from("opportunities")
-      .update({ approved: checked, admin_notes: null })
+      .update({ approved: checked, admin_notes: null }) // remove approved after
       .eq("id", id)
       .select();
 
-    if (error) {
+    const { error: errorChangingStatus } = await supabase
+      .from("opportunity_statuses")
+      .update({ approved: checked })
+      .eq("opportunity_id", id)
+      .select();
+
+    if (errorAddingNotes || errorChangingStatus) {
       toast.error("Could not approve!");
     } else {
       toast.success("Success!");

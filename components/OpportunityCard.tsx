@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { BiLink } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
 
 interface OpportunityCardProps extends Opportunity {}
 
@@ -35,11 +36,14 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
   const [oppImages, setOppImages] = useState([]);
   const router = useRouter();
   const params = useSearchParams();
+  let approvalStatus;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: any = await getOpportunityImages(parseInt(id));
+        const oppId = parseInt(id)
+        const data: any = await getOpportunityImages(oppId);
+        approvalStatus = await getOpportunityStatus(oppId);
         setOppImages(data);
       } catch (error) {
         // Handle errors, e.g., log or display an error message
@@ -66,7 +70,7 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     <div className="bg-slate-100  flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
-        {approved ? <span>✅</span> : <span>🕔</span>}
+        {approvalStatus ? <span>✅</span> : <span>🕔</span>}
         <div className="flex font-medium">
           {provider} - {industry}
         </div>
