@@ -3,16 +3,20 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 const getAllAdminOpportunities = async (): Promise<Opportunity[]> => {
-  "use server";
+  ("use server");
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
 
   const { data: allAdminOpportunities, error } = await supabase
     .from("opportunities")
-    .select()
-  .order('approved');
-  
+    .select(
+      `
+    *,
+    opportunity_statuses: approved
+  `
+    )
+    .order("opportunity_statuses.approved");
 
   if (error) {
     console.error(error);

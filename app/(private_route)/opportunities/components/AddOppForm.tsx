@@ -15,7 +15,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   provider,
   location,
   season,
-  approved,
   industry,
   isfor,
   mode,
@@ -67,7 +66,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
       description,
       expiry_date: expiryDate,
       allOpportunityImages: opportunityImages,
-      approved: false,
       user_id: "acc",
       type: "a",
       contact_email: contactEmail,
@@ -113,7 +111,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
                   location={location}
                   mode={mode}
                   typelabel={typelabel}
-                  approved={approved}
                   expiry_date={expiry_date}
                   contact_email={contact_email}
                   oppImages={allOpportunityImages}
