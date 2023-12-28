@@ -57,9 +57,11 @@ const TableRow: React.FC<TableRowProps> = ({
   const handleOnChange = async (checked: boolean) => {
     const { error: errorAddingNotes } = await supabase
       .from("opportunities")
-      .update({ admin_notes: null }) 
+      .update({ admin_notes: null })
       .eq("id", id)
       .select();
+
+    setOppStatus(checked);
 
     const { error: errorChangingStatus } = await supabase
       .from("opportunity_statuses")
