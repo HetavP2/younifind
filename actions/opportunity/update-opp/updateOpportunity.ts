@@ -58,7 +58,6 @@ const updateOpportunity = async ({
         isfor,
         mode,
         type,
-        approved,
         typelabel,
         description,
         expiry_date: expiry_date,

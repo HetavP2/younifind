@@ -7,7 +7,6 @@ export interface UserDetails {
 export interface Opportunity {
   id: string;
   user_id: string;
-  approved: boolean;
   description: string;
   embedding?: Array<any>;
   industry: string;
@@ -48,3 +47,4 @@ export interface OpportunityStatuses {
   approved?: boolean;
   created_at?: string;
 }
+

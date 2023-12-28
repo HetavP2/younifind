@@ -11,15 +11,17 @@ const getOpportunityStatus = async (oppId: number): Promise<boolean> => {
   const { data: opportunity, error } = await supabase
     .from("opportunity_statuses")
     .select()
-    .eq("opportunity_id", oppId);
+    .eq("opportunity_id", oppId)
+  .single();
 
   if (error) {
     throw new Error(error.message);
   }
 
-  const [{ approved: approvalStatus }] = opportunity;
+  const { approved }: { approved: boolean } = opportunity;
 
-  return approvalStatus;
+
+  return approved;
 };
 
 export default getOpportunityStatus;

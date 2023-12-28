@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Opportunity } from "@/types";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import deleteOpportunity from "@/actions/opportunity/delete-opp/deleteOpportunity";
@@ -26,7 +26,6 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     location,
     mode,
     typelabel,
-    approved,
     expiry_date,
     contact_email,
     ...props
@@ -34,25 +33,34 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
   ref
 ) => {
   const [oppImages, setOppImages] = useState([]);
+  const [oppStatus, setOppStatus] = useState(false);
   const router = useRouter();
-  const params = useSearchParams();
-  let approvalStatus;
+
+
+  const initialized = useRef(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const oppId = parseInt(id)
-        const data: any = await getOpportunityImages(oppId);
-        approvalStatus = await getOpportunityStatus(oppId);
-        setOppImages(data);
-      } catch (error) {
-        // Handle errors, e.g., log or display an error message
-        console.error("Error fetching opportunity images:", error);
-      }
-    };
-
-    fetchData();
+    if (!initialized.current) {
+      initialized.current = true;
+      const fetchData = async () => {
+        try {
+          const oppId = parseInt(id)
+          const data: any = await getOpportunityImages(oppId);
+          const approved: boolean =
+            await getOpportunityStatus(oppId);
+          setOppImages(data);
+          
+          setOppStatus(approved);
+        } catch (error) {
+          // Handle errors, e.g., log or display an error message
+          console.error("Error fetching opportunity images:", error);
+        }
+      };
+    
+      fetchData();
+    }
   }, [id]);
+
 
   const handleDelete = async (e: any) => {
     e.preventDefault();
@@ -66,11 +74,15 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     }
   };
 
+  
+  
+  
+
   return (
     <div className="bg-slate-100  flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
-        {approvalStatus ? <span>✅</span> : <span>🕔</span>}
+        {oppStatus ? <span>✅</span> : <span>🕔</span>}
         <div className="flex font-medium">
           {provider} - {industry}
         </div>

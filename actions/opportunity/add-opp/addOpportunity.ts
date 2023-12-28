@@ -94,7 +94,6 @@ const addOpportunity = async ({
       isfor,
       mode,
       type,
-      approved,
       typelabel,
       description,
       user_id: user.id,
