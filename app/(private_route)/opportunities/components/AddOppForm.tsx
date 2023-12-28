@@ -3,11 +3,10 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
-import Filter from 'bad-words';
+import Filter from "bad-words";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
-
 }
 
 const AddOppForm: React.FC<AddOppFormProps> = async ({
@@ -26,7 +25,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   contact_email,
   allOpportunityImages,
 }) => {
-  
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -42,17 +40,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
-
-    // const filter = new Filter();
-    // const cleanText = filter.isProfane("Some bad here!");
-    // console.log(formData);
-    
-    
-
-
-
-    
-
 
     const submissionStatus = await addOpportunity({
       id: id || "a",
@@ -72,12 +59,23 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
       type: "a",
       contact_email: contactEmail,
     });
-    
 
-    redirect(
-      `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
-    );
+    const filter = new Filter();
+    const badText = filter.isProfane(title + provider + description + contactEmail + location);
+    console.log("FILTER RESULTS HERE" + badText);
+
+    if (badText) {
+      alert(
+        "Invalid input! Please do not use any profane language in your listing"
+      );
+    } else {
+      redirect(
+        `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
+      );
+    }
   };
+
+  // console.log(formData);
 
   return (
     <div>
