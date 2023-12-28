@@ -42,7 +42,7 @@ const updateOpportunity = async ({
     const { data: adminInfo, error } = await supabase
       .from("admins")
       .select()
-      .filter("adminId", "in", `(${user.id})`)
+      .filter("admin_id", "in", `(${user.id})`)
       .single();
     if (adminInfo !== null) {
       approved = true;
