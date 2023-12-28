@@ -46,7 +46,7 @@ const SearchContainer = () => {
 
       try {
         const { data, error } = await supabase
-          .from("opportunities")
+          .from("opportunity_statuses")
           .select("*")
           .eq("approved", true)
           .order("id");

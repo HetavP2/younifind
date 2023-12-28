@@ -16,7 +16,6 @@ const getAllAdminOpportunities = async (): Promise<Opportunity[]> => {
     opportunity_statuses: approved
   `
     )
-    .order("opportunity_statuses.approved");
 
   if (error) {
     console.error(error);
