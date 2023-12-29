@@ -3,11 +3,10 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
-import Filter from 'bad-words';
+import OpenAI from "openai";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
-
 }
 
 const AddOppForm: React.FC<AddOppFormProps> = async ({
@@ -25,7 +24,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   contact_email,
   allOpportunityImages,
 }) => {
-  
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -41,40 +39,55 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
+    const openai = new OpenAI();
 
-    // const filter = new Filter();
-    // const cleanText = filter.isProfane("Some bad here!");
-    // console.log(formData);
-    
-    
-
-
-
-    
-
-
-    const submissionStatus = await addOpportunity({
-      id: id || "a",
-      title,
-      provider,
-      location,
-      season,
-      industry,
-      isfor,
-      mode,
-      typelabel,
-      description,
-      expiry_date: expiryDate,
-      allOpportunityImages: opportunityImages,
-      user_id: "acc",
-      type: "a",
-      contact_email: contactEmail,
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content:
+            "Lable this text as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
+        },
+        {
+          role: "user",
+          content: `${title} ${provider} ${location} ${season} ${industry} ${isfor} ${mode} ${typelabel} ${description} ${expiryDate} ${contactEmail}`,
+        },
+      ],
     });
+
+
+
+
+    const profaneContent = response.choices[0].message.content
     
+
+    if (String(profaneContent) === 'false') {
+
+      const submissionStatus = await addOpportunity({
+        id: id || "a",
+        title,
+        provider,
+        location,
+        season,
+        industry,
+        isfor,
+        mode,
+        typelabel,
+        description,
+        expiry_date: expiryDate,
+        allOpportunityImages: opportunityImages,
+        user_id: "acc",
+        type: "a",
+        contact_email: contactEmail,
+      });
 
     redirect(
       `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
     );
+    }
+    
   };
 
   return (
