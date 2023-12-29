@@ -5,7 +5,8 @@ export default function HomePageContent() {
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-royalyellow">
-              Canada's first and only AI powered opportunity finder for students
+              Canada&apos;s first and only AI powered opportunity finder for
+              students
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               younifind helps high school students find opportunities that they
@@ -400,8 +401,8 @@ export default function HomePageContent() {
                 Endless filters
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Keep your company’s lights on with customizable, iterative, and
-                structured workflows built for all efficient teams and
+                Keep your company&apos;s lights on with customizable, iterative,
+                and structured workflows built for all efficient teams and
                 individual.
               </p>
             </div>
@@ -413,7 +414,7 @@ export default function HomePageContent() {
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-              We didn't reinvent the wheel
+              We didn&apos;t reinvent the wheel
             </h2>
             <p className="mb-4">
               We are strategists, designers and developers. Innovators and
@@ -556,7 +557,7 @@ export default function HomePageContent() {
                   </li>
                   <li>
                     <a href="#" className="hover:underline">
-                      Terms &amp; Conditions
+                      Terms Conditions
                     </a>
                   </li>
                 </ul>
