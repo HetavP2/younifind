@@ -4,6 +4,8 @@ import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
 import OpenAI from "openai";
+import fs from "fs";
+import path from "path";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -41,7 +43,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const contactEmail = String(formData.get("contactEmail"));
     const openai = new OpenAI();
 
-    const response = await openai.chat.completions.create({
+    const textModeration = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       temperature: 0,
       messages: [
@@ -57,37 +59,93 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
       ],
     });
 
+    const textModerationResponse = textModeration.choices[0].message.content;
 
+    // const fileModeration = await fetch(
+    //   "https://api.openai.com/v1/chat/completions",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${process.env.OPENAIKEY}`,
+    //     },
+    //     body: JSON.stringify({
+    //       model: "gpt-4-vision-preview",
+    //       messages: [
+    //         {
+    //           role: "user",
+    //           content: [
+    //             {
+    //               type: "text",
+    //               text: "Lable this(or these) image(s) as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
+    //             },
+    //             {
+    //               type: "image",
+    //               image_url: {
+    //                 file: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+    //               },
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //       max_tokens: 300,
+    //     }),
+    //   }
+    // );
 
+    const filesToBase64: any[] = [];
 
-    const profaneContent = response.choices[0].message.content
-    
-
-    if (String(profaneContent) === 'false') {
-
-      const submissionStatus = await addOpportunity({
-        id: id || "a",
-        title,
-        provider,
-        location,
-        season,
-        industry,
-        isfor,
-        mode,
-        typelabel,
-        description,
-        expiry_date: expiryDate,
-        allOpportunityImages: opportunityImages,
-        user_id: "acc",
-        type: "a",
-        contact_email: contactEmail,
-      });
-
-    redirect(
-      `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
-    );
+    async function encodeFileToBase64(file: any): Promise<string> {
+    try {
+      const base64String = file.toString("base64");
+      return base64String;
+    } catch (error) {
+      throw error;
     }
-    
+
+    }
+
+    await Promise.all(
+      opportunityImages.map(async (file) => {
+        const file64 = await encodeFileToBase64(file);
+        filesToBase64.push(file64);
+      })
+    );
+
+    console.log("filesToBase64", filesToBase64[0]); // gives object file
+
+    //   const fileModerationData = await fileModeration.json();
+    //   const fileModerationResponse = fileModerationData;
+
+    // console.log("filemodresponse: ", fileModerationResponse);
+    // console.log('oppimages:', opportunityImages);
+
+    // if (
+    //   String(textModerationResponse) === "false" &&
+    //   String(fileModerationResponse) === "false"
+    // ) {
+    //   const submissionStatus = await addOpportunity({
+    //     id: id || "a",
+    //     title,
+    //     provider,
+    //     location,
+    //     season,
+    //     industry,
+    //     isfor,
+    //     mode,
+    //     typelabel,
+    //     description,
+    //     expiry_date: expiryDate,
+    //     allOpportunityImages: opportunityImages,
+    //     user_id: "acc",
+    //     type: "a",
+    //     contact_email: contactEmail,
+    //   });
+
+    //   redirect(
+    //     `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
+    //   );
+    // }
   };
 
   return (

@@ -5,9 +5,6 @@ import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
-import Filter from "bad-words";
-import validator from "validator";
-// import { hasProfaneWords } from "aedos";
 
 
 interface OpportunityFormProps extends Partial<Opportunity> {
@@ -45,11 +42,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
-  async function detectBadWords(text: string) {
-    // let result = await hasProfaneWords(badWordsInMultipleLanguages);
-  }
-
-  const filter = new Filter();
+  
 
   return (
     <>
@@ -70,8 +63,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="title"
               value={oppData.title}
               onChange={(e) => {
-                // detectBadWords(e.target.value);
-
                 setOppData({ ...oppData, title: e.target.value });
               }}
             />
