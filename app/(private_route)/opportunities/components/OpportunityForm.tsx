@@ -25,6 +25,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
+  const [submitButtonStatus, setSubmitButtonStatus] = useState(false);
+  const [loadingFileChecking, setLoadingFileChecking] = useState(false);
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
@@ -56,7 +58,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
 
       reader.onload = async () => {
         if (typeof reader.result === "string") {
-          // console.log(`Result for file ${i}:`, reader.result);
+
+          setLoadingFileChecking(true);
+          setSubmitButtonStatus(true);
+
 
           const res = await fetch(`/api/filePolice`, {
             method: "POST",
@@ -72,9 +77,11 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           console.log("fileModerationResponseclient", fileModerationResponse);
           
           if (String(fileModerationResponse) === "false") {
-            toast.success("No bad image");
+            toast.success("Image Added Successfully");
+            setLoadingFileChecking(false);
+            setSubmitButtonStatus(false); 
           } else {
-            toast.error("bad image");
+            toast.error("Please select a more appropriate image");
           }
 
         }
@@ -379,6 +386,13 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           >
             Upload picture for the opportunity
           </label>
+          {loadingFileChecking ? (
+            <>
+              <img src="/images/fileChecking.gif" width={100} />
+            </>
+          ) : (
+            <span></span>
+          )}
           <OppInput
             id="image"
             type="file"
@@ -411,6 +425,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
+        disabled={submitButtonStatus}
       >
         Done
       </button>

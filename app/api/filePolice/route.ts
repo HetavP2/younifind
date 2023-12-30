@@ -21,7 +21,7 @@ export async function POST(request: Request) {
           content: [
             {
               type: "text",
-              text: "Label this image as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false (lowercase) or if you assigned any other label respond with true (lowercase) and the label.",
+              text: "You are a content moderator. Label this image as: Toxicity - Rude, disrespectful comments - Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats (contains weapons of any sorts including toy and replica guns, etc) - nothing bad. If you assigned nothing bad respond with false (lowercase) or if you assigned any other label respond with true (lowercase) and the label.",
             },
             {
               type: "image_url",
@@ -39,4 +39,6 @@ export async function POST(request: Request) {
   } catch (error) {
     return NextResponse.json({ error });
   }
+
+
 }
