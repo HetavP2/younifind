@@ -4,8 +4,6 @@ import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
 import OpenAI from "openai";
-import fs from "fs";
-import path from "path";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -26,6 +24,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   contact_email,
   allOpportunityImages,
 }) => {
+
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -50,7 +49,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
         {
           role: "system",
           content:
-            "Lable this text as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
+            "Label this text as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label. If you are responding with false and there is nothing bad found in the user input, perform a scan on all the user input to ensure there are no hacking or hacking attempts such as using a script tag in the user input. If there is any code snippets such as script tags or html code that look suspicious and may hack the application, do not return a response of false; return true and a label of 'Dangerous Input Detected. Please do not attempt to infringe this application's security'. You need to ensure user input is sanitized, safe, not a threat, and not offensive with profane or suggestive or inappropriate language.",
         },
         {
           role: "user",
@@ -61,164 +60,40 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    // const fileModeration = await fetch(
-    //   "https://api.openai.com/v1/chat/completions",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${process.env.OPENAIKEY}`,
-    //     },
-    //     body: JSON.stringify({
-    //       model: "gpt-4-vision-preview",
-    //       messages: [
-    //         {
-    //           role: "user",
-    //           content: [
-    //             {
-    //               type: "text",
-    //               text: "Lable this(or these) image(s) as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
-    //             },
-    //             {
-    //               type: "image",
-    //               image_url: {
-    //                 url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-    //               },
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       max_tokens: 300,
-    //     }),
-    //   }
-    // );
-    
-    // const messages: any[] = [];
-    // const test: any[] = [];
+    if (
+      String(textModerationResponse) === "false" 
+    ) {
+      const submissionStatus = await addOpportunity({
+        id: id || "a",
+        title,
+        provider,
+        location,
+        season,
+        industry,
+        isfor,
+        mode,
+        typelabel,
+        description,
+        expiry_date: expiryDate,
+        allOpportunityImages: opportunityImages,
+        user_id: "acc",
+        type: "a",
+        contact_email: contactEmail,
+      });
 
-    
-    // async function encodeFileToBase64(file: any): Promise<string> {
-    // try {
-    //   const base64String = btoa(file.name);
+      redirect(
+        `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
+      );
+    } else {
+      // alert(textModerationResponse)
+      console.log("BAD TEXT AND INPUT DTECTED")
+      console.log(String(textModerationResponse))
+      redirect(
+        `/dashboard?textStatus=${encodeURIComponent(textModerationResponse ? textModerationResponse : "Bad Input")}`
+      );
       
-    //   return base64String;
-    // } catch (error) {
-    //   throw error;
-    // }
-    
-    // }
 
-    // Function to encode the image
-// function encodeFileToBase64(imagePath: any) {
-//   const image = fs.readFileSync(imagePath.name);
-//   return Buffer.from(image).toString('base64');
-// }
-    
-
-  
-//   // await Promise.all(
-//     opportunityImages.map( (file) => {
-//       const file64 = encodeFileToBase64(file);
-//       test.push(file64);
-
-      // Path to your image
-// const imagePath = "path_to_your_image.png"; // Replace with your image file path
-
-// // Getting the base64 string
-// const base64Image = encodeFileToBase64(imagePath);
-
-// Determine MIME type based on file extension
-// const mimeType = path.extname(imagePath) === '.png' ? 'image/png' : 'image/jpeg';
-
-      // messages.push({
-      //   role: "user",
-      //   content: [
-      //     {
-      //       type: "text",
-      //       text: "Lable this image as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
-      //     },
-      //     {
-      //       type: "image_url",
-      //       image_url: {
-      //         url: file64,
-      //       },
-      //     },
-      //   ],
-      // });
-    // })
-  
-
-    // console.log(test[0]);
-    
-    
-    
-    // const fileModeration = await fetch(
-    //   "https://api.openai.com/v1/chat/completions",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${process.env.OPENAIKEY}`,
-    //     },
-    //     body: JSON.stringify({
-    //       model: "gpt-4-vision-preview",
-    //       // stream: true,
-    //       messages: [
-    //         {
-    //           role: "user",
-    //           content: [
-    //             {
-    //               type: "text",
-    //               text: "Lable this(or these) image(s) as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
-    //             },
-    //             {
-    //               type: "image_url",
-    //               image_url: {
-    //                 url: `data:image/png;base64,${test[0]}`,
-    //               },
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       max_tokens: 300,
-    //     }),
-    //   }
-    // );
-    
-
-
-    //   const fileModerationData = await fileModeration.json();
-    //   const fileModerationResponse = fileModerationData;
-
-    // console.log("filemodresponse: ", fileModerationResponse);
-    // console.log('oppimages:', opportunityImages);
-
-    // if (
-    //   String(textModerationResponse) === "false" &&
-    //   String(fileModerationResponse) === "false"
-    // ) {
-    //   const submissionStatus = await addOpportunity({
-    //     id: id || "a",
-    //     title,
-    //     provider,
-    //     location,
-    //     season,
-    //     industry,
-    //     isfor,
-    //     mode,
-    //     typelabel,
-    //     description,
-    //     expiry_date: expiryDate,
-    //     allOpportunityImages: opportunityImages,
-    //     user_id: "acc",
-    //     type: "a",
-    //     contact_email: contactEmail,
-    //   });
-
-    //   redirect(
-    //     `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
-    //   );
-    // }
+    }
   };
 
   return (
