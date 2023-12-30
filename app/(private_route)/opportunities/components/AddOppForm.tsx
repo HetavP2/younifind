@@ -82,7 +82,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     //             {
     //               type: "image",
     //               image_url: {
-    //                 file: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+    //                 url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
     //               },
     //             },
     //           ],
@@ -93,25 +93,42 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     //   }
     // );
     
-    const messages: any[] = [];
-    const test: any[] = [];
+    // const messages: any[] = [];
+    // const test: any[] = [];
 
     
-    async function encodeFileToBase64(file: any): Promise<string> {
-    try {
-      const base64String = btoa(file.name);
+    // async function encodeFileToBase64(file: any): Promise<string> {
+    // try {
+    //   const base64String = btoa(file.name);
       
-      return base64String;
-    } catch (error) {
-      throw error;
-    }
+    //   return base64String;
+    // } catch (error) {
+    //   throw error;
+    // }
     
-  }
+    // }
+
+    // Function to encode the image
+// function encodeFileToBase64(imagePath: any) {
+//   const image = fs.readFileSync(imagePath.name);
+//   return Buffer.from(image).toString('base64');
+// }
+    
+
   
-  await Promise.all(
-    opportunityImages.map(async (file) => {
-      const file64 = await encodeFileToBase64(file);
-      test.push(file64);
+//   // await Promise.all(
+//     opportunityImages.map( (file) => {
+//       const file64 = encodeFileToBase64(file);
+//       test.push(file64);
+
+      // Path to your image
+// const imagePath = "path_to_your_image.png"; // Replace with your image file path
+
+// // Getting the base64 string
+// const base64Image = encodeFileToBase64(imagePath);
+
+// Determine MIME type based on file extension
+// const mimeType = path.extname(imagePath) === '.png' ? 'image/png' : 'image/jpeg';
 
       // messages.push({
       //   role: "user",
@@ -128,52 +145,52 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
       //     },
       //   ],
       // });
-    })
-    );
+    // })
+  
 
-    console.log(test[0]);
+    // console.log(test[0]);
     
     
     
-    const fileModeration = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAIKEY}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4-vision-preview",
-          // stream: true,
-          messages: [
-            {
-              role: "user",
-              content: [
-                {
-                  type: "text",
-                  text: "Lable this(or these) image(s) as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
-                },
-                {
-                  type: "image_url",
-                  image_url: {
-                    url: test[0],
-                  },
-                },
-              ],
-            },
-          ],
-          max_tokens: 300,
-        }),
-      }
-    );
+    // const fileModeration = await fetch(
+    //   "https://api.openai.com/v1/chat/completions",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${process.env.OPENAIKEY}`,
+    //     },
+    //     body: JSON.stringify({
+    //       model: "gpt-4-vision-preview",
+    //       // stream: true,
+    //       messages: [
+    //         {
+    //           role: "user",
+    //           content: [
+    //             {
+    //               type: "text",
+    //               text: "Lable this(or these) image(s) as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
+    //             },
+    //             {
+    //               type: "image_url",
+    //               image_url: {
+    //                 url: `data:image/png;base64,${test[0]}`,
+    //               },
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //       max_tokens: 300,
+    //     }),
+    //   }
+    // );
     
 
 
-      const fileModerationData = await fileModeration.json();
-      const fileModerationResponse = fileModerationData;
+    //   const fileModerationData = await fileModeration.json();
+    //   const fileModerationResponse = fileModerationData;
 
-    console.log("filemodresponse: ", fileModerationResponse);
+    // console.log("filemodresponse: ", fileModerationResponse);
     // console.log('oppimages:', opportunityImages);
 
     // if (

@@ -5,7 +5,7 @@ import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
-
+import toast from "react-hot-toast";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
@@ -41,6 +41,101 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
+
+  // async function handleFileChange(e: any) {
+  //   if (e.target.files === null) {
+  //     toast.error("no file");
+  //     return;
+  //   }
+
+  //   // const reader = new FileReader();
+  //   const files = e.target.files;
+
+  //   for (let i = 0; i < files.length; i++) {
+  //   const reader = new FileReader();
+  //   const file = files[i];
+
+  //   reader.onload = () => {
+  //     if (typeof reader.result === "string") {
+  //       console.log(`Result for file ${i}:`, reader.result);
+  //       // Here you can set the base64 representation to state or perform any action needed with the result
+  //     }
+  //   };
+
+  //   reader.onerror = (error) => {
+  //     console.log("Error for file:", error);
+  //   };
+
+  //   reader.readAsDataURL(file);
+  // }
+
+  // }
+
+  const messages: any[] = [];
+
+
+  async function handleFileChange(e: any) {
+    if (e.target.files === null) {
+      return;
+    }
+
+    const files = e.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      const file = files[i];
+
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          console.log(`Result for file ${i}:`, reader.result);
+
+          // Here you can set the base64 representation to state or perform any action needed with the result
+
+          messages.push({
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: "Lable this image as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label.",
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: reader.result,
+                },
+              },
+            ],
+          });
+        }
+      };
+
+      reader.onerror = (error) => {
+        console.log("Error for file:", error);
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    const fileModeration = await fetch(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAIKEY}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4-vision-preview",
+          messages,
+          max_tokens: 300,
+        }),
+      }
+    );
+    const fileModerationResponse = await fileModeration.json();
+    console.log("fileModerationResponse: ", fileModerationResponse);
+    //figure out a way to pass this messages array to the parent component which is addoppform
+    
+  }
 
   
 
@@ -340,6 +435,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             name="opportunityImages"
             required={false}
             multiple
+            onChange={(e) => handleFileChange(e)}
           />
           {oppImages ? (
             <>
