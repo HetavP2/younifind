@@ -45,70 +45,78 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
- async function handleFileChange(e: any) {
-   if (e.target.files === null) {
-     return;
-   }
+  async function handleFileChange(e: any) {
+    if (e.target.files === null) {
+      setLoadingFileChecking(false);
+      setSubmitDisabled(false);
+      return;
+    }
 
-   const files = e.target.files;
-   const totalFiles = files.length;
-   let processedFiles = 0;
+    const files = e.target.files;
+    const totalFiles = files.length;
+    let processedFiles = 0;
+    let hasInappropriateFile = false;
 
-   for (let i = 0; i < totalFiles; i++) {
-     setLoadingFileChecking(true);
-     setSubmitDisabled(true);
-     const reader = new FileReader();
-     const file = files[i];
+    const handleProcessedFile = () => {
+      processedFiles++;
 
-     reader.onload = async () => {
-       if (typeof reader.result === "string") {
-         try {
-           const res = await fetch(`/api/filePolice`, {
-             method: "POST",
-             headers: {
-               "Content-Type": "application/json",
-             },
-             body: JSON.stringify({
-               localFilePath: reader.result,
-             }),
-           });
+      if (processedFiles === totalFiles) {
+        // Update loading state only when all files are processed
+        setLoadingFileChecking(false);
+        setSubmitDisabled(hasInappropriateFile);
+      }
+    };
 
-           const fileModerationResponse: any = await res.json();
+    for (let i = 0; i < totalFiles; i++) {
+      setLoadingFileChecking(true);
+      setSubmitDisabled(true);
+      const reader = new FileReader();
+      const file = files[i];
 
-           if (String(fileModerationResponse) === "false") {
-             toast.success(file.name + " Added Successfully");
-           } else {
-             toast.error(file.name + " is inappropriate!");
-           }
-         } catch (error) {
-           toast.error("Error with file");
-         } finally {
-           processedFiles++;
+      if (String(file.type) !== "application/pdf") {
+        reader.onload = async () => {
+          if (typeof reader.result === "string") {
+            try {
+              const res = await fetch(`/api/filePolice`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  localFilePath: reader.result,
+                }),
+              });
 
-           if (processedFiles === totalFiles) {
-             // Update loading state only when all files are processed
-             setLoadingFileChecking(false);
-             setSubmitDisabled(false);
-           }
-         }
-       }
-     };
+              const fileModerationResponse: any = await res.json();
 
-     reader.onerror = (error) => {
-       toast.error("Error with file");
-       processedFiles++;
+              if (String(fileModerationResponse) === "false") {
+                toast.success(file.name + " Added Successfully");
+              } else {
+                toast.error(file.name + " is inappropriate!");
+                hasInappropriateFile = true;
+              }
+            } catch (error) {
+              toast.error("Error with file");
+            } finally {
+              handleProcessedFile();
+            }
+          }
+        };
 
-       if (processedFiles === totalFiles) {
-         // Update loading state only when all files are processed
-         setLoadingFileChecking(false);
-         setSubmitDisabled(false);
-       }
-     };
+        reader.onerror = (error) => {
+          toast.error("Error with file");
+          hasInappropriateFile = true;
+          handleProcessedFile();
+        };
 
-     reader.readAsDataURL(file);
-   }
- }
-
+        reader.readAsDataURL(file);
+      } else {
+        setLoadingFileChecking(false);
+        toast.success(file.name + " Added Successfully");
+        handleProcessedFile();
+      }
+    }
+  }
 
   return (
     <>
