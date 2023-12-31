@@ -46,7 +46,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   });
 
   async function handleFileChange(e: any) {
-    if (e.target.files === null) {
+    if (e.target.files === null || e.target.files.length === 0) {
+      // No files selected
       setLoadingFileChecking(false);
       setSubmitDisabled(false);
       return;
@@ -64,6 +65,12 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         // Update loading state only when all files are processed
         setLoadingFileChecking(false);
         setSubmitDisabled(hasInappropriateFile);
+
+        // If no files were processed, set loading and submit states accordingly
+        if (totalFiles === 0) {
+          setLoadingFileChecking(false);
+          setSubmitDisabled(false);
+        }
       }
     };
 
@@ -117,6 +124,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       }
     }
   }
+
 
   return (
     <>
