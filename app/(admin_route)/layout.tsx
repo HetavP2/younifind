@@ -4,9 +4,17 @@ import { cookies } from "next/headers";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
+import { Metadata } from "next";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
+}
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    nocache: true,
+  },
 }
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
