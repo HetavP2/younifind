@@ -1,6 +1,29 @@
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 import { notFound } from "next/navigation";
 import OpportunitySubpage from "./components/OpportunitySubpage";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { opportunityId: string };
+  }): Promise<Metadata> {
+  const oppId = parseInt(params.opportunityId);
+  if (!oppId) return {
+    title: 'Not Found',
+    description: "The page is not found"
+  }
+
+  const [opportunityDetails] = await getOpportunity(oppId);
+  return {
+    title: opportunityDetails.title,
+    description: opportunityDetails.description,
+    alternates: {
+      canonical: `https://younifind.ca/opportunities/${oppId}`,
+    },
+  };
+  
+}
 
 export default async function OpportunityDetails({
   params,

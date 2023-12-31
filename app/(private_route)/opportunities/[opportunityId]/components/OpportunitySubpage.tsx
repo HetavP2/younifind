@@ -5,6 +5,8 @@ import AuthSystem from "@/components/AuthSystem";
 
 import FileCard from "./FileCard";
 
+
+
 interface OpportunitySubpageProps {
   oppDetails: any;
 }
