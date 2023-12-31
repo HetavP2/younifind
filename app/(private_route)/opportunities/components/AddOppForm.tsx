@@ -24,7 +24,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   contact_email,
   allOpportunityImages,
 }) => {
-
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -95,6 +94,8 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     }
   };
+
+  // console.log(formData);
 
   return (
     <div>
