@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
@@ -25,10 +25,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
-  const [submitButtonStatus, setSubmitButtonStatus] = useState(false);
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
-  const [inappropriateFile, setInappropriateFile] = useState(false);
-
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
@@ -47,87 +45,70 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
-  async function handleFileChange(e: any) {
-    if (e.target.files === null) {
-      return;
-    }
+ async function handleFileChange(e: any) {
+   if (e.target.files === null) {
+     return;
+   }
 
-    const files = e.target.files;
+   const files = e.target.files;
+   const totalFiles = files.length;
+   let processedFiles = 0;
 
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      const file = files[i];
+   for (let i = 0; i < totalFiles; i++) {
+     setLoadingFileChecking(true);
+     setSubmitDisabled(true);
+     const reader = new FileReader();
+     const file = files[i];
 
-      setLoadingFileChecking(true);
-      setSubmitButtonStatus(true);
-      setInappropriateFile(true);
-      
+     reader.onload = async () => {
+       if (typeof reader.result === "string") {
+         try {
+           const res = await fetch(`/api/filePolice`, {
+             method: "POST",
+             headers: {
+               "Content-Type": "application/json",
+             },
+             body: JSON.stringify({
+               localFilePath: reader.result,
+             }),
+           });
 
-      reader.onload = async () => {
-        if (typeof reader.result === "string") {
-          const res = await fetch(`/api/filePolice`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              localFilePath: reader.result,
-            }),
-          });
+           const fileModerationResponse: any = await res.json();
 
-          const fileModerationResponse: any = await res.json();
-          console.log(fileModerationResponse);
-          
+           if (String(fileModerationResponse) === "false") {
+             toast.success(file.name + " Added Successfully");
+           } else {
+             toast.error(file.name + " is inappropriate!");
+           }
+         } catch (error) {
+           toast.error("Error with file");
+         } finally {
+           processedFiles++;
 
-          if (
-            String(fileModerationResponse) !== "false"
-          ) {
-            setInappropriateFile(true);
-            console.log(inappropriateFile);
-          } else {
-            setInappropriateFile(false);
-          }
+           if (processedFiles === totalFiles) {
+             // Update loading state only when all files are processed
+             setLoadingFileChecking(false);
+             setSubmitDisabled(false);
+           }
+         }
+       }
+     };
 
-        }
-      };
+     reader.onerror = (error) => {
+       toast.error("Error with file");
+       processedFiles++;
 
-      reader.onerror = (error) => {
-        toast.error("Error With Image");
-      };
+       if (processedFiles === totalFiles) {
+         // Update loading state only when all files are processed
+         setLoadingFileChecking(false);
+         setSubmitDisabled(false);
+       }
+     };
 
-      reader.readAsDataURL(file);
-    }
+     reader.readAsDataURL(file);
+   }
+ }
 
-    // const firstNonFalseElement = fileModerationResponses.find(
-    //   (element) => String(element) !== "false"
-    // );
-
-    // if (firstNonFalseElement) {
-    //   setLoadingFileChecking(false);
-    //   toast.error("Please select a more appropriate image");
-    // } else {
-    //   toast.success("Image Added Successfully");
-    //   setLoadingFileChecking(false);
-    //   setSubmitButtonStatus(false);
-    // }
-    console.log(inappropriateFile);
-    
-
-    if (inappropriateFile) {
-      setLoadingFileChecking(false);
-      toast.error("Please select a more appropriate image");
-      console.log('here2');
-      
-      e.target.files = null
-      setInappropriateFile(false);
-    } else {
-      toast.success("Image Added Successfully");
-      setLoadingFileChecking(false);
-      setSubmitButtonStatus(false);
-    }
-
-
-  }
 
   return (
     <>
@@ -458,7 +439,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
-        disabled={submitButtonStatus}
+        disabled={submitDisabled}
       >
         Done
       </button>
