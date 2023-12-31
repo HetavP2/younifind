@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 import AddOppForm from "../../components/AddOppForm";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function EditOpportunityPage({
   params,
@@ -17,7 +19,13 @@ export default async function EditOpportunityPage({
 
   const [opportunityDetails] = await getOpportunity(oppId);
 
-  if (!opportunityDetails) {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+
+  if (!opportunityDetails || session?.user.id !== opportunityDetails.user_id) {
     notFound();
   }
 
