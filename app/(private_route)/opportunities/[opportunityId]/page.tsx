@@ -19,7 +19,10 @@ export async function generateMetadata({
     title: opportunityDetails.title,
     description: opportunityDetails.description,
     alternates: {
-      canonical: `https://younifind.ca/opportunities/${oppId}`,
+      canonical: `/opportunities/${oppId}`,
+      languages: {
+        "en-CA": `en-CA/opportunities/${oppId}`
+      },
     },
   };
   
