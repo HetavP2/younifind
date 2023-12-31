@@ -16,7 +16,9 @@ interface ImageSelectProps {
 
 const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
   const router = useRouter();
-  const handleDelete = async (value: string, imageId: string) => {
+  const handleDelete = async (e: any, value: string, imageId: string) => {
+    e.preventDefault();
+
     const opportunityImageResult = await deleteOpportunityImages({
       imagePaths: [{ file_path: value }],
     });
@@ -55,8 +57,9 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
             id={image.id}
             value={image.file_path}
             key={image.id}
+            type="button"
             onClick={(e) =>
-              handleDelete(e.currentTarget.value, e.currentTarget.id)
+              handleDelete(e, e.currentTarget.value, e.currentTarget.id)
             }
           >
             <GoTrash key={image.id} />
@@ -74,9 +77,10 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
           <button
             id={image.id}
             key={image.id}
-            value={image.file_path}
+              value={image.file_path}
+              type="button"
             onClick={(e) =>
-              handleDelete(e.currentTarget.value, e.currentTarget.id)
+              handleDelete(e, e.currentTarget.value, e.currentTarget.id)
             }
           >
             <GoTrash key={image.id} />

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import { BiLink } from "react-icons/bi";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
+import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
 
 interface TableRowProps extends Opportunity {}
 
@@ -25,7 +26,6 @@ const TableRow: React.FC<TableRowProps> = ({
   location,
   mode,
   typelabel,
-  approved,
   admin_notes,
   contact_email,
   ...props
@@ -35,12 +35,16 @@ const TableRow: React.FC<TableRowProps> = ({
   const [adminNotes, setAdminNotes] = useState(admin_notes);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [oppImages, setOppImages] = useState([]);
+  const [oppStatus, setOppStatus] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: any = await getOpportunityImages(parseInt(id));
+        const oppId = parseInt(id);
+        const data: any = await getOpportunityImages(oppId);
+        const approved: boolean = await getOpportunityStatus(oppId);
         setOppImages(data);
+        setOppStatus(approved);
       } catch (error) {
         // Handle errors, e.g., log or display an error message
         console.error("Error fetching opportunity images:", error);
@@ -51,13 +55,21 @@ const TableRow: React.FC<TableRowProps> = ({
   }, [id]);
 
   const handleOnChange = async (checked: boolean) => {
-    const { error } = await supabase
+    const { error: errorAddingNotes } = await supabase
       .from("opportunities")
-      .update({ approved: checked, admin_notes: null })
+      .update({ admin_notes: null })
       .eq("id", id)
       .select();
 
-    if (error) {
+    setOppStatus(checked);
+
+    const { error: errorChangingStatus } = await supabase
+      .from("opportunity_statuses")
+      .update({ approved: checked })
+      .eq("opportunity_id", id)
+      .select();
+
+    if (errorAddingNotes || errorChangingStatus) {
       toast.error("Could not approve!");
     } else {
       toast.success("Success!");
@@ -109,7 +121,7 @@ const TableRow: React.FC<TableRowProps> = ({
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
       <td className="w-4 p-4">
         <div className="flex items-center">
-          {approved ? (
+          {oppStatus ? (
             <input
               id="checkbox-table-search-2"
               type="checkbox"
@@ -140,7 +152,7 @@ const TableRow: React.FC<TableRowProps> = ({
           <div className="font-normal text-gray-500">{provider}</div>
         </div>
       </th>
-      {approved ? (
+      {oppStatus ? (
         <>
           <td className="px-6 py-4"></td>
           <td className="px-6 py-4"></td>
@@ -200,7 +212,7 @@ const TableRow: React.FC<TableRowProps> = ({
 
       <td className="px-6 py-4">
         <div className="flex items-center">
-          {approved ? (
+          {oppStatus ? (
             <>
               <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
               Approved

@@ -3,7 +3,7 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
-import Filter from "bad-words";
+import OpenAI from "openai";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -14,7 +14,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   provider,
   location,
   season,
-  approved,
   industry,
   isfor,
   mode,
@@ -40,38 +39,59 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const opportunityImages = formData.getAll("opportunityImages");
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
+    const openai = new OpenAI();
 
-    const submissionStatus = await addOpportunity({
-      id: id || "a",
-      title,
-      provider,
-      location,
-      season,
-      industry,
-      isfor,
-      mode,
-      typelabel,
-      description,
-      expiry_date: expiryDate,
-      allOpportunityImages: opportunityImages,
-      approved: false,
-      user_id: "acc",
-      type: "a",
-      contact_email: contactEmail,
+    const textModeration = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content:
+            "Label this text as: Toxicity - Rude, disrespectful comments OR Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats - nothing bad. If you assigned nothing bad respond with false or if you assigned any other label respond with true and the label. If you are responding with false and there is nothing bad found in the user input, perform a scan on all the user input to ensure there are no hacking or hacking attempts such as using a script tag in the user input. If there is any code snippets such as script tags or html code that look suspicious and may hack the application, do not return a response of false; return true and a label of 'Dangerous Input Detected. Please do not attempt to infringe this application's security'. You need to ensure user input is sanitized, safe, not a threat, and not offensive with profane or suggestive or inappropriate language.",
+        },
+        {
+          role: "user",
+          content: `${title} ${provider} ${location} ${season} ${industry} ${isfor} ${mode} ${typelabel} ${description} ${expiryDate} ${contactEmail}`,
+        },
+      ],
     });
 
-    const filter = new Filter();
-    const badText = filter.isProfane(title + provider + description + contactEmail + location);
-    console.log("FILTER RESULTS HERE" + badText);
+    const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (badText) {
-      alert(
-        "Invalid input! Please do not use any profane language in your listing"
-      );
-    } else {
+    if (
+      String(textModerationResponse) === "false" 
+    ) {
+      const submissionStatus = await addOpportunity({
+        id: id || "a",
+        title,
+        provider,
+        location,
+        season,
+        industry,
+        isfor,
+        mode,
+        typelabel,
+        description,
+        expiry_date: expiryDate,
+        allOpportunityImages: opportunityImages,
+        user_id: "acc",
+        type: "a",
+        contact_email: contactEmail,
+      });
+
       redirect(
         `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
       );
+    } else {
+      // alert(textModerationResponse)
+      console.log("BAD TEXT AND INPUT DTECTED")
+      console.log(String(textModerationResponse))
+      redirect(
+        `/dashboard?textStatus=${encodeURIComponent(textModerationResponse ? textModerationResponse : "Bad Input")}`
+      );
+      
+
     }
   };
 
@@ -111,7 +131,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
                   location={location}
                   mode={mode}
                   typelabel={typelabel}
-                  approved={approved}
                   expiry_date={expiry_date}
                   contact_email={contact_email}
                   oppImages={allOpportunityImages}

@@ -5,10 +5,7 @@ import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
-import Filter from "bad-words";
-import validator from "validator";
-// import { hasProfaneWords } from "aedos";
-
+import toast from "react-hot-toast";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
@@ -18,7 +15,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   provider,
   location,
   season,
-  approved,
   industry,
   isfor,
   mode,
@@ -29,13 +25,15 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
+  const [loadingFileChecking, setLoadingFileChecking] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
     user_id: "",
     provider: provider || "",
     location: location || "",
     season: season || "",
-    approved: false,
     industry: industry || "",
     isfor: isfor || "",
     mode: mode || "",
@@ -47,11 +45,86 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
-  async function detectBadWords(text: string) {
-    // let result = await hasProfaneWords(badWordsInMultipleLanguages);
+  async function handleFileChange(e: any) {
+    if (e.target.files === null || e.target.files.length === 0) {
+      // No files selected
+      setLoadingFileChecking(false);
+      setSubmitDisabled(false);
+      return;
+    }
+
+    const files = e.target.files;
+    const totalFiles = files.length;
+    let processedFiles = 0;
+    let hasInappropriateFile = false;
+
+    const handleProcessedFile = () => {
+      processedFiles++;
+
+      if (processedFiles === totalFiles) {
+        // Update loading state only when all files are processed
+        setLoadingFileChecking(false);
+        setSubmitDisabled(hasInappropriateFile);
+
+        // If no files were processed, set loading and submit states accordingly
+        if (totalFiles === 0) {
+          setLoadingFileChecking(false);
+          setSubmitDisabled(false);
+        }
+      }
+    };
+
+    for (let i = 0; i < totalFiles; i++) {
+      setLoadingFileChecking(true);
+      setSubmitDisabled(true);
+      const reader = new FileReader();
+      const file = files[i];
+
+      if (String(file.type) !== "application/pdf") {
+        reader.onload = async () => {
+          if (typeof reader.result === "string") {
+            try {
+              const res = await fetch(`/api/filePolice`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  localFilePath: reader.result,
+                }),
+              });
+
+              const fileModerationResponse: any = await res.json();
+
+              if (String(fileModerationResponse) === "false") {
+                toast.success(file.name + " Added Successfully");
+              } else {
+                toast.error(file.name + " is inappropriate!");
+                hasInappropriateFile = true;
+              }
+            } catch (error) {
+              toast.error("Error with file");
+            } finally {
+              handleProcessedFile();
+            }
+          }
+        };
+
+        reader.onerror = (error) => {
+          toast.error("Error with file");
+          hasInappropriateFile = true;
+          handleProcessedFile();
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        setLoadingFileChecking(false);
+        toast.success(file.name + " Added Successfully");
+        handleProcessedFile();
+      }
+    }
   }
 
-  const filter = new Filter();
 
   return (
     <>
@@ -72,8 +145,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               name="title"
               value={oppData.title}
               onChange={(e) => {
-                // detectBadWords(e.target.value);
-
                 setOppData({ ...oppData, title: e.target.value });
               }}
             />
@@ -345,12 +416,20 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           >
             Upload picture for the opportunity
           </label>
+          {loadingFileChecking ? (
+            <>
+              <img src="/images/fileChecking.gif" width={100} />
+            </>
+          ) : (
+            <span></span>
+          )}
           <OppInput
             id="image"
             type="file"
             name="opportunityImages"
             required={false}
             multiple
+            onChange={(e) => handleFileChange(e)}
           />
           {oppImages ? (
             <>
@@ -368,7 +447,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
             id="user_avatar_help"
           >
-            Use pictures to help your opportunity get better recognized.
+            It can approximately 10 seconds to verify your files.
           </div>
         </div>
       </div>
@@ -376,6 +455,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
+        disabled={submitDisabled}
       >
         Done
       </button>

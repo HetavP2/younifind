@@ -34,7 +34,6 @@ export default async function DashboardOpportunityList() {
                   location={opportunity.location}
                   mode={opportunity.mode}
                   typelabel={opportunity.typelabel}
-                  approved={opportunity.approved}
                   id={opportunity.id}
                   expiry_date={opportunity.expiry_date}
                   contact_email={opportunity.contact_email}

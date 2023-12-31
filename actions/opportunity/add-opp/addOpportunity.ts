@@ -56,7 +56,7 @@ const addOpportunity = async ({
   const { data: adminInfo, error } = await supabase
     .from("admins")
     .select()
-    .filter("adminId", "in", `(${user.id})`)
+    .filter("admin_id", "in", `(${user.id})`)
     .single();
   if (adminInfo !== null) {
     approved = true;
@@ -94,7 +94,6 @@ const addOpportunity = async ({
       isfor,
       mode,
       type,
-      approved,
       typelabel,
       description,
       user_id: user.id,
@@ -116,6 +115,7 @@ const addOpportunity = async ({
       allOpportunityImages,
     });
   }
+  
 
   if (!approved) {
     emailSentStatus = await sendEmail({

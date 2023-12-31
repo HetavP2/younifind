@@ -118,7 +118,6 @@ export default async function AdminPanel() {
               location={opportunity.location}
               mode={opportunity.mode}
               typelabel={opportunity.typelabel}
-              approved={opportunity.approved}
               expiry_date={opportunity.expiry_date}
               admin_notes={opportunity.admin_notes}
               contact_email={opportunity.contact_email}

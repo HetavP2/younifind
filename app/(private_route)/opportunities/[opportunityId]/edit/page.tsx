@@ -36,7 +36,6 @@ export default async function EditOpportunityPage({
       location={opportunityDetails.location}
       mode={opportunityDetails.mode}
       typelabel={opportunityDetails.typelabel}
-      approved={opportunityDetails.approved}
       expiry_date={opportunityDetails.expiry_date}
       contact_email={opportunityDetails.contact_email}
       allOpportunityImages={data}

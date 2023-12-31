@@ -12,6 +12,9 @@ export default function DashboardAlerts() {
     decodeURIComponent(params.get("opportunityStatus") || "") || "";
   let firstLogin = decodeURIComponent(params.get("firstLogin") || "") || "";
 
+  let textStatus =
+    decodeURIComponent(params.get("textStatus") || "") || "";
+
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -21,6 +24,8 @@ export default function DashboardAlerts() {
         toast.success("Logged In");
       } else if (submissionStatus === "SuccessfullyUpdatedAnOpportunity") {
         toast.success("Updated Opportunity");
+      }else if (textStatus != "" &&textStatus != "false" ) {
+        toast.error(textStatus);
       }
       router.replace("/dashboard");
     }

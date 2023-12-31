@@ -25,7 +25,7 @@ export default async function PrivateLayout({
       <body>
         <ToasterProvider />
         <SupabaseProvider>
-          <UserProvider>{children}</UserProvider>
+          {children}
         </SupabaseProvider>
       </body>
     </html>

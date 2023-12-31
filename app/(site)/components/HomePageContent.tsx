@@ -5,8 +5,8 @@ export default function HomePageContent() {
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-royalyellow">
-              Canada's first and only AI powered search engine that connects
-              students to quality opportunities
+              Canada&apos;s first and only AI powered extracurricular activities finder for high school
+              students
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               younifind helps high school students find opportunities that they
@@ -31,7 +31,7 @@ export default function HomePageContent() {
               </svg>
             </a>
             <a
-              href="#"
+              href="/community"
               className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
               Need Help?
@@ -46,7 +46,7 @@ export default function HomePageContent() {
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
           <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">
-            You’ll be in good company
+            We got your back because they got ours
           </h2>
           <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
             <a href="#" className="flex justify-center items-center">
@@ -264,11 +264,11 @@ export default function HomePageContent() {
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-              Designed for business teams like yours
+              Built for student dreams like yours
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Here at Flowbite we focus on markets where technology, innovation,
-              and capital can unlock long-term value and drive economic growth.
+              Here at younifind our mission revolves around connecting students
+              with opportunities and bridging gaps.
             </p>
           </div>
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -287,10 +287,10 @@ export default function HomePageContent() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Marketing
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
+                Tailored
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-[#00CED1]">
                 Plan it, create it, launch it. Collaborate seamlessly with all
                 the organization and hit your marketing goals every month with
                 our marketing plan.
@@ -307,8 +307,10 @@ export default function HomePageContent() {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">Legal</h3>
-              <p className="text-gray-500 dark:text-gray-400">
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
+                Secure
+              </h3>
+              <p className="text-gray-500 dark:text-[#ADD8E6]">
                 Protect your organization, devices and stay compliant with our
                 structured workflows and custom permissions made for you.
               </p>
@@ -329,10 +331,10 @@ export default function HomePageContent() {
                   <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Business Automation
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-[#E0FFFF]">
                 Auto-assign tasks, send Slack messages, and much more. Now power
                 up with hundreds of new templates to help you get started.
               </p>
@@ -353,10 +355,10 @@ export default function HomePageContent() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Finance
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
+                Free
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-[#73C2FB]">
                 Audit-proof software built for critical financial operations
                 like month-end close and quarterly budgeting.
               </p>
@@ -372,8 +374,8 @@ export default function HomePageContent() {
                   <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Enterprise Design
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
+                Vetted
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
                 Craft beautiful, delightful experiences for both marketing and
@@ -395,12 +397,12 @@ export default function HomePageContent() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Operations
+              <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
+                Endless filters
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Keep your company’s lights on with customizable, iterative, and
-                structured workflows built for all efficient teams and
+                Keep your company&apos;s lights on with customizable, iterative,
+                and structured workflows built for all efficient teams and
                 individual.
               </p>
             </div>
@@ -412,7 +414,7 @@ export default function HomePageContent() {
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-              We didn't reinvent the wheel
+              We didn&apos;t reinvent the wheel
             </h2>
             <p className="mb-4">
               We are strategists, designers and developers. Innovators and
@@ -445,9 +447,9 @@ export default function HomePageContent() {
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-              Powering innovation at{" "}
-              <span className="font-extrabold">200,000+</span> companies
-              worldwide
+              Shaping Futures, One Opportunity at a Time for{" "}
+              <span className="font-extrabold">1,000+</span> students across the{" "}
+              <span className="text-royalyellow">region</span>
             </h2>
             <p className="mb-4 font-light">
               Track work across the enterprise through an open, collaborative
@@ -462,7 +464,7 @@ export default function HomePageContent() {
               eliminate toil, and deploy changes with ease.
             </p>
             <a
-              href="#"
+              href="/about"
               className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
             >
               Learn more
@@ -483,7 +485,7 @@ export default function HomePageContent() {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-gray-900">
+      {/* <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center">
             <h2 className="mb-4 text-4xl font-extrabold leading-tight text-gray-900 dark:text-white">
@@ -500,21 +502,22 @@ export default function HomePageContent() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <footer className="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
         <div className="mx-auto max-w-screen-xl">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <a href="https://flowbite.com" className="flex items-center">
-                <img
+                {/* <img
                   src="https://flowbite.com/docs/images/logo.svg"
                   className="mr-3 h-8"
                   alt="FlowBite Logo"
-                />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                /> */}
+                <img width="200" src="/images/younifindwithbackground.png" />
+                {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                   Flowbite
-                </span>
+                </span> */}
               </a>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -524,34 +527,24 @@ export default function HomePageContent() {
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400">
                   <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Flowbite
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Tailwind CSS
+                    <a href="/community" className="hover:underline">
+                      Community
                     </a>
                   </li>
                 </ul>
               </div>
-              <div>
+              {/* <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Follow us
+                  Contact Us
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400">
                   <li className="mb-4">
                     <a href="#" className="hover:underline ">
-                      Github
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Discord
+                      Email
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Legal
@@ -564,7 +557,7 @@ export default function HomePageContent() {
                   </li>
                   <li>
                     <a href="#" className="hover:underline">
-                      Terms &amp; Conditions
+                      Terms Conditions
                     </a>
                   </li>
                 </ul>
@@ -574,14 +567,14 @@ export default function HomePageContent() {
           <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2022{" "}
+              © 2023{" "}
               <a href="#" className="hover:underline">
-                Your website
+                younifind
               </a>
               . All Rights Reserved.
             </span>
             <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
@@ -597,7 +590,7 @@ export default function HomePageContent() {
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
+              </a> */}
               <a
                 href="#"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
@@ -628,7 +621,7 @@ export default function HomePageContent() {
                   <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                 </svg>
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
@@ -644,8 +637,8 @@ export default function HomePageContent() {
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
-              <a
+              </a> */}
+              {/* <a
                 href="#"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
@@ -661,7 +654,7 @@ export default function HomePageContent() {
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
