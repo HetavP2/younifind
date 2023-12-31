@@ -5,8 +5,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
 
-
-export default async function PrivateLayout({
+export default async function EditOpportunityLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -19,7 +18,7 @@ export default async function PrivateLayout({
   if (!session) {
     redirect("/login");
   }
-  
+
   return (
     <html lang="en">
       <body>
