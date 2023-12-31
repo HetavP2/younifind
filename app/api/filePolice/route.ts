@@ -33,7 +33,6 @@ export async function POST(request: Request) {
     });
 
     const fileModerationResponse = fileModeration.choices[0].message.content;
-    console.log("fileModerationResponsevscode", fileModerationResponse);
 
     return NextResponse.json(fileModerationResponse);
   } catch (error) {

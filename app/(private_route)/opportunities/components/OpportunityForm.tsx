@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
@@ -27,6 +27,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
 }) => {
   const [submitButtonStatus, setSubmitButtonStatus] = useState(false);
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
+  const [inappropriateFile, setInappropriateFile] = useState(false);
+
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
@@ -56,13 +58,13 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       const reader = new FileReader();
       const file = files[i];
 
+      setLoadingFileChecking(true);
+      setSubmitButtonStatus(true);
+      setInappropriateFile(true);
+      
+
       reader.onload = async () => {
         if (typeof reader.result === "string") {
-
-          setLoadingFileChecking(true);
-          setSubmitButtonStatus(true);
-
-
           const res = await fetch(`/api/filePolice`, {
             method: "POST",
             headers: {
@@ -74,27 +76,58 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           });
 
           const fileModerationResponse: any = await res.json();
-          console.log("fileModerationResponseclient", fileModerationResponse);
+          console.log(fileModerationResponse);
           
-          if (String(fileModerationResponse) === "false") {
-            toast.success("Image Added Successfully");
-            setLoadingFileChecking(false);
-            setSubmitButtonStatus(false); 
+
+          if (
+            String(fileModerationResponse) !== "false"
+          ) {
+            setInappropriateFile(true);
+            console.log(inappropriateFile);
           } else {
-            toast.error("Please select a more appropriate image");
+            setInappropriateFile(false);
           }
 
         }
       };
 
       reader.onerror = (error) => {
-        console.log("Error for file:", error);
+        toast.error("Error With Image");
       };
 
       reader.readAsDataURL(file);
     }
-  }
 
+    // const firstNonFalseElement = fileModerationResponses.find(
+    //   (element) => String(element) !== "false"
+    // );
+
+    // if (firstNonFalseElement) {
+    //   setLoadingFileChecking(false);
+    //   toast.error("Please select a more appropriate image");
+    // } else {
+    //   toast.success("Image Added Successfully");
+    //   setLoadingFileChecking(false);
+    //   setSubmitButtonStatus(false);
+    // }
+    console.log(inappropriateFile);
+    
+
+    if (inappropriateFile) {
+      setLoadingFileChecking(false);
+      toast.error("Please select a more appropriate image");
+      console.log('here2');
+      
+      e.target.files = null
+      setInappropriateFile(false);
+    } else {
+      toast.success("Image Added Successfully");
+      setLoadingFileChecking(false);
+      setSubmitButtonStatus(false);
+    }
+
+
+  }
 
   return (
     <>
