@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import ResultCard from "./Result";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
-
+import getAllApprovedOpportunities from "@/actions/opportunity/get-opps/getAllApprovedOpportunities";
 
 const SearchContainer = () => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
@@ -45,19 +45,22 @@ const SearchContainer = () => {
       //   };
 
       try {
-        const { data, error } = await supabase
-          .from("opportunity_statuses")
-          .select("*")
-          .eq("approved", true)
-          .order("id");
+        // const { data, error } = await supabase
+        //   .from("opportunity_statuses")
+        //   .select("*")
+        //   .eq("approved", true)
+        //   .order("id");
+        const allApprovedOpportunities = await getAllApprovedOpportunities();
+        setRecRecords(allApprovedOpportunities);
 
-        if (error) {
-          console.error("Error fetching data:", error);
-          // Handle error state or notify the user
-        } else {
-          console.log("Fetched data:", data);
-          setRecRecords(data || []); // Set empty array if data is null
-        }
+
+        // if (error) {
+        //   console.error("Error fetching data:", error);
+        //   // Handle error state or notify the user
+        // } else {
+        //   console.log("Fetched data:", data);
+        //   setRecRecords(data || []); // Set empty array if data is null
+        // }
       } catch (error) {
         console.error("Error in fetching data:", error);
         // Handle error state or notify the user

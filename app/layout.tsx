@@ -7,7 +7,7 @@ import ToasterProvider from "@/providers/ToasterProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://younifind.ca"),
+  metadataBase: new URL("https://www.younifind.ca"),
   title: {
     default:
       "Canada's first and only AI powered opportunity finder for students | younifind©",

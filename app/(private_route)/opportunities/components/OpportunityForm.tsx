@@ -447,7 +447,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
             id="user_avatar_help"
           >
-            Use pictures to help your opportunity get better recognized.
+            It can approximately 10 seconds to verify your files.
           </div>
         </div>
       </div>

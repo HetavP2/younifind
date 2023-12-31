@@ -115,6 +115,7 @@ const addOpportunity = async ({
       allOpportunityImages,
     });
   }
+  
 
   if (!approved) {
     emailSentStatus = await sendEmail({

@@ -2,6 +2,7 @@ import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 import { notFound } from "next/navigation";
 import OpportunitySubpage from "./components/OpportunitySubpage";
 import { Metadata } from "next";
+import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
 
 export async function generateMetadata({
   params,
@@ -40,8 +41,10 @@ export default async function OpportunityDetails({
   }
 
   const [opportunityDetails] = await getOpportunity(oppId);
+  const approved = await getOpportunityStatus(oppId);
 
-  if (!opportunityDetails) {
+
+  if (!opportunityDetails || !approved) {
     notFound();
   }
   

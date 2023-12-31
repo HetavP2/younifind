@@ -22,6 +22,7 @@ export interface Opportunity {
   created_at?: string;
   admin_notes?: string;
   contact_email: string;
+  updated_at?: string;
 }
 
 export interface OpportunityImages {
