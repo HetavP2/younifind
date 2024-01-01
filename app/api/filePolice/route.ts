@@ -33,6 +33,7 @@ export async function POST(request: Request) {
     });
 
     const fileModerationResponse = fileModeration.choices[0].message.content;
+    
 
     return NextResponse.json(fileModerationResponse);
   } catch (error) {

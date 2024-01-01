@@ -2,13 +2,13 @@ import SupabaseProvider from "@/providers/SupabaseProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Navbar from "@/components/Navbar";
 
-interface ViewIndividualOpportunityProps {
+interface IndividualOpportunityProps {
   children: React.ReactNode;
 }
 
-export default async function ViewIndividualOpportunity({
+export default async function IndividualOpportunity({
   children,
-}: ViewIndividualOpportunityProps) {
+}: IndividualOpportunityProps) {
 
   return (
     <html lang="en">
