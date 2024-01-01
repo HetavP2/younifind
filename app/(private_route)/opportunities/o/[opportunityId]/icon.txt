@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-
+change this is to tsx
 export const size = {
   width: 33,
   height: 33,
