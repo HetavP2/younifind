@@ -5,6 +5,33 @@ import AddOppForm from "../../components/AddOppForm";
 import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunityImages";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { Metadata } from "next";
+
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { opportunityId: string };
+}): Promise<Metadata> {
+  const oppId = parseInt(params.opportunityId);
+  if (!oppId)
+    return {
+      title: "Not Found",
+      description: "The page is not found",
+    };
+
+  const [opportunityDetails] = await getOpportunity(oppId);
+  return {
+    title: "Editing " + opportunityDetails.title,
+    description: opportunityDetails.description,
+    alternates: {
+      canonical: `/opportunities/o/${oppId}/edit`,
+      languages: {
+        "en-CA": `en-CA/opportunities/o/${oppId}/edit`,
+      },
+    },
+  };
+}
 
 export default async function EditOpportunityPage({
   params,

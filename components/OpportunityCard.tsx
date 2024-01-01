@@ -122,12 +122,12 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
               Delete Opportunity
             </button>
             <button className="bg-royalblue text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
-              <a href={`/o/${id}`} target="_blank">
+              <a href={`/opportunities/o/${id}`} target="_blank">
                 View Opportunity
               </a>
             </button>
             <a
-              href={`/o/${id}/edit`}
+              href={`/opportunities/o/${id}/edit`}
               className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200"
             >
               Edit Opportunity

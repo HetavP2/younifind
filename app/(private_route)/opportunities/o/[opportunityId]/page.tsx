@@ -20,9 +20,9 @@ export async function generateMetadata({
     title: opportunityDetails.title,
     description: opportunityDetails.description,
     alternates: {
-      canonical: `/o/${oppId}`,
+      canonical: `/opportunities/o/${oppId}`,
       languages: {
-        "en-CA": `en-CA/o/${oppId}`
+        "en-CA": `en-CA/opportunities/o/${oppId}`,
       },
     },
   };
