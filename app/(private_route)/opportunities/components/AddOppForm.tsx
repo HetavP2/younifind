@@ -58,6 +58,8 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     });
 
     const textModerationResponse = textModeration.choices[0].message.content;
+    console.log(textModerationResponse);
+    
 
     if (
       String(textModerationResponse) === "false" 
