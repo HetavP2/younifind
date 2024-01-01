@@ -2,7 +2,6 @@
 
 import { Database } from "@/types_db";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { createClient } from "@supabase/supabase-js";
 import React, { useEffect, useState } from "react";
 import ResultCard from "./Result";
 import { BiSearch } from "react-icons/bi";

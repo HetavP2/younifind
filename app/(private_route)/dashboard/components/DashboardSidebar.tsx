@@ -33,7 +33,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
             <li className="my-6" key="Add Opportunity">
               <Link
                 className="bg-white py-2 px-6 w-full rounded-md text-royalblue flex jusitfy-start items-center space-x-6  focus:outline-none"
-                href="/opportunities/new"
+                href="/o/new"
               >
                 <HiOutlineHome className="text-xl mr-2" />
                 Add Opportunity

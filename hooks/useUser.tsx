@@ -1,6 +1,5 @@
 import { UserDetails } from "@/types";
 import { User } from "@supabase/auth-helpers-nextjs";
-import { Opportunity } from "@/types";
 import { createContext } from "react";
 import {
   useSessionContext,
