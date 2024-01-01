@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   description:
     "Fill in the target information for the new opportunity in order to get your extracurricular activity discovered by high school students.",
   alternates: {
-    canonical: `/o/new`,
+    canonical: `/opportunties/o/new`,
     languages: {
-      "en-CA": `en-CA/o/new`,
+      "en-CA": `en-CA/opportunties/o/new`,
     },
   },
 };

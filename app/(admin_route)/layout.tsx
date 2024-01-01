@@ -15,7 +15,15 @@ export const metadata: Metadata = {
     index: false,
     nocache: true,
   },
-}
+  title: "Admin Panel",
+  description: "Do your part in vetting opportunties. Be a vetter today!",
+  alternates: {
+    canonical: `/adminPanel`,
+    languages: {
+      "en-CA": `en-CA/adminPanel`,
+    },
+  },
+};
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
   const supabase = createServerComponentClient({ cookies });

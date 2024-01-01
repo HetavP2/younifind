@@ -1,4 +1,3 @@
-import { Opportunity } from "@/types";
 import React from "react";
 import Navbar from "@/components/Navbar";
 import AuthSystem from "@/components/AuthSystem";
