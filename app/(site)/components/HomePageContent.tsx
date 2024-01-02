@@ -422,7 +422,7 @@ export default function HomePageContent() {
             <p className="mb-4 font-medium">
               We are 2 innovators who have simply seen the problem and executed.
               Through younifind we hope students can find meaningful
-              extracurricular activies that can make them a better person.
+              extracurricular activities that can help them grow.
             </p>
             {/* <p>
               We are strategists, designers and developers. Innovators and
