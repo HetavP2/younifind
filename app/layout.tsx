@@ -123,7 +123,7 @@ export const metadata: Metadata = {
   description:
     "younifind© provides high school students with a massive catalogue of extracurricular activities that would interest them in areas such as software, finance and medicine. From internships to volunteer opportunities and even research in labs, high school students in all grades will be able to find the best extracurriculars in the Greater Toronto Area.",
   verification: {
-    google: "assafasf" // put google search console id
+    google: "Mbe9lNmxmPjD3M2FzGjobx0ds6IENf6RbzqjoXFTYjQ" 
   },
   icons: {
     icon: "/favicon/favicon.ico",
