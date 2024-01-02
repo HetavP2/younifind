@@ -3,12 +3,9 @@ import OpenAI from "openai";
 
 const openai = new OpenAI();
 
-type FilePolice = {
-  localFilePath: any;
-};
-
 export async function POST(request: Request) {
   const fileData = await request.json();
+  
 
   const { localFilePath } = fileData;
 
