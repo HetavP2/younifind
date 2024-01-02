@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: 'Dashboard',
   description:
-    "Create new opportunities with a single click. Need volunteers? Need interns? This is the perfect place to get your organization recognized to the masses.",
+    "Create new opportunities with a single click. Need volunteers? Need interns? This is the perfect place to get your organization recognized to the masses. Sign up today to access the Younifind Dashboard.",
   alternates: {
       canonical: `/dashboard`,
       languages: {

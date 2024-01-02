@@ -11,7 +11,7 @@ import { Metadata } from "next";
 // import ResultCard from "@/components/Result";
 
 export const metadata: Metadata = {
-  title: "Massive Plethora Of Extracurricular Activies",
+  title: "Find Your Next Big Thing",
   description:
     "An endless catalogue of extracurricular activies for high school students across the Greater Toronto Area and more. Regardless of the field there is an opportunity for all students juniors or seniors.",
   alternates: {

@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     index: false,
     nocache: true,
   },
-  title: "Admin Panel",
-  description: "Do your part in vetting opportunties. Be a vetter today!",
+  title: "younifind Admin Panel",
+  description: "younifind's admin panel allows authorized users to manage the opportunities and users on the platform.",
   alternates: {
     canonical: `/adminPanel`,
     languages: {
