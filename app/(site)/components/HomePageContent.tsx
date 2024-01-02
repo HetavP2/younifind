@@ -7,8 +7,8 @@ export default function HomePageContent() {
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-royalyellow">
-              Canada&apos;s first and only AI powered extracurricular activities finder for high school
-              students
+              Canada&apos;s first and only AI powered extracurricular activities
+              finder for high school students
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               younifind helps high school students find opportunities that they
@@ -40,7 +40,7 @@ export default function HomePageContent() {
             </a>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="/images/younifindheptahedral.png" alt="mockup"  />
+            <img src="/images/younifindheptahedral.png" alt="mockup" />
           </div>
         </div>
       </section>
@@ -268,7 +268,7 @@ export default function HomePageContent() {
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
               Built for student dreams like yours
             </h2>
-            <p className="text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="text-gray-500 font-medium sm:text-xl dark:text-gray-400">
               Here at younifind our mission revolves around connecting students
               with opportunities and bridging gaps.
             </p>
@@ -289,13 +289,14 @@ export default function HomePageContent() {
                   ></path>
                 </svg>
               </div>
+              {/* put number 1 icon */}
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Tailored
               </h3>
-              <p className="text-gray-500 dark:text-[#00CED1]">
-                Plan it, create it, launch it. Collaborate seamlessly with all
-                the organization and hit your marketing goals every month with
-                our marketing plan.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                you will see opportunities that relate to you only. No more
+                endless scrolling to find that one opportunity as your favorite
+                ones will always be on the top.
               </p>
             </div>
             <div>
@@ -312,9 +313,9 @@ export default function HomePageContent() {
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Secure
               </h3>
-              <p className="text-gray-500 dark:text-[#ADD8E6]">
-                Protect your organization, devices and stay compliant with our
-                structured workflows and custom permissions made for you.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                We do not store any personal information and all the data we do
+                took is protected with the current and top of the line security.
               </p>
             </div>
             <div>
@@ -334,11 +335,12 @@ export default function HomePageContent() {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
-                Business Automation
+                Newsletter
               </h3>
-              <p className="text-gray-500 dark:text-[#E0FFFF]">
-                Auto-assign tasks, send Slack messages, and much more. Now power
-                up with hundreds of new templates to help you get started.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                younifind's custom newsletter feature makes it easier for
+                students to never miss an extracurricular. No more feeling left
+                out!
               </p>
             </div>
             <div>
@@ -360,9 +362,9 @@ export default function HomePageContent() {
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Free
               </h3>
-              <p className="text-gray-500 dark:text-[#73C2FB]">
-                Audit-proof software built for critical financial operations
-                like month-end close and quarterly budgeting.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                Access all our features for free. No ads whatsoever on our
+                platform.
               </p>
             </div>
             <div>
@@ -379,9 +381,9 @@ export default function HomePageContent() {
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Vetted
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Craft beautiful, delightful experiences for both marketing and
-                product with real cross-company collaboration.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                All opportunities have gone through numerous checks to ensure
+                that they are legit and appropriate for the school crowd.
               </p>
             </div>
             <div>
@@ -402,10 +404,9 @@ export default function HomePageContent() {
               <h3 className="mb-2 text-xl font-bold dark:text-[#e7dd7a]">
                 Endless filters
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Keep your company&apos;s lights on with customizable, iterative,
-                and structured workflows built for all efficient teams and
-                individual.
+              <p className="text-gray-500 font-medium dark:text-gray-400">
+                Our filters will gurantee that you are able to find that one
+                opportunity that you love!
               </p>
             </div>
           </div>
@@ -418,17 +419,15 @@ export default function HomePageContent() {
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
               We didn&apos;t reinvent the wheel
             </h2>
-            <p className="mb-4">
-              We are strategists, designers and developers. Innovators and
-              problem solvers. Small enough to be simple and quick, but big
-              enough to deliver the scope you want at the pace you need. Small
-              enough to be simple and quick, but big enough to deliver the scope
-              you want at the pace you need.
+            <p className="mb-4 font-medium">
+              We are 2 innovators who have simply seen the problem and executed.
+              Through younifind we hope students can find meaningful
+              extracurricular activies that can make them a better person.
             </p>
-            <p>
+            {/* <p>
               We are strategists, designers and developers. Innovators and
               problem solvers. Small enough to be simple and quick.
-            </p>
+            </p> */}
           </div>
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img
@@ -453,17 +452,9 @@ export default function HomePageContent() {
               <span className="font-extrabold">1,000+</span> students across the{" "}
               <span className="text-royalyellow">region</span>
             </h2>
-            <p className="mb-4 font-light">
-              Track work across the enterprise through an open, collaborative
-              platform. Link issues across Jira and ingest data from other
-              software development tools, so your IT support and operations
-              teams have richer contextual information to rapidly respond to
-              requests, incidents, and changes.
-            </p>
             <p className="mb-4 font-medium">
-              Deliver great service experiences fast - without the complexity of
-              traditional ITSM solutions.Accelerate critical development work,
-              eliminate toil, and deploy changes with ease.
+              Our mission is simple. We connect high school students to their
+              desired extracurricular activities and that is it.
             </p>
             <a
               href="/about"

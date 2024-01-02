@@ -9,6 +9,7 @@ import sendEmail from "@/actions/sendEmail";
 import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
+import getOpportunity from "../get-opps/getOpportunity";
 
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages?: FormDataEntryValue[];
@@ -64,8 +65,11 @@ const addOpportunity = async ({
   let id = parseInt(oppId);
 
   if (Number.isNaN(id)) {
-    id = getRandomInt(999999);
+    id = getRandomInt(999999999999999);
   }
+
+
+  
 
   const response = await fetch("https://api.openai.com/v1/embeddings", {
     method: "POST",
@@ -80,6 +84,8 @@ const addOpportunity = async ({
   });
   const responseData = await response.json();
   const embedding = responseData.data[0].embedding;
+
+
   
   
   const { error: errorAddingOpp } = await supabase
