@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
           disallow: ["/adminPanel"],
         },
       ],
-      sitemap: `https://younifind.ca/sitemap.xml`,
+      sitemap: `http://localhost:3000/sitemap.xml`,
     };
 }
-
