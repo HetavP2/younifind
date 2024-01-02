@@ -1,7 +1,7 @@
 import getAllApprovedOpportunities from "@/actions/opportunity/get-opps/getAllApprovedOpportunities";
 
 export default async function sitemap() {
-    const baseUrl = "https://www.younifind.ca";
+    const baseUrl = "https://younifind.ca/";
     const approvedOpportunities = await getAllApprovedOpportunities();
     
     const opportunitiesUrls = approvedOpportunities.map(opportunity => ({
