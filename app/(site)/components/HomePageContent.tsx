@@ -338,7 +338,7 @@ export default function HomePageContent() {
                 Newsletter
               </h3>
               <p className="text-gray-500 font-medium dark:text-gray-400">
-                younifind's custom newsletter feature makes it easier for
+                younifind&apos;s custom newsletter feature makes it easier for
                 students to never miss an extracurricular. No more feeling left
                 out!
               </p>
