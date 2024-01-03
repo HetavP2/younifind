@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /adminPanel/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://younifind.ca/api/siteMap
