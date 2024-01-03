@@ -1,6 +1,8 @@
 import handleEmailRequest from "@/actions/handleEmailRequest";
 import { NextResponse } from "next/server";
+import requestIp from 'request-ip';
 import { Resend } from "resend";
+
 
 type SendEmail = {
   recipient: Array<string>;
@@ -9,8 +11,18 @@ type SendEmail = {
   content: any;
 };
 
-export async function POST(request: Request) {
+export async function POST(request: any) {
+  console.log(request);
+  
+  const detectedIp = requestIp.getClientIp(request)
+  console.log("ip logged: " + detectedIp)
+
+
+
+  
+  
   const emailData: SendEmail = await request.json();
+
 
   const { recipient, subject, operation, content } = emailData;
 

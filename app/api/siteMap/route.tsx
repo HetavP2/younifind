@@ -59,30 +59,38 @@ export async function GET() {
     // : convertTimestamp(opportunity.created_at),
   }));
 
+  function formatDate(date:any) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+}
+
   const pages = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     {
       url: `${baseUrl}/search`,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     {
       url: `${baseUrl}/login`,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     {
       url: `${baseUrl}/community`,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: formatDate(new Date()),
     },
     ...opportunitiesUrls,
   ];
