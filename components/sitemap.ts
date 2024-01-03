@@ -82,7 +82,7 @@ const generateSitemap = async () => {
   ];
 
   // Build the XML content
-  const xml2 = '';
+  const xml2 = 'm';
   const xml = `
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${pages
