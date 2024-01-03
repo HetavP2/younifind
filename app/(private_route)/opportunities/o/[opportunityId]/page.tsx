@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
 import OpenAI from "openai";
 
+
 export async function generateMetadata({
   params,
 }: {

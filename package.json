@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sitemap": "next-sitemap --config next-sitemap.config.js"
+    "sitemap": "next-sitemap"
   },
   "dependencies": {
     "@nestjs/schedule": "^4.0.0",
