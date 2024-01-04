@@ -1,5 +1,8 @@
 "use client";
 
+import CryptoJS from "crypto-js";
+import crypto from "crypto";
+
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -10,6 +13,7 @@ import getOpportunityImages from "@/actions/opportunity/opp-images/getOpportunit
 import { BiLink } from "react-icons/bi";
 import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
+// import encryptThis from "@/actions/encryption/encryptThis";
 
 interface TableRowProps extends Opportunity {}
 
@@ -35,7 +39,7 @@ const TableRow: React.FC<TableRowProps> = ({
   const [adminNotes, setAdminNotes] = useState(admin_notes);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [oppImages, setOppImages] = useState([]);
-  const [oppStatus, setOppStatus] = useState(false);
+  const [oppStatus, setOppStatus] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +81,20 @@ const TableRow: React.FC<TableRowProps> = ({
     }
   };
 
+  const encryptThis = (text: any) => {
+  let result = "";
+  let key: any =  process.env.payloadKey;
+  for (let i = 0; i < text.length; i++) {
+    const textChar = text.charCodeAt(i);
+    const keyChar = key.charCodeAt(i % key.length);
+    const encryptedChar = String.fromCharCode(textChar ^ keyChar);
+    result += encryptedChar;
+  }
+  console.log(" original is ", text, " BUT result is ", result);
+
+  return result;
+};
+
   const handleOnChangeNotes = async (value: any) => {
     const { data, error } = await supabase
       .from("opportunities")
@@ -92,7 +110,30 @@ const TableRow: React.FC<TableRowProps> = ({
   const handleClick = async () => {
     const [{ admin_notes: adminNotes }] = await getOpportunity(parseInt(id));
 
-    const subject = "route.ts sent this";
+    if (adminNotes === undefined || adminNotes === null) {
+      toast.error("Please add some notes before you send your message");
+      return;
+    }
+
+    const subject = String(encryptThis("Please review your opportunity."));
+
+    // const res = await fetch(`/api/sendEmail`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     recipient: [contact_email],
+    //     subject,
+    //     operation: "ReviewOpportunityAgain",
+    //     content: adminNotes,
+    //     // uniqueId: process.env.uniqueId,
+    //   }),
+    // });
+
+    //--
+    
+
 
     const res = await fetch(`/api/sendEmail`, {
       method: "POST",
@@ -100,11 +141,11 @@ const TableRow: React.FC<TableRowProps> = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        recipient: [contact_email],
+        // recipient: [String(encryptThis(contact_email))],
+        recipient: await String(encryptThis(String([contact_email]))),
         subject,
-        operation: "ReviewOpportunityAgain",
-        content: adminNotes,
-        // uniqueId: process.env.uniqueId,
+        operation: await String(encryptThis("ReviewOpportunityAgain")),
+        content: await String(encryptThis(adminNotes)),
       }),
     });
 

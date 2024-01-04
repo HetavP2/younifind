@@ -1,9 +1,4 @@
-import handleEmailRequest from "@/actions/handleEmailRequest";
-import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
 // type SendEmail = {

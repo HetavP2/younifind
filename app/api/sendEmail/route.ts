@@ -1,39 +1,56 @@
 import handleEmailRequest from "@/actions/handleEmailRequest";
 import { NextResponse } from "next/server";
-import requestIp from 'request-ip';
 import { Resend } from "resend";
 
+const decryptThis = (encryptedText: any) => {
+  let key: any = process.env.payloadKey;
+  let result = "";
+  for (let i = 0; i < encryptedText.length; i++) {
+    const encryptedChar = encryptedText.charCodeAt(i);
+    const keyChar = key.charCodeAt(i % key.length);
+    const decryptedChar = String.fromCharCode(encryptedChar ^ keyChar);
+    result += decryptedChar;
+  }
 
-type SendEmail = {
-  recipient: Array<string>;
-  subject: string;
-  operation: string;
-  content: any;
+  console.log("result is", result, " after decrypting the text", encryptedText);
+
+  return result;
+
+
 };
 
+
 export async function POST(request: any) {
-  console.log(request);
-  
-  const detectedIp = requestIp.getClientIp(request)
-  console.log("ip logged: " + detectedIp)
 
 
+  const emailData: any = await request.json();
+  const {
+    recipient,
+    subject,
+    operation,
+    content,
+  } = await emailData;
 
-  
-  
-  const emailData: SendEmail = await request.json();
+  // console.log("emailData", emailData);
+
+  const recipientproper = await decryptThis(recipient);
+  const subjectproper = await decryptThis(subject);
+  const operationproper = await decryptThis(operation);
+  const contentproper = await decryptThis(content);
+
+  console.log("DECRYPTED SHIT:");
+  console.log(recipient, recipientproper, subjectproper, operationproper, contentproper);
 
 
-  const { recipient, subject, operation, content } = emailData;
-
-  const emailTemplate = await handleEmailRequest({ operation, content });
+  const emailTemplate = await handleEmailRequest({ operation:operationproper, content:contentproper });
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const { data } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: recipient,
-      subject: subject,
+      //from might not work
+      from: "admin@younifind.ca",
+      to: [String(recipientproper)],
+      subject: String(subjectproper),
       react: emailTemplate,
     });
     return NextResponse.json(data);
