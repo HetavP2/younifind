@@ -9,7 +9,7 @@ const encryptThis = (text: any) => {
     const encryptedChar = String.fromCharCode(textChar ^ keyChar);
     result += encryptedChar;
   }
-  console.log(" original is ", text, " BUT result is ", result);
+  console.log(" original is: ", text, " BUT result is ", result);
 
   return result;
 };
