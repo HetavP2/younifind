@@ -19,7 +19,6 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
         <AuthSystem className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" />
       </Navbar>
       <div className="flex w-full">
-        {/* // sidebar end, body start */}
         <div className="w-full flex flex-col gap-4 items-center">
           <div className="mx-auto p-4">
             <h1 className="font-semibold text-3xl text-center">
@@ -37,9 +36,6 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
                   {oppDetails.typelabel}
                 </div>
 
-                {/* <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
-            {recordData.location}
-          </div> */}
 
                 <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
                   {oppDetails.isfor}
@@ -99,8 +95,6 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
             </h2>
           </div>
         </div>
-        {/* // sidebar */}
-        {/* <div className="w-1/4"></div> */}
       </div>
     </div>
   );

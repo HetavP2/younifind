@@ -132,9 +132,6 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
             >
               Edit Opportunity
             </a>
-            {/* <button className="bg-[#eab308] text-md font-medium px-4 py-1 rounded-md border-white border-md text-white transition hover:-translate-y-1 ease-in-out duration-200">
-              Edit Opportunity
-            </button> */}
           </div>
         </div>
       </div>

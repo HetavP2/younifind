@@ -26,10 +26,6 @@ const ResultCard: React.FC<ResultCardProps> = ({ recordData }) => {
           <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
             {recordData.typelabel}
           </div>
-
-          {/* <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
-            {recordData.location}
-          </div> */}
         </div>
         <div className="flex justify-evenly w-full mt-8">
           <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">

@@ -14,8 +14,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
   return (
     <div className="border-b w-1/4 max-w-1/4">
       <div className="py-16 h-screen flex justify-start items-center bg-royalblue flex-col">
-        {/* // Title logo */}
-        {/* <p className="text-2xl leading-6 text-white">younifind</p> */}
         <div className="p-1 rounded-lg bg-white mx-auto">
           <Image
             alt="logo chill"
@@ -26,7 +24,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
           />
         </div>
 
-        {/* // Title logo */}
 
         <div className="mt-6 text-md font-medium flex flex-col justify-start items-center w-3/4 border-gray-600  space-y-3 pb-5 ">
           <ul>

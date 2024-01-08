@@ -424,10 +424,6 @@ export default function HomePageContent() {
               Through younifind we hope students can find meaningful
               extracurricular activities that can help them grow.
             </p>
-            {/* <p>
-              We are strategists, designers and developers. Innovators and
-              problem solvers. Small enough to be simple and quick.
-            </p> */}
           </div>
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img

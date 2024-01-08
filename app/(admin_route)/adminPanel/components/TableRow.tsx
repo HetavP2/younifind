@@ -82,18 +82,18 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   const encryptThis = (text: any) => {
-  let result = "";
-  let key: any =  process.env.payloadKey;
-  for (let i = 0; i < text.length; i++) {
-    const textChar = text.charCodeAt(i);
-    const keyChar = key.charCodeAt(i % key.length);
-    const encryptedChar = String.fromCharCode(textChar ^ keyChar);
-    result += encryptedChar;
-  }
-  console.log(" original is ", text, " BUT result is ", result);
+    let result = "";
+    let key: any = process.env.payloadKey;
+    for (let i = 0; i < text.length; i++) {
+      const textChar = text.charCodeAt(i);
+      const keyChar = key.charCodeAt(i % key.length);
+      const encryptedChar = String.fromCharCode(textChar ^ keyChar);
+      result += encryptedChar;
+    }
+    console.log(" original is ", text, " BUT result is ", result);
 
-  return result;
-};
+    return result;
+  };
 
   const handleOnChangeNotes = async (value: any) => {
     const { data, error } = await supabase
@@ -132,8 +132,6 @@ const TableRow: React.FC<TableRowProps> = ({
     // });
 
     //--
-    
-
 
     const res = await fetch(`/api/sendEmail`, {
       method: "POST",
@@ -267,14 +265,6 @@ const TableRow: React.FC<TableRowProps> = ({
           )}
         </div>
       </td>
-      {/* <td className="px-6 py-4">
-        <a
-          href="#"
-          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-        >
-          Come back soon!
-        </a>
-      </td> */}
     </tr>
   );
 };

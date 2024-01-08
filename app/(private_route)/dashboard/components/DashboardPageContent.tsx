@@ -26,7 +26,7 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
       <div className="w-2/3 mx-auto  p-4 text-center font-medium rounded-md">
         No Opportunities Created Yet. <br />
         <br /> Click <span></span>
-        <a className="text-royalyellow" href="/opportunities/new">
+        <a className="text-royalyellow" href="/opportunities/o/new">
           ADD <span></span>
         </a>
         to get started.
