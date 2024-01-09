@@ -3,31 +3,31 @@ import { notFound } from "next/navigation";
 import OpportunitySubpage from "../../../../(private_route)/opportunities/o/[opportunityId]/components/OpportunitySubpage";
 import { Metadata } from "next";
 import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
-import OpenAI from "openai";
-
 
 export async function generateMetadata({
   params,
 }: {
   params: { opportunityId: string };
-  }): Promise<Metadata> {
+}): Promise<Metadata> {
   const oppId = parseInt(params.opportunityId);
-  
-  if (!oppId) return {
-    title: 'Not Found',
-    description: "The page is not found"
-  }
 
-
-
+  if (!oppId)
+    return {
+      title: "Not Found",
+      description: "The page is not found",
+    };
 
   const [opportunityDetails] = await getOpportunity(oppId);
 
-  const openai = new OpenAI();
-
-    const textModeration = await openai.chat.completions.create({
+  
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAIKEY}`,
+    },
+    method: "POST",
+    body: JSON.stringify({
       model: "gpt-3.5-turbo",
-      temperature: 0.7,
       messages: [
         {
           role: "system",
@@ -39,13 +39,16 @@ export async function generateMetadata({
           content: `${opportunityDetails.title} + ${opportunityDetails.description}`,
         },
       ],
-    });
+    }),
+  });
 
-    const opportunityKeywords = textModeration.choices[0].message.content;
-  
+  const keywordsResponse: any = await response.json();
+
+  const opportunityKeywords = keywordsResponse.choices[0].message.content;
+
   return {
     title: opportunityDetails.title,
-    keywords:opportunityKeywords,
+    keywords: opportunityKeywords,
     description: opportunityDetails.description,
     alternates: {
       canonical: `/opportunities/o/${oppId}`,
@@ -54,10 +57,7 @@ export async function generateMetadata({
       },
     },
   };
-  
 }
-
-
 
 export default async function OpportunityDetails({
   params,
@@ -73,12 +73,10 @@ export default async function OpportunityDetails({
   const [opportunityDetails] = await getOpportunity(oppId);
   const approved = await getOpportunityStatus(oppId);
 
-
   if (!opportunityDetails || !approved) {
     notFound();
   }
-  
-    
-    //pass things down here to subpage component
+
+  //pass things down here to subpage component
   return <OpportunitySubpage oppDetails={opportunityDetails} />;
 }
