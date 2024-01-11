@@ -76,22 +76,22 @@ export async function GET() {
       url: `${baseUrl}/search`,
       lastModified: formatDate(new Date()),
     },
-    {
-      url: `${baseUrl}/login`,
-      lastModified: formatDate(new Date()),
-    },
-    {
-      url: `${baseUrl}/community`,
-      lastModified: formatDate(new Date()),
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: formatDate(new Date()),
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: formatDate(new Date()),
-    },
+    // {
+    //   url: `${baseUrl}/login`,
+    //   lastModified: formatDate(new Date()),
+    // },
+    // {
+    //   url: `${baseUrl}/community`,
+    //   lastModified: formatDate(new Date()),
+    // },
+    // {
+    //   url: `${baseUrl}/contact`,
+    //   lastModified: formatDate(new Date()),
+    // },
+    // {
+    //   url: `${baseUrl}/about`,
+    //   lastModified: formatDate(new Date()),
+    // },
     ...opportunitiesUrls,
   ];
 

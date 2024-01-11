@@ -16,25 +16,25 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
 
   const routes = useMemo(
     () => [
-      {
-        // path is active everytime its not search
-        // icon: HiHome,
-        label: "About",
-        active: pathname === "/about",
-        href: "/about",
-      },
+      // {
+      //   // path is active everytime its not search
+      //   // icon: HiHome,
+      //   label: "About",
+      //   active: pathname === "/about",
+      //   href: "/about",
+      // },
       {
         // icon: BiSearch,
         label: "Opportunities",
         active: pathname === "https://search-peel-demo.vercel.app/",
         href: "/search",
       },
-      {
-        // icon: BiSearch,
-        label: "Contact",
-        active: pathname === "/contact",
-        href: "/contact",
-      },
+      // {
+      //   // icon: BiSearch,
+      //   label: "Contact",
+      //   active: pathname === "/contact",
+      //   href: "/contact",
+      // },
       {
         // icon: BiSearch,
         label: "Dashboard",
