@@ -95,8 +95,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               });
 
               const fileModerationResponse: any = await res.json();
-              
-              
+
               if (String(fileModerationResponse) === "false") {
                 toast.success(file.name + " Added Successfully");
               } else {
@@ -125,7 +124,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       }
     }
   }
-
 
   return (
     <>
@@ -444,10 +442,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             <span></span>
           )}
 
-          <div
-            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-            id="user_avatar_help"
-          >
+          <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">
             It can approximately 10 seconds to verify your files.
           </div>
         </div>
