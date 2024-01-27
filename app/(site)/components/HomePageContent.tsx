@@ -267,11 +267,11 @@ export default function HomePageContent() {
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-white">
-              Find an opportunity, you're passionate about.
+              Find an opportunity, you&apos;re passionate about.
             </h2>
             <p className=" font-medium sm:text-xl text-gray-400">
               Using <i>younifind Search</i>, discover meaningful hands-on
-              opportunities that you're passionate about.
+              opportunities that you&apos;re passionate about.
             </p>
           </div>
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -312,8 +312,8 @@ export default function HomePageContent() {
               </div>
               <h3 className="mb-2 text-xl font-bold text-[#e7dd7a]">Secure.</h3>
               <p className=" font-medium text-gray-400">
-                Don't worry. We don't store or track any of your activity. Users
-                can use <i>younifind</i>, anonymously.
+                Don&apos;t worry. We don&apos;t store or track any of your
+                activity. Users can use <i>younifind</i>, anonymously.
               </p>
             </div>
             <div>
@@ -336,7 +336,7 @@ export default function HomePageContent() {
                 Newsletter.
               </h3>
               <p className=" font-medium text-gray-400">
-                Don't get left out! Subscribe to <i>younifind&apos;s</i>{" "}
+                Don&apos;t get left out! Subscribe to <i>younifind&apos;s</i>{" "}
                 newsletter for opportunity alerts and updates.
               </p>
             </div>
@@ -442,8 +442,8 @@ export default function HomePageContent() {
             </h2>
             <p className="mb-4 font-medium">
               Our mission is simple. We connect high school students to hands-on
-              extracurricular activities, that they're passionate about. For
-              free.
+              extracurricular activities, that they&apos;re passionate about.
+              For free.
             </p>
             <a
               href="/search"
