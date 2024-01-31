@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
   );
 
   return (
-    <header className="w-4/5 mx-auto">
+    <header className="w-4/5 mx-auto rounded rounded-b-lg">
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white ">
         <a className="text-md font-bold leading-none" href="/">
           <img width="200" src="/images/younifind.png" />
@@ -63,7 +63,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             </svg>
           </button>
         </div>
-        <ul className="hidden  absolute top-1/2 right-20 transform -translate-y-1/2 lg:ml-auto lg:mr-3 py-2 px-6 -translate-x-1/2 lg:flex lg:mx-auto lg:w-auto lg:space-x-6">
+        <ul className="hidden  absolute  top-1/2 right-20 transform -translate-y-1/2 lg:ml-auto  py-2 px-6 -translate-x-1/2 lg:flex lg:mx-auto lg:w-auto lg:space-x-6">
           {routes.map((item) => {
             return (
               <li key={item.href}>
