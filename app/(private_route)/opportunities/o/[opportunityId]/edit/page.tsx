@@ -14,13 +14,13 @@ export async function generateMetadata({
   params: { opportunityId: string };
 }): Promise<Metadata> {
   const oppId = parseInt(params.opportunityId);
-  if (!oppId)
+  const [opportunityDetails] = await getOpportunity(oppId);
+  if (!opportunityDetails)
     return {
       title: "Not Found",
       description: "The page is not found",
     };
 
-  const [opportunityDetails] = await getOpportunity(oppId);
   return {
     title: "Editing " + opportunityDetails.title,
     description: opportunityDetails.description,

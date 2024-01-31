@@ -10,14 +10,14 @@ export async function generateMetadata({
   params: { opportunityId: string };
 }): Promise<Metadata> {
   const oppId = parseInt(params.opportunityId);
+  const [opportunityDetails] = await getOpportunity(oppId);
 
-  if (!oppId)
+  if (!opportunityDetails)
     return {
       title: "Not Found",
       description: "The page is not found",
     };
 
-  const [opportunityDetails] = await getOpportunity(oppId);
 
   
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -71,10 +71,15 @@ export default async function OpportunityDetails({
   }
 
   const [opportunityDetails] = await getOpportunity(oppId);
-  const approved = await getOpportunityStatus(oppId);
+  let approved;
 
-  if (!opportunityDetails || !approved) {
+  if (!opportunityDetails) {
     notFound();
+  } else {
+    approved = await getOpportunityStatus(oppId);
+    if (!approved) {
+      notFound();
+    }
   }
 
   //pass things down here to subpage component
