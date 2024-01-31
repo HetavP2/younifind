@@ -1,8 +1,5 @@
 "use client";
 
-import CryptoJS from "crypto-js";
-import crypto from "crypto";
-
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -39,7 +36,7 @@ const TableRow: React.FC<TableRowProps> = ({
   const [adminNotes, setAdminNotes] = useState(admin_notes);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [oppImages, setOppImages] = useState([]);
-  const [oppStatus, setOppStatus] = useState(true);
+  const [oppStatus, setOppStatus] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -157,8 +154,12 @@ const TableRow: React.FC<TableRowProps> = ({
     }
   };
 
+
+
   return (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr
+      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 group-hover:bg-gray-50 dark:group-hover:bg-gray-600"
+    >
       <td className="w-4 p-4">
         <div className="flex items-center">
           {oppStatus ? (
