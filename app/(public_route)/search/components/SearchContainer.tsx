@@ -18,6 +18,7 @@ const SearchContainer = () => {
   const [typeSelect, setTypeSelect] = useState<string | null>(null);
   const [seasonSelect, setSeasonSelect] = useState<string | null>(null);
   const [fieldSelect, setFieldSelect] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const supabase = createClientComponentClient<Database>();
 
@@ -49,8 +50,10 @@ const SearchContainer = () => {
         //   .select("*")
         //   .eq("approved", true)
         //   .order("id");
+        setLoading(true);
         const allApprovedOpportunities = await getAllApprovedOpportunities();
         setRecRecords(allApprovedOpportunities);
+        setLoading(false);
 
         // if (error) {
         //   console.error("Error fetching data:", error);
@@ -105,7 +108,7 @@ const SearchContainer = () => {
       setSearchQuery(null);
       return;
     }
-
+    setLoading(true);
     console.log(searchQuery);
     console.log(
       `/api/getRecords?query=${encodeURIComponent(searchQuery)}` +
@@ -126,6 +129,7 @@ const SearchContainer = () => {
     const data = await response.json();
     console.log(data.data);
     setRecRecords(data.data);
+    setLoading(false);
   };
 
   return (
@@ -242,13 +246,26 @@ const SearchContainer = () => {
             <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll h-[550px] no-scrollbar sm:px-6 lg:px-8">
               <div className="">
                 {/* Your content */}
-                {recRecords?.map((record) => (
-                  <div className="my-4 rounded-md shadow-xl" key={record.id}>
-                    <a href={`/opportunities/o/${record.id}`} target="_blank">
-                      <ResultCard recordData={record} />
-                    </a>
+                {loading && (
+                  <div className="flex flex-col justify-center items-center h-full w-full">
+                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                    <p className="text-white text-2xl text-center my-4 font-semibold">
+                      Loading Data...
+                    </p>
                   </div>
-                ))}
+                )}
+
+                {recRecords ? (
+                  recRecords?.map((record) => (
+                    <div className="my-4 rounded-md shadow-xl" key={record.id}>
+                      <a href={`/opportunities/o/${record.id}`} target="_blank">
+                        <ResultCard recordData={record} />
+                      </a>
+                    </div>
+                  ))
+                ) : (
+                  <div>No results found.</div>
+                )}
               </div>
             </div>
           </main>
