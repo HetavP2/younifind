@@ -10,7 +10,10 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
 
-interface OpportunityCardProps extends Opportunity {}
+interface OpportunityCardProps extends Opportunity {
+  fileData: any;
+  approved: boolean;
+}
 
 const OpportunityCard: React.FC<OpportunityCardProps> = (
   {
@@ -28,38 +31,16 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     typelabel,
     expiry_date,
     contact_email,
+    fileData,
+    approved,
     ...props
   },
   ref
 ) => {
-  const [oppImages, setOppImages] = useState([]);
-  const [oppStatus, setOppStatus] = useState(false);
+  
+  const [oppImages, setOppImages] = useState(fileData);
+  const [oppStatus, setOppStatus] = useState(approved);
   const router = useRouter();
-
-
-  const initialized = useRef(false);
-
-  useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      const fetchData = async () => {
-        try {
-          const oppId = parseInt(id)
-          const data: any = await getOpportunityImages(oppId);
-          const approved: boolean =
-            await getOpportunityStatus(oppId);
-          setOppImages(data);
-          
-          setOppStatus(approved);
-        } catch (error) {
-          // Handle errors, e.g., log or display an error message
-          console.error("Error fetching opportunity images:", error);
-        }
-      };
-    
-      fetchData();
-    }
-  }, [id]);
 
 
   const handleDelete = async (e: any) => {
