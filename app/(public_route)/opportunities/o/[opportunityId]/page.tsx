@@ -12,14 +12,21 @@ export async function generateMetadata({
   const oppId = parseInt(params.opportunityId);
   const [opportunityDetails] = await getOpportunity(oppId);
 
-  if (!opportunityDetails)
+  if (!opportunityDetails) {
     return {
       title: "Not Found",
       description: "The page is not found",
     };
+  } else {
+    const approved = await getOpportunityStatus(oppId);
+    if (!approved) {
+      return {
+        title: "Not Found",
+        description: "The page is not found",
+      };
+    }
+  }
 
-
-  
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
