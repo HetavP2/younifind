@@ -157,9 +157,7 @@ const TableRow: React.FC<TableRowProps> = ({
 
 
   return (
-    <tr
-      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 group-hover:bg-gray-50 dark:group-hover:bg-gray-600"
-    >
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
       <td className="w-4 p-4">
         <div className="flex items-center">
           {oppStatus ? (
@@ -168,7 +166,7 @@ const TableRow: React.FC<TableRowProps> = ({
               type="checkbox"
               onChange={(e) => handleOnChange(e.target.checked)}
               checked={true}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-60 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
             />
           ) : (
             <input
@@ -176,7 +174,7 @@ const TableRow: React.FC<TableRowProps> = ({
               type="checkbox"
               onChange={(e) => handleOnChange(e.target.checked)}
               checked={false}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-600  rounded  focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
             />
           )}
           <label htmlFor="checkbox-table-search-2" className="sr-only">
@@ -186,7 +184,7 @@ const TableRow: React.FC<TableRowProps> = ({
       </td>
       <th
         scope="row"
-        className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        className="flex items-center px-6 py-4 font-medium  whitespace-nowrap text-white"
       >
         <div className="ps-3">
           <div className="text-base font-semibold">{title}</div>

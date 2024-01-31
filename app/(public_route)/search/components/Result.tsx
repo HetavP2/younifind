@@ -6,7 +6,7 @@ interface ResultCardProps {
 
 const ResultCard: React.FC<ResultCardProps> = ({ recordData }) => {
   return (
-    <div className="bg-white shadow-2xl rounded-md  flex">
+    <div className="bg-white shadow-2xl rounded-2xl  flex">
       <div className="w-2/3 flex-column p-4">
         <h1 className="font-bold text-2xl ">{recordData.title}</h1>
         <div className="flex font-medium">
@@ -15,8 +15,12 @@ const ResultCard: React.FC<ResultCardProps> = ({ recordData }) => {
         <div className="text-md mt-4">{recordData.description}</div>
       </div>
       <div
-        className="w-1/3 bg-gradient-to-br from-white via-royalyellow to-white pl-[20px] relative flex flex-col p-4 items-center justify-center rounded-md "
-        style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "75px" }}
+        className="w-1/3 bg-royalyellow pl-[20px] relative flex flex-col p-4 items-center justify-center rounded-2xl "
+        style={{
+          borderTopLeftRadius: "0px",
+          borderBottomLeftRadius: "45px",
+          borderBottomRightRadius: "0px",
+        }}
       >
         {" "}
         <div className="flex justify-evenly w-full">

@@ -18,6 +18,7 @@ const SearchContainer = () => {
   const [typeSelect, setTypeSelect] = useState<string | null>(null);
   const [seasonSelect, setSeasonSelect] = useState<string | null>(null);
   const [fieldSelect, setFieldSelect] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const supabase = createClientComponentClient<Database>();
 
@@ -49,9 +50,10 @@ const SearchContainer = () => {
         //   .select("*")
         //   .eq("approved", true)
         //   .order("id");
+        setLoading(true);
         const allApprovedOpportunities = await getAllApprovedOpportunities();
         setRecRecords(allApprovedOpportunities);
-
+        setLoading(false);
 
         // if (error) {
         //   console.error("Error fetching data:", error);
@@ -106,7 +108,7 @@ const SearchContainer = () => {
       setSearchQuery(null);
       return;
     }
-
+    setLoading(true);
     console.log(searchQuery);
     console.log(
       `/api/getRecords?query=${encodeURIComponent(searchQuery)}` +
@@ -127,130 +129,147 @@ const SearchContainer = () => {
     const data = await response.json();
     console.log(data.data);
     setRecRecords(data.data);
+    setLoading(false);
   };
 
   return (
     <>
-      <div className="h-full  flex bg-gradient-to-br from-royalblue via-royalblue to-white">
-        <div className="FILTERS w-1/4 p-8">
-          <div className="w-full flex flex-col gap-4 bg-white shadow-xl rounded-md p-2">
-            <div className="w-full rounded-md bg-slate-100 p-2 ">
-              <Image
-                alt="logo chill"
-                src="/images/younifind.png"
-                width="180"
-                height="180"
-                className=" h-auto w-full"
-              />
-            </div>
-            <div className="w-full flex flex-col gap-4 pb-4 justify-between items-center rounded-md">
-              <select
-                onChange={(e) => setModeSelect(e.target.value)}
-                className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
-              >
-                <option selected>Mode</option>
-                <option>In-person</option>
-                <option>Online</option>
-              </select>
-              <select
-                onChange={(e) => setStudentSelect(e.target.value)}
-                className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
-              >
-                <option selected>Eligibility</option>
-                <option>Underrepresented Students</option>
-                <option>All Students</option>
-              </select>
-              <select
-                onChange={(e) => setTypeSelect(e.target.value)}
-                className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
-              >
-                <option selected>Type</option>
-                <option>Work Opportunity</option>
-                <option>Credit Opportunity</option>
-              </select>
-              <select
-                onChange={(e) => setSeasonSelect(e.target.value)}
-                className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
-              >
-                <option selected>Season</option>
-                <option value="All Year">All Year</option>
-                <option value="Winter">Winter</option>
-                <option value="Summer">Summer</option>
-                <option value="Fall">Fall</option>
-                <option value="Spring">Spring</option>
-                <option value="Year-round">Year-round</option>
-              </select>
-              <select
-                onChange={(e) => setFieldSelect(e.target.value)}
-                className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
-              >
-                <option selected>Industry</option>
-                <option value="Technology">Technology</option>
-                <option value="Education">Education</option>
-                <option value="Business">Business</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Science">Science</option>
-                <option value="Health Sciences">Health Sciences</option>
-                <option value="Arts">Arts</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Finance">Finance</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <main className="h-[800px]">
-          <header className="">
-            <div className="mx-auto max-w-7xl p-8">
-              <div className="flex flex-row w-full gap-2 mb-4 bg-white shadow-xl p-4 rounded-md">
-                <div className="flex self-stretch flex-1 p-3 border border-gray-200 rounded-md shadow-sm gap-x-4 lg:gap-x-6 focus-within:ring-0 focus-within:ring-offset-0 focus-within:border-indigo-300">
-                  <form
-                    className="relative flex flex-1 outline-none"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    <label htmlFor="search-field" className="sr-only">
-                      Search
-                    </label>
-                    <BiSearch
-                      className="absolute inset-y-0 left-0 w-5 h-full text-gray-400 pointer-events-none"
-                      aria-hidden="true"
-                    />
-                    <input
-                      id="search-field"
-                      className="block w-full placeholder:text-royalblue font-medium h-full py-0 pl-8 pr-0 border-0 outline-none text-md"
-                      placeholder="Find your next big thing."
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      type="search"
-                    />
-                  </form>
-                </div>
-                {/* // Insert filters here */}
-
-                {/* // Insert filters here */}
-                <button
-                  onClick={handleSubmit}
-                  className="py-1 text-black bg-gray-200 rounded-md px-4"
+      <div className=" ">
+        <div className="flex h-full  bg-gray-900">
+          <div className="FILTERS w-1/4 p-8">
+            <div className="w-full flex flex-col gap-4 bg-white shadow-xl rounded-md p-2">
+              <div className="w-full rounded-md bg-slate-100 p-2 ">
+                <Image
+                  alt="logo chill"
+                  src="/images/younifind.png"
+                  width="180"
+                  height="180"
+                  className=" h-auto w-full"
+                />
+              </div>
+              <div className="w-full flex flex-col gap-4 pb-4 justify-between items-center rounded-md">
+                <select
+                  onChange={(e) => setModeSelect(e.target.value)}
+                  className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
                 >
-                  Search
-                </button>
+                  <option selected>Mode</option>
+                  <option>In-person</option>
+                  <option>Online</option>
+                </select>
+                <select
+                  onChange={(e) => setStudentSelect(e.target.value)}
+                  className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
+                >
+                  <option selected>Eligibility</option>
+                  <option>Underrepresented Students</option>
+                  <option>All Students</option>
+                </select>
+                <select
+                  onChange={(e) => setTypeSelect(e.target.value)}
+                  className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
+                >
+                  <option selected>Type</option>
+                  <option>Work Opportunity</option>
+                  <option>Credit Opportunity</option>
+                </select>
+                <select
+                  onChange={(e) => setSeasonSelect(e.target.value)}
+                  className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
+                >
+                  <option selected>Season</option>
+                  <option value="All Year">All Year</option>
+                  <option value="Winter">Winter</option>
+                  <option value="Summer">Summer</option>
+                  <option value="Fall">Fall</option>
+                  <option value="Spring">Spring</option>
+                  <option value="Year-round">Year-round</option>
+                </select>
+                <select
+                  onChange={(e) => setFieldSelect(e.target.value)}
+                  className="select p-2 select-bordered w-4/5 rounded-lg max-w-xs mx-1 border-4 border-royalblue"
+                >
+                  <option selected>Industry</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Education">Education</option>
+                  <option value="Business">Business</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Science">Science</option>
+                  <option value="Health Sciences">Health Sciences</option>
+                  <option value="Arts">Arts</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Finance">Finance</option>
+                  <option value="STEM">STEM</option>
+                </select>
               </div>
             </div>
-          </header>
-          <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll no-scrollbar h-full sm:px-6 lg:px-8">
-            <div className="">
-              {/* Your content */}
-              {recRecords?.map((record) => (
-                <div className="my-4 rounded-md shadow-xl" key={record.id}>
-                  <a href={`/opportunities/o/${record.id}`} target="_blank">
-                    <ResultCard recordData={record} />
-                  </a>
-                </div>
-              ))}
-            </div>
           </div>
-        </main>
+
+          <main className="h-[800px]">
+            <header className="">
+              <div className="mx-auto max-w-7xl p-8">
+                <div className="flex flex-row w-full gap-2 mb-4 bg-white shadow-xl p-4 rounded-md">
+                  <div className="flex self-stretch flex-1 p-3 border border-gray-200 rounded-md shadow-sm gap-x-4 lg:gap-x-6 focus-within:ring-0 focus-within:ring-offset-0 focus-within:border-indigo-300">
+                    <form
+                      className="relative flex flex-1 outline-none"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      <label htmlFor="search-field" className="sr-only">
+                        Search
+                      </label>
+                      <BiSearch
+                        className="absolute inset-y-0 left-0 w-5 h-full text-gray-400 pointer-events-none"
+                        aria-hidden="true"
+                      />
+                      <input
+                        id="search-field"
+                        className="block w-full placeholder:text-royalblue font-medium h-full py-0 pl-8 pr-0 border-0 outline-none text-md"
+                        placeholder="Find your next big thing."
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        type="search"
+                      />
+                    </form>
+                  </div>
+                  {/* // Insert filters here */}
+
+                  {/* // Insert filters here */}
+                  <button
+                    onClick={handleSubmit}
+                    className="py-1 text-black bg-gray-200 rounded-md px-4"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </header>
+            <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll h-[550px] no-scrollbar sm:px-6 lg:px-8">
+              <div className="">
+                {/* Your content */}
+                {loading && (
+                  <div className="flex flex-col justify-center items-center h-full w-full">
+                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                    <p className="text-white text-2xl text-center my-4 font-semibold">
+                      Loading Data...
+                    </p>
+                  </div>
+                )}
+
+                {recRecords ? (
+                  recRecords?.map((record) => (
+                    <div className="my-4 rounded-md shadow-xl" key={record.id}>
+                      <a href={`/opportunities/o/${record.id}`} target="_blank">
+                        <ResultCard recordData={record} />
+                      </a>
+                    </div>
+                  ))
+                ) : (
+                  <div>No results found.</div>
+                )}
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
     </>
   );
