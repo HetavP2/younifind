@@ -46,10 +46,12 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
             className="text-md font-medium text-royalblue flex items-center"
             href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
             target="blank"
+            style={{ fontFamily: "Verdana", color: "#D1D5DB" }}
           >
             <BiLink
-              className="mr-2 text-xl text-black "
+              className="mr-2 text-xl text-royal text-royalyellow"
               key={image.file_path}
+
             />
             {image.file_name}
           </a>
@@ -77,8 +79,8 @@ const ImageSelect: React.FC<ImageSelectProps> = ({ oppImages }) => {
           <button
             id={image.id}
             key={image.id}
-              value={image.file_path}
-              type="button"
+            value={image.file_path}
+            type="button"
             onClick={(e) =>
               handleDelete(e, e.currentTarget.value, e.currentTarget.id)
             }
