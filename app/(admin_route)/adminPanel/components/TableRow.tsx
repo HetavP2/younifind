@@ -1,8 +1,5 @@
 "use client";
 
-import CryptoJS from "crypto-js";
-import crypto from "crypto";
-
 import OppTextarea from "@/components/OppTextarea";
 import { Opportunity } from "@/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -38,16 +35,24 @@ const TableRow: React.FC<TableRowProps> = ({
   const supabase = createClientComponentClient();
   const [adminNotes, setAdminNotes] = useState(admin_notes);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [oppImages, setOppImages] = useState([]);
-  const [oppStatus, setOppStatus] = useState(true);
+  const [oppStatus, setOppStatus] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const oppId = parseInt(id);
         const data: any = await getOpportunityImages(oppId);
         const approved: boolean = await getOpportunityStatus(oppId);
+        // for faster loading performance
+        // const [opportunityDetails] = await getOpportunity(oppId);
+        
+        setLoading(false);
         setOppImages(data);
+
+        // @ts-ignore
         setOppStatus(approved);
       } catch (error) {
         // Handle errors, e.g., log or display an error message
@@ -64,7 +69,7 @@ const TableRow: React.FC<TableRowProps> = ({
       .update({ admin_notes: null })
       .eq("id", id)
       .select();
-
+    //@ts-ignore
     setOppStatus(checked);
 
     const { error: errorChangingStatus } = await supabase
@@ -158,114 +163,116 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   return (
-    <tr className=" border-b bg-gray-800 border-gray-700  hover:bg-gray-600">
-      <td className="w-4 p-4">
-        <div className="flex items-center">
-          {oppStatus ? (
-            <input
-              id="checkbox-table-search-2"
-              type="checkbox"
-              onChange={(e) => handleOnChange(e.target.checked)}
-              checked={true}
-              className="w-4 h-4 text-blue-60 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-            />
-          ) : (
-            <input
-              id="checkbox-table-search-2"
-              type="checkbox"
-              onChange={(e) => handleOnChange(e.target.checked)}
-              checked={false}
-              className="w-4 h-4 text-blue-600  rounded  focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-            />
-          )}
-          <label htmlFor="checkbox-table-search-2" className="sr-only">
-            checkbox
-          </label>
-        </div>
-      </td>
-      <th
-        scope="row"
-        className="flex items-center px-6 py-4 font-medium  whitespace-nowrap text-white"
-      >
-        <div className="ps-3">
-          <div className="text-base font-semibold">{title}</div>
-          <div className="font-normal text-gray-500">{provider}</div>
-        </div>
-      </th>
-      {oppStatus ? (
-        <>
-          <td className="px-6 py-4"></td>
-          <td className="px-6 py-4"></td>
-        </>
-      ) : (
-        <>
-          <td className="px-6 py-4">
-            <OppTextarea
-              cols={900}
-              onChange={(e) => {
-                setAdminNotes(e.target.value);
-                handleOnChangeNotes(e.target.value);
-              }}
-              value={adminNotes}
-            />
-          </td>
-          <td className="px-6 py-4">
-            <button
-              type="button"
-              onClick={handleClick}
-              //i think this should be saved in db, like email sent so different teachers dont just spam that button
-              disabled={buttonDisabled}
-              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-            >
-              Resend for review
-            </button>
-          </td>
-        </>
-      )}
+    <>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <td className="w-4 p-4">
+          <div className="flex items-center">
+{oppStatus === null ? (
+  <div>
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+    {/* <p className="text-white text-2xl text-center my-4 font-semibold">
+      Loading Data...
+    </p> */}
+  </div>
+) : (
+  <input
+    id="checkbox-table-search-2"
+    type="checkbox"
+    onChange={(e) => handleOnChange(e.target.checked)}
+    checked={oppStatus}
+    className="w-4 h-4 text-blue-60 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+  />
+)}
 
-      <td className="px-6 py-4">{location}</td>
-      <td className="px-6 py-4">{season}</td>
-      <td className="px-6 py-4">{isfor}</td>
-      <td className="px-6 py-4">{mode}</td>
-      <td className="px-6 py-4">{description}</td>
-      <td className="px-6 py-4">
-        {oppImages ? (
-          oppImages.map((image: any) => (
-            <a
-              key={image.file_path}
-              className="text-md font-medium text-royalyellow flex items-center"
-              href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
-              target="blank"
-            >
-              <BiLink
-                className="mr-2 text-xl text-black "
-                key={image.file_path}
-              />
-              View File
-            </a>
-          ))
+            <label htmlFor="checkbox-table-search-2" className="sr-only">
+              checkbox
+            </label>
+          </div>
+        </td>
+        <th
+          scope="row"
+          className="flex items-center px-6 py-4 font-medium  whitespace-nowrap text-white"
+        >
+          <div className="ps-3">
+            <div className="text-base font-semibold">{title}</div>
+            <div className="font-normal text-gray-500">{provider}</div>
+          </div>
+        </th>
+        {oppStatus ? (
+          <>
+            <td className="px-6 py-4"></td>
+            <td className="px-6 py-4"></td>
+          </>
         ) : (
-          <span></span>
+          <>
+            <td className="px-6 py-4">
+              <OppTextarea
+                cols={900}
+                onChange={(e) => {
+                  setAdminNotes(e.target.value);
+                  handleOnChangeNotes(e.target.value);
+                }}
+                value={adminNotes}
+              />
+            </td>
+            <td className="px-6 py-4">
+              <button
+                type="button"
+                onClick={handleClick}
+                //i think this should be saved in db, like email sent so different teachers dont just spam that button
+                disabled={buttonDisabled}
+                className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+              >
+                Resend for review
+              </button>
+            </td>
+          </>
         )}
-      </td>
-      <td className="px-6 py-4">{contact_email}</td>
 
-      <td className="px-6 py-4">
-        <div className="flex items-center">
-          {oppStatus ? (
-            <>
-              <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-              Approved
-            </>
+        <td className="px-6 py-4">{location}</td>
+        <td className="px-6 py-4">{season}</td>
+        <td className="px-6 py-4">{isfor}</td>
+        <td className="px-6 py-4">{mode}</td>
+        <td className="px-6 py-4">{description}</td>
+        <td className="px-6 py-4">
+          {oppImages ? (
+            oppImages.map((image: any) => (
+              <a
+                key={image.file_path}
+                className="text-md font-medium text-royalyellow flex items-center"
+                href={`https://qbfbghtpknhobofhpxfr.supabase.co/storage/v1/object/public/opportunity-images/${image.file_path}`}
+                target="blank"
+              >
+                <BiLink
+                  className="mr-2 text-xl text-black "
+                  key={image.file_path}
+                />
+                View File
+              </a>
+            ))
           ) : (
-            <>
-              <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-              Approval Pending
-            </>
+            <span></span>
           )}
-        </div>
-      </td>
-    </tr>
+        </td>
+        <td className="px-6 py-4">{contact_email}</td>
+
+        <td className="px-6 py-4">
+          <div className="flex items-center">
+            {oppStatus ? (
+              <>
+                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                Approved
+              </>
+            ) : (
+              <>
+                <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
+                Approval Pending
+              </>
+            )}
+          </div>
+        </td>
+      </tr>
+    </>
   );
 };
 

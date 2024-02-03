@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import AuthSystem from "@/components/AuthSystem";
 import HomePageContent from "./components/HomePageContent";
-
 export const revalidate = 0;
 
 export default async function Home() {

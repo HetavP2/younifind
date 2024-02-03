@@ -10,6 +10,7 @@ import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 import getOpportunity from "../get-opps/getOpportunity";
+import postToInstagram from "@/actions/createInstagramPost";
 
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages?: FormDataEntryValue[];
@@ -40,7 +41,9 @@ const addOpportunity = async ({
   if (!user) {
     return "please login in";
   }
-
+  
+  
+  
   function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
@@ -55,18 +58,24 @@ const addOpportunity = async ({
   let approved = false;
 
   const { data: adminInfo, error } = await supabase
-    .from("admins")
-    .select()
-    .filter("admin_id", "in", `(${user.id})`)
-    .single();
+  .from("admins")
+  .select()
+  .filter("admin_id", "in", `(${user.id})`)
+  .single();
   if (adminInfo !== null) {
     approved = true;
   }
   let id = parseInt(oppId);
+  let oppExists = false;
+  const [opportunityDetails] = await getOpportunity(id);
 
-  if (Number.isNaN(id)) {
-    id = getRandomInt(999999999999999);
+  if (opportunityDetails !== undefined) {
+    oppExists = true;
   }
+
+    if (Number.isNaN(id)) {
+      id = getRandomInt(999999999999999);
+    }
 
 
   
@@ -130,8 +139,11 @@ const addOpportunity = async ({
       template: ApprovalPendingEmailTemplate(),
     });
   }
-  
-  
+
+  // postToInstagram(
+  //   "nice image", // description variable
+  //   "image prompt"
+  // );
 
   if (errorAddingOpp === null && uploadImagesStatus && emailSentStatus) {
     return "SuccessfullyUpdatedAnOpportunity";
