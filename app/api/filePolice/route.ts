@@ -5,7 +5,6 @@ const openai = new OpenAI();
 
 export async function POST(request: Request) {
   const fileData = await request.json();
-  
 
   const { localFilePath } = fileData;
 
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
           content: [
             {
               type: "text",
-              text: "You are a content moderator. Label this image as: Toxicity - Rude, disrespectful comments - Hate Speech - Racist, sexist, discriminatory OR Threats - Violent threats (contains weapons of any sorts including toy and replica guns, etc) - nothing bad. If you assigned nothing bad respond with false (lowercase) or if you assigned any other label respond with true (lowercase) and the label.",
+              text: "You are a content moderator. If there is any NSFW content, violence, weapons, racism, toxicity, sexist or any other harmful content in the image, please reply with only 'true'. If there is no harmful content and the image does not contain any inappropriate content, please only reply with 'false'.",
             },
             {
               type: "image_url",
@@ -30,12 +29,12 @@ export async function POST(request: Request) {
     });
 
     const fileModerationResponse = fileModeration.choices[0].message.content;
-    
+    // const fileModerationResponse = false;
+
+    console.log(fileModerationResponse);
 
     return NextResponse.json(fileModerationResponse);
   } catch (error) {
     return NextResponse.json({ error });
   }
-
-
 }
