@@ -52,7 +52,9 @@ const AuthButton: React.FC<AuthButtonProps> = ({ className, session }) => {
   ) : (
     <button
       onClick={handleSignIn}
-      className={`px-2 py-1  bg-royalyellow text-white` + className}
+      // bg-royalyellow
+      // text-white px-2 py-1
+      className={className}
     >
       Login
     </button>

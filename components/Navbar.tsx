@@ -67,12 +67,12 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
           {routes.map((item) => {
             return (
               <li key={item.href}>
-                <Link
+                <a
                   className="text-sm font-semibold text-gray-400 hover:text-gray-500 mx-1"
                   href={item.href}
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             );
           })}
