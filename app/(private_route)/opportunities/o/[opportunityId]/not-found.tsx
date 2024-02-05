@@ -8,7 +8,7 @@ const NotFound = () => {
           Opportunity Not Found
         </h1>
         <p className="text-lg md:text-xl font-light text-gray-400 mb-8">
-          Sorry, we couldn't find the opportunity you're looking for.
+          Sorry, we couldn&apos;t find the opportunity you&apos;re looking for.
         </p>
         <a
           href="/"

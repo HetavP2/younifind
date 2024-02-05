@@ -28,12 +28,12 @@ export default function TOS() {
             <br />
             <span className="font-bold"> 2. User Information</span>
             <br />
-            a. Collection: younifind collects only the user's Google account
-            name and profile picture. No additional information is collected. b.
-            Storage: We do not store any user information beyond the Google
-            account name and profile picture. If provided, we may store the job
-            listing contact email in our database and make it publicly available
-            for users to use to get more information. <br />
+            a. Collection: younifind collects only the user&apos;s Google
+            account name and profile picture. No additional information is
+            collected. b. Storage: We do not store any user information beyond
+            the Google account name and profile picture. If provided, we may
+            store the job listing contact email in our database and make it
+            publicly available for users to use to get more information. <br />
             <span className="font-bold"> 3. Use of Services</span>
             <br />
             a. Eligibility: You must be at least 13 years old to use younifind.
