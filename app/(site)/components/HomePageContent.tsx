@@ -535,12 +535,16 @@ export default function HomePageContent() {
                 </h2>
                 <ul className="text-gray-400">
                   <li className="mb-4">
-                    <a href="#" className="hover:underline">
+                    <a
+                      href="/privacy"
+                      target="_blank"
+                      className="hover:underline"
+                    >
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
+                    <a href="/tos" target="_blank" className="hover:underline">
                       Terms Conditions
                     </a>
                   </li>
