@@ -18,6 +18,7 @@ export default function Privacy() {
             help you understand how we collect, use, and safeguard your
             information when you use our services.
             <br />
+            <br />
             <span className="font-bold">1. Information We Collect:</span>
             <br /> a. Google Account Information: To provide a personalized
             experience, younifind collects your Google account name and profile
@@ -67,6 +68,10 @@ export default function Privacy() {
             Privacy Policy. Thank you for trusting younifind with your
             opportunity search. We are committed to providing a secure and
             transparent experience for our users.
+            <br />
+            <br />
+            By using younifind, you acknowledge that you have read, understood,
+            and agreed to this Privacy Policy. Thank you for using younifind!
             <br />
             <br />
           </p>
