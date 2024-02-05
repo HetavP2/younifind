@@ -19,6 +19,7 @@ const uploadOpportunityImages = async ({
   const supabase = createServerActionClient<Database>({
     cookies,
   });
+  
   try {
     const uploadPromises = allOpportunityImages.map(async (image) => {
       let random_uuid = crypto.randomUUID();

@@ -84,6 +84,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         reader.onload = async () => {
           if (typeof reader.result === "string") {
             try {
+              // console.log(reader.result);
+              
               const res = await fetch(`/api/filePolice`, {
                 method: "POST",
                 headers: {
@@ -95,6 +97,9 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               });
 
               const fileModerationResponse: any = await res.json();
+              
+              
+              
 
               if (String(fileModerationResponse) === "false") {
                 toast.success(file.name + " Added Successfully");

@@ -37,9 +37,9 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
+    
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
-    const openai = new OpenAI();
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       headers: {

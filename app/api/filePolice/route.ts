@@ -9,29 +9,38 @@ export async function POST(request: Request) {
   const { localFilePath } = fileData;
 
   try {
-    const fileModeration = await openai.chat.completions.create({
-      model: "gpt-4-vision-preview",
-      messages: [
-        {
-          role: "user",
-          content: [
+    const fileModeration = await fetch(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAIKEY}`,
+        },
+        method: "POST",
+        body: JSON.stringify({
+          model: "gpt-4-vision-preview",
+          messages: [
             {
-              type: "text",
-              text: "You are a content moderator. If there is any NSFW content, violence, weapons, racism, toxicity, sexist or any other harmful content in the image, please reply with only 'true'. If there is no harmful content and the image does not contain any inappropriate content, please only reply with 'false'.",
-            },
-            {
-              type: "image_url",
-              image_url: localFilePath,
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: "You are a content moderator. If there is any NSFW content, violence, weapons, racism, toxicity, sexist or any other harmful content in the image, please reply with only 'true' (has to be in lowercase). If there is no harmful content and the image does not contain any inappropriate content, please only reply with 'false' (has to be in lowercase).",
+                },
+                {
+                  type: "image_url",
+                  image_url: localFilePath,
+                },
+              ],
             },
           ],
-        },
-      ],
-    });
+        }),
+      }
+    );
 
-    const fileModerationResponse = fileModeration.choices[0].message.content;
-    // const fileModerationResponse = false;
+    const fileModerationRes: any = await fileModeration.json();
 
-    console.log(fileModerationResponse);
+    const fileModerationResponse = fileModerationRes.choices[0].message.content;
 
     return NextResponse.json(fileModerationResponse);
   } catch (error) {
