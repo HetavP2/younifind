@@ -3,20 +3,25 @@ import Navbar from "@/components/Navbar";
 import AuthSystem from "@/components/AuthSystem";
 
 import FileCard from "./FileCard";
-
-
+import AuthLink from "@/components/AuthLink";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 interface OpportunitySubpageProps {
   oppDetails: any;
 }
 
-const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
+const OpportunitySubpage: React.FC<OpportunitySubpageProps> = async ({
   oppDetails,
 }) => {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   return (
     <div className="w-full flex flex-col">
       <Navbar>
-        <AuthSystem className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" />
+        <AuthLink session={session} />
       </Navbar>
       <div className="flex w-full">
         <div className="w-full flex flex-col gap-4 items-center">
@@ -35,7 +40,6 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = ({
                 <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
                   {oppDetails.typelabel}
                 </div>
-
 
                 <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
                   {oppDetails.isfor}

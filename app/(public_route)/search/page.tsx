@@ -3,7 +3,9 @@ import SearchContainer from "./components/SearchContainer";
 import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import AuthSystem from "@/components/AuthSystem";
-
+import AuthLink from "@/components/AuthLink";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 // import Example from "@/components/Container";
 // import { Fragment, useEffect, useState } from "react";
 // import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -24,11 +26,16 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <div>
       <Navbar>
-        <AuthSystem className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" />
+        <AuthLink session={session} />
       </Navbar>
       <SearchContainer />
     </div>
