@@ -39,7 +39,7 @@ export async function generateMetadata({
         {
           role: "system",
           content:
-            "Generate 50+ keywords for the teenager extracurricular opportunity/job listing below:",
+            "Generate 20+ keywords (separated by commas(,) NOT numbers in a list) for the teenager extracurricular opportunity/job listing below:",
         },
         {
           role: "user",
@@ -52,6 +52,8 @@ export async function generateMetadata({
   const keywordsResponse: any = await response.json();
 
   const opportunityKeywords = keywordsResponse.choices[0].message.content;
+  console.log(opportunityKeywords);
+  
 
   return {
     title: opportunityDetails.title,

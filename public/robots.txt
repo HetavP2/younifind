@@ -2,6 +2,9 @@ User-agent: *
 Disallow: /adminPanel/
 
 User-agent: *
+Disallow: /dashboard/
+
+User-agent: *
 Allow: /
 
 Sitemap: https://younifind.ca/api/siteMap
