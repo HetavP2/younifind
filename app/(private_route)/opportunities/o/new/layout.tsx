@@ -4,6 +4,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
+import Script from "next/script";
 
 export default async function NewOpportunityLayout({
   children,
@@ -21,6 +22,21 @@ export default async function NewOpportunityLayout({
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DS0WYJ54SC"
+        />
+        <Script id="google-analytics">
+          {`
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
+          `}
+        </Script>
+      </head>
       <body>
         <ToasterProvider />
         <SupabaseProvider>

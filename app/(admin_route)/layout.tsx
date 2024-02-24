@@ -5,6 +5,7 @@ import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { Metadata } from "next";
+import Script from "next/script";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -50,6 +51,21 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DS0WYJ54SC"
+        />
+        <Script id="google-analytics">
+          {`
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
+          `}
+        </Script>
+      </head>
       <body>
         <ToasterProvider />
         <SupabaseProvider>
