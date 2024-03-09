@@ -16,6 +16,8 @@ const inter = Inter({ subsets: ["latin"] });
 <meta name="theme-color" content="#ffffff"></meta> */
 }
 // above is for favicon for samsung and apple and stuff
+export const runtime = "edge";
+
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.younifind.ca"),
