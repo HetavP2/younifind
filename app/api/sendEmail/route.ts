@@ -1,7 +1,7 @@
 import handleEmailRequest from "@/actions/handleEmailRequest";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-
+export const runtime = "edge";
 const decryptThis = (encryptedText: any) => {
   let key: any = process.env.payloadKey;
   let result = "";

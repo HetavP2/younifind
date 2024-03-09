@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Script from "next/script";
 
-
+export const runtime = "edge";
 export default async function DashboardLayout({
   children,
 }: {

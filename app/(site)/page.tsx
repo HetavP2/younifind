@@ -5,7 +5,7 @@ import AuthLink from "@/components/AuthLink";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 export const revalidate = 0;
 import { cookies } from "next/headers";
-
+export const runtime = "edge";
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
   const {

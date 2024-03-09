@@ -13,7 +13,6 @@ import { cookies } from "next/headers";
 // import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 // import ResultCard from "@/components/Result";
-
 export const metadata: Metadata = {
   title: "Find Your Next Big Thing",
   description:

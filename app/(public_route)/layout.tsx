@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Script from "next/script";
-
+export const runtime = "edge";
 interface SearchLayoutProps {
   children: React.ReactNode;
 }

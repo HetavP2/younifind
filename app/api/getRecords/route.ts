@@ -7,7 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 //   operation: string;
 //   content: any;
 // };
-
+export const runtime = "edge";
 export async function GET(request: Request, context: any) {
   const url = new URL(request.url);
 

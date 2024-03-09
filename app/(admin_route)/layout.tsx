@@ -10,7 +10,7 @@ import Script from "next/script";
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
-
+export const runtime = "edge";
 export const metadata: Metadata = {
   robots: {
     index: false,

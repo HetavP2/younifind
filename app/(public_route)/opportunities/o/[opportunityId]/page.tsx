@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import OpportunitySubpage from "../../../../(private_route)/opportunities/o/[opportunityId]/components/OpportunitySubpage";
 import { Metadata } from "next";
 import getOpportunityStatus from "@/actions/opportunity/get-opps/getOpportunityStatus";
-
 export async function generateMetadata({
   params,
 }: {
