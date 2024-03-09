@@ -25,6 +25,13 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
       // },
       {
         // icon: BiSearch,
+        label: "How it works",
+        active: pathname === "https://www.youtube.com/watch?v=43N_mZkyIwI",
+        href: "https://www.youtube.com/watch?v=43N_mZkyIwI",
+        target: "_blank",
+      },
+      {
+        // icon: BiSearch,
         label: "Opportunities",
         active: pathname === "/search",
         href: "/search",
