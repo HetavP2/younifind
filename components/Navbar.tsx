@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
       {
         // icon: BiSearch,
         label: "Opportunities",
-        active: pathname === "https://search-peel-demo.vercel.app/",
+        active: pathname === "/search",
         href: "/search",
       },
       // {
