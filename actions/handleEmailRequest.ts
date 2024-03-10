@@ -1,6 +1,7 @@
 "use server";
 import ReviewOpportunityAgain from "@/components/email-templates/ReviewOpportunityAgain";
 
+//to change url config supa
 
 interface handleEmailRequestProps {
   operation: string;
