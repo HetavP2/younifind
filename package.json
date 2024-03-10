@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sitemap": "next-sitemap",
-    "pages:build": "npx @cloudflare/next-on-pages"
+    "sitemap": "next-sitemap"
   },
   "dependencies": {
     "@nestjs/schedule": "^4.0.0",
