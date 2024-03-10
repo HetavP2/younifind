@@ -7,7 +7,6 @@ interface SendEmailProps {
   subject: string;
   template: any;
 }
-//google analytics change
 const sendEmail = async ({
   to,
   subject,
