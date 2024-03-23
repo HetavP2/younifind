@@ -577,7 +577,7 @@ export default function HomePageContent() {
               </a>
               <a
                 id="email"
-                href="mailto:younifind@gmail.com"
+                href="mailto:support@younifind.ca"
                 className="text-gray-500 hover:text-white"
               >
                 <FaEnvelope size={20} />
