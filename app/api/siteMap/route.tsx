@@ -50,7 +50,7 @@ export async function GET() {
   }
 
   const approvedOpportunities = allApprovedOpportunities;
-  const baseUrl = "https://younifind.ca";
+  const baseUrl = "https://www.younifind.ca";
 
   const opportunitiesUrls = approvedOpportunities.map((opportunity) => ({
     url: `${baseUrl}/opportunities/o/${opportunity.id}`,
@@ -74,6 +74,14 @@ export async function GET() {
     },
     {
       url: `${baseUrl}/search`,
+      lastModified: formatDate(new Date()),
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: formatDate(new Date()),
+    },
+    {
+      url: `${baseUrl}/tos`,
       lastModified: formatDate(new Date()),
     },
     ...opportunitiesUrls,
