@@ -21,7 +21,7 @@ export interface Opportunity {
   expiry_date: any;
   created_at?: string;
   admin_notes?: string;
-  contact_email: string;
+  contact_email?: string;
   updated_at?: string;
 }
 

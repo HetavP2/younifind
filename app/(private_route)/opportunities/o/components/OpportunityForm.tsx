@@ -537,6 +537,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               <OppInput
                 id="contactEmail"
                 name="contactEmail"
+                required={false}
                 value={oppData.contact_email}
                 onChange={(e) =>
                   setOppData({ ...oppData, contact_email: e.target.value })
