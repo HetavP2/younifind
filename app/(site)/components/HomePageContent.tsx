@@ -12,7 +12,7 @@ export default function HomePageContent() {
     const respo = await addWaitlistUser(email);
     setEmail("");
   };
-  //committt
+  
   return (
     <div>
       <section className="bg-gray-900">
