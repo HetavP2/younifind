@@ -5,9 +5,11 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+
 
 export const runtime = "edge";
-export default async function DashboardLayout({
+async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -47,3 +49,5 @@ export default async function DashboardLayout({
     </html>
   );
 }
+
+export default dynamic(() => Promise.resolve(DashboardLayout), { ssr: false });

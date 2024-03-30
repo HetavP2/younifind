@@ -3,12 +3,14 @@ import { cookies } from "next/headers";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+
 export const runtime = "edge";
 interface SearchLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function SearchLayout({ children }: SearchLayoutProps) {
+async function SearchLayout({ children }: SearchLayoutProps) {
 
   return (
     <html lang="en">
@@ -36,3 +38,4 @@ export default async function SearchLayout({ children }: SearchLayoutProps) {
     </html>
   );
 }
+export default dynamic(() => Promise.resolve(SearchLayout), { ssr: false });

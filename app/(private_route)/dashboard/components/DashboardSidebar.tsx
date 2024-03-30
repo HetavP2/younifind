@@ -3,7 +3,6 @@
 import { HiOutlineHome } from "react-icons/hi";
 import { BiGlasses, BiSearch } from "react-icons/bi";
 import Link from "next/link";
-
 import React from "react";
 import Image from "next/image";
 interface DashboardSidebarProps {
@@ -65,5 +64,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
     </div>
   );
 };
+
 
 export default DashboardSidebar;

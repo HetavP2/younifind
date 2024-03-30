@@ -60,7 +60,7 @@ export default function HomePageContent() {
             <br />
             <form onSubmit={handleSubmit} className="inline-block">
               <label htmlFor="email" className="sr-only">
-                Subscribe to Waitlist
+                Subscribe to waitlist
               </label>
               <div className="relative rounded-lg border border-royalblue bg-white overflow-hidden focus-within:border-royalblue">
                 <input
@@ -69,12 +69,12 @@ export default function HomePageContent() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-96 py-2 pl-3 pr-10 text-base placeholder-gray-400 focus:outline-none"
-                  placeholder="Subscribe to Waitlist"
+                  placeholder="Join the email waitlist."
                   required
                 />
                 <button
                   type="submit"
-                  className="absolute inset-y-0 right-0 px-2 text-white bg-royalyellow hover:bg-yellow-700 focus:outline-none ml-2"
+                  className="absolute inset-y-0 right-0 px-2 font-medium transition linear text-white bg-royalyellow hover:bg-yellow-700 focus:outline-none ml-2"
                 >
                   Subscribe
                 </button>
