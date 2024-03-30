@@ -22,8 +22,10 @@ const uploadOpportunityImages = async ({
 
   try {
     const uploadPromises = allOpportunityImages.map(async (image) => {
+      console.log("image checked. you're here.");
+      console.log("image length is", (image as any).size);
       // check image or file size
-      if ((image as any).size < 1) {
+      if ((image as any).type === null) {
         console.log("empty file detected, skipping upload");
         return;
       }
