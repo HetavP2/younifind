@@ -2,6 +2,7 @@
 import addWaitlistUser from "@/actions/waitlist/addWaitlistUser";
 import { useState } from "react";
 import { FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function HomePageContent() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ export default function HomePageContent() {
     const respo = await addWaitlistUser(email);
     setEmail("");
   };
-  
+
   return (
     <div>
       <section className="bg-gray-900">
@@ -29,7 +30,10 @@ export default function HomePageContent() {
               Canada&apos;s first AI powered extracurricular search engine for
               youth.
             </p>
-            <a
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              onHoverStart={(e) => {}}
+              onHoverEnd={(e) => {}}
               href="/search"
               className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-royalblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-900"
             >
@@ -46,14 +50,16 @@ export default function HomePageContent() {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              onHoverStart={(e) => {}}
+              onHoverEnd={(e) => {}}
               href="#email"
               className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center  border  rounded-lg  focus:ring-4  text-white border-gray-700 hover:bg-gray-700 focus:ring-gray-800"
             >
               Need Help?
-            </a>
-
+            </motion.a>
             {/* //// */}
             <br />
             <br />
@@ -230,33 +236,6 @@ export default function HomePageContent() {
           </div>
         </div>
       </section>
-      {/* 
-      <section className="bg-gray-900">
-        <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-          <div className="font-light  sm:text-lg text-gray-400">
-            <h2 className="mb-4 text-4xl font-extrabold text-white">
-              We didn&apos;t reinvent the wheel
-            </h2>
-            <p className="mb-4 font-medium">
-              We are 2 innovators who have simply seen the problem and executed.
-              Through younifind we hope students can find meaningful
-              extracurricular activities that can help them grow.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-8">
-            <img
-              className="w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
-              alt="office content 1"
-            />
-            <img
-              className="mt-4 w-full lg:mt-10 rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
-              alt="office content 2"
-            />
-          </div>
-        </div>
-      </section> */}
 
       <section className="bg-gray-900 ">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
@@ -315,43 +294,19 @@ export default function HomePageContent() {
         <div className="mx-auto max-w-screen-xl">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="https://flowbite.com" className="flex items-center">
-                {/* <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="mr-3 h-8"
-                  alt="FlowBite Logo"
-                /> */}
+              <a href="/" className="flex items-center">
                 <img width="200" src="/images/younifindwithbackground.png" />
-                {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                  Flowbite
-                </span> */}
               </a>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                <h2 className="mb-6 text-sm font-semibold  uppercase text-white">
-                  {/* Resources */}
-                </h2>
+                <h2 className="mb-6 text-sm font-semibold  uppercase text-white"></h2>
                 <ul className=" text-gray-400">
                   <li className="mb-4">
-                    <a href="/community" className="hover:underline">
-                      {/* Community */}
-                    </a>
+                    <a href="/community" className="hover:underline"></a>
                   </li>
                 </ul>
               </div>
-              {/* <div>
-                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Contact Us
-                </h2>
-                <ul className="text-gray-600 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline ">
-                      Email
-                    </a>
-                  </li>
-                </ul>
-              </div> */}
               <div>
                 <h2 className="mb-6 text-sm font-semibold uppercase text-white">
                   Legal

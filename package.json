@@ -28,6 +28,7 @@
     "bad-words": "^3.0.4",
     "crypto-js": "^4.2.0",
     "flowbite-react": "^0.7.0",
+    "framer-motion": "^11.0.24",
     "instagram-private-api": "^1.45.3",
     "next": "^14.0.4",
     "npm": "^10.5.0",
