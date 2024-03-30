@@ -38,4 +38,5 @@ async function SearchLayout({ children }: SearchLayoutProps) {
     </html>
   );
 }
+
 export default dynamic(() => Promise.resolve(SearchLayout), { ssr: false });

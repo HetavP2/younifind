@@ -48,6 +48,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   async function handleFileChange(e: any) {
     if (e.target.files === null || e.target.files.length === 0) {
       // No files selected
+      console.log('no files');
+      console.log("file length", e.target.files.length);
       setLoadingFileChecking(false);
       setSubmitDisabled(false);
       return;
@@ -85,7 +87,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           if (typeof reader.result === "string") {
             try {
               // console.log(reader.result);
-              
+
               const res = await fetch(`/api/filePolice`, {
                 method: "POST",
                 headers: {
@@ -97,9 +99,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               });
 
               const fileModerationResponse: any = await res.json();
-              
-              
-              
 
               if (String(fileModerationResponse) === "false") {
                 toast.success(file.name + " Added Successfully");
@@ -462,7 +461,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     //   </button>
     // </>
     <>
-      <div className="bg-gradient-to-r from-blue-900 to-purple-900 p-8 text-white">
+      <div className="bg-royalblue p-8 text-white">
         <h6 className="text-lg font-bold mb-6">Opportunity Information</h6>
         <div className="flex flex-wrap">
           <div className="w-full lg:w-6/12 px-4">
@@ -815,11 +814,11 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
 
         <br />
         <button
-          className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
+          className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
           disabled={submitDisabled}
         >
-          Done
+          submit
         </button>
       </div>
     </>

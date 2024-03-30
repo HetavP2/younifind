@@ -22,9 +22,10 @@ export default function Privacy() {
             <span className="font-bold">1. Information We Collect:</span>
             <br /> a. Google Account Information: To provide a personalized
             experience, younifind collects your Google account name and profile
-            picture. b. No Additional Information: We do not collect, store, or
-            process any other personal information. We respect your privacy and
-            aim to provide a minimalistic and secure experience.
+            picture.  b. Cookies: To give you a more personal and convenient
+            website experience.  c. No Additional Information: We do not collect,
+            store, or process any other personal information. We respect your
+            privacy and aim to provide a minimalistic and secure experience. 
             <br />
             <span className="font-bold"> 2. How We Use Your Information:</span>
             <br />

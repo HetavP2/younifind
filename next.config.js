@@ -1,4 +1,5 @@
 const nextConfig = {
+
   images: {
     domains: ["qbfbghtpknhobofhpxfr.supabase.co"],
   },
