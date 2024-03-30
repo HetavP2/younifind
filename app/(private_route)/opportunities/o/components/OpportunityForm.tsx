@@ -45,89 +45,88 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     type: "",
   });
 
-  async function handleFileChange(e: any) {
-    if (e.target.files === null || e.target.files.length === 0) {
-      // No files selected
-      console.log('no files');
-      console.log("file length", e.target.files.length);
-      setLoadingFileChecking(false);
-      setSubmitDisabled(false);
-      return;
-    }
+ async function handleFileChange(e: any) {
+   if (!e.target.files || e.target.files.length === 0) {
+     // No files selected
+     console.log("No files selected");
+     setLoadingFileChecking(false);
+     setSubmitDisabled(false);
+     return;
+   }
 
-    const files = e.target.files;
-    const totalFiles = files.length;
-    let processedFiles = 0;
-    let hasInappropriateFile = false;
+   const files = e.target.files;
+   const totalFiles = files.length;
+   let processedFiles = 0;
+   let hasInappropriateFile = false;
 
-    const handleProcessedFile = () => {
-      processedFiles++;
+   const handleProcessedFile = () => {
+     processedFiles++;
 
-      if (processedFiles === totalFiles) {
-        // Update loading state only when all files are processed
-        setLoadingFileChecking(false);
-        setSubmitDisabled(hasInappropriateFile);
+     if (processedFiles === totalFiles) {
+       // Update loading state only when all files are processed
+       setLoadingFileChecking(false);
+       setSubmitDisabled(hasInappropriateFile);
 
-        // If no files were processed, set loading and submit states accordingly
-        if (totalFiles === 0) {
-          setLoadingFileChecking(false);
-          setSubmitDisabled(false);
-        }
-      }
-    };
+       // If no files were processed, set loading and submit states accordingly
+       if (totalFiles === 0) {
+         setLoadingFileChecking(false);
+         setSubmitDisabled(false);
+       }
+     }
+   };
 
-    for (let i = 0; i < totalFiles; i++) {
-      setLoadingFileChecking(true);
-      setSubmitDisabled(true);
-      const reader = new FileReader();
-      const file = files[i];
+   for (let i = 0; i < totalFiles; i++) {
+     setLoadingFileChecking(true);
+     setSubmitDisabled(true);
+     const reader = new FileReader();
+     const file = files[i];
 
-      if (String(file.type) !== "application/pdf") {
-        reader.onload = async () => {
-          if (typeof reader.result === "string") {
-            try {
-              // console.log(reader.result);
+     if (String(file.type) !== "application/pdf") {
+       reader.onload = async () => {
+         if (typeof reader.result === "string") {
+           try {
+             const res = await fetch(`/api/filePolice`, {
+               method: "POST",
+               headers: {
+                 "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                 localFilePath: reader.result,
+               }),
+             });
 
-              const res = await fetch(`/api/filePolice`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  localFilePath: reader.result,
-                }),
-              });
+             const fileModerationResponse = await res.json();
 
-              const fileModerationResponse: any = await res.json();
+             if (fileModerationResponse === false) {
+               toast.success(file.name + " Added Successfully");
+             } else {
+               toast.error(file.name + " is inappropriate!");
+               hasInappropriateFile = true;
+             }
+           } catch (error) {
+             toast.error("Error with file");
+             hasInappropriateFile = true;
+           } finally {
+             handleProcessedFile();
+           }
+         }
+       };
 
-              if (String(fileModerationResponse) === "false") {
-                toast.success(file.name + " Added Successfully");
-              } else {
-                toast.error(file.name + " is inappropriate!");
-                hasInappropriateFile = true;
-              }
-            } catch (error) {
-              toast.error("Error with file");
-            } finally {
-              handleProcessedFile();
-            }
-          }
-        };
+       reader.onerror = (error) => {
+         toast.error("Error with file");
+         hasInappropriateFile = true;
+         handleProcessedFile();
+       };
 
-        reader.onerror = (error) => {
-          toast.error("Error with file");
-          hasInappropriateFile = true;
-          handleProcessedFile();
-        };
+       reader.readAsDataURL(file);
+     } else {
+       setLoadingFileChecking(false);
+       toast.success(file.name + " Added Successfully");
+       handleProcessedFile();
+     }
+   }
+ }
 
-        reader.readAsDataURL(file);
-      } else {
-        setLoadingFileChecking(false);
-        toast.success(file.name + " Added Successfully");
-        handleProcessedFile();
-      }
-    }
-  }
 
   return (
     // <>
