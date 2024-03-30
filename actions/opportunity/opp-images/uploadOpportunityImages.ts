@@ -19,9 +19,15 @@ const uploadOpportunityImages = async ({
   const supabase = createServerActionClient<Database>({
     cookies,
   });
-  
+
   try {
     const uploadPromises = allOpportunityImages.map(async (image) => {
+      // check image or file size
+      if ((image as any).size < 1) {
+        console.log("empty file detected, skipping upload");
+        return;
+      }
+
       let random_uuid = crypto.randomUUID();
       const { data: oppImageData, error: oppImageError } =
         await supabase.storage
@@ -31,15 +37,13 @@ const uploadOpportunityImages = async ({
             upsert: false,
           });
 
-      
-
       if (oppImageData) {
         await supabase.from("opportunity_images").insert({
           opportunity_id: id,
           file_path: oppImageData.path,
           user_id: user_id,
           file_name: (image as any).name,
-          file_type: (image as any).type, 
+          file_type: (image as any).type,
         });
       }
 

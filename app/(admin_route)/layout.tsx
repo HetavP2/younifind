@@ -6,6 +6,7 @@ import UserProvider from "@/providers/UserProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { Metadata } from "next";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function AdminLayout({ children }: AdminLayoutProps) {
+async function AdminLayout({ children }: AdminLayoutProps) {
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { session },
@@ -75,3 +76,4 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     </html>
   );
 }
+export default dynamic(() => Promise.resolve(AdminLayout), { ssr: false });
