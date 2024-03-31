@@ -6,74 +6,77 @@ import React, { useEffect, useState } from "react";
 import ResultCard from "./Result";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
-import getAllApprovedOpportunities from "@/actions/opportunity/get-opps/getAllApprovedOpportunities";
+import getSearchOpps from "@/actions/opportunity/get-opps/getSearchOpps";
+import { useInView } from "react-intersection-observer";
+import getLengthApprovedOpportunities from "@/actions/opportunity/get-opps/getLengthOfApprovedOpps";
 
 const SearchContainer = () => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [recRecords, setRecRecords] = useState<any[]>([]); // Change 'any' to the appropriate type if known
+  // const { ref, inView } = useInView();
 
   // Filter State
+  const [allOppsLen, setAllOppsLen] = useState(0);
+  const [stopLoading, setStopLoading] = useState(false);
+
   const [modeSelect, setModeSelect] = useState<string | null>(null);
   const [studentSelect, setStudentSelect] = useState<string | null>(null);
   const [typeSelect, setTypeSelect] = useState<string | null>(null);
   const [seasonSelect, setSeasonSelect] = useState<string | null>(null);
   const [fieldSelect, setFieldSelect] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [page, setPage] = useState(0);
   const supabase = createClientComponentClient<Database>();
 
-  // const supabase = createClient(
-  //   "https://qbfbghtpknhobofhpxfr.supabase.co/" || "",
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiZmJnaHRwa25ob2JvZmhweGZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDExMzY1NzksImV4cCI6MjAxNjcxMjU3OX0.uhq3d8nom2XEifLOzUbv7OQ8cTsUODz-upgymtfugMU" ||
-  //     ""
-  // );
+  const getFromAndTo = () => {
+    const ITEM_PER_PAGE = 20;
+    let from = page * ITEM_PER_PAGE;
+    let to = from + ITEM_PER_PAGE;
+
+    if (page > 0) {
+      from += 1;
+    }
+
+    return { from, to };
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
+    setAllOppsLen(await getLengthApprovedOpportunities());
+    const { from, to } = getFromAndTo();
+
+    const allOpportunitiesToDisplay = await getSearchOpps(from, to);
+    // setRecRecords(allOpportunitiesToDisplay);
+    setRecRecords((crecRecords) => {
+      // Create a set to store unique IDs of existing records
+      const existingRecordIds = new Set(crecRecords.map((record) => record.id));
+
+      // Filter out duplicates from allOpportunitiesToDisplay
+      const newOpportunities = allOpportunitiesToDisplay.filter(
+        (record) => !existingRecordIds.has(record.id)
+      );
+
+      // Concatenate the existing records with the new ones
+      return [...crecRecords, ...newOpportunities];
+    });
+
+    setPage(page + 1);
+    if (to >= allOppsLen) {
+      setStopLoading(true);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      //     const supabaseAdmin = createClient(
-      //       "https://dywothwzjruxdviwvsxt.supabase.co" || "",
-      //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5d290aHd6anJ1eGR2aXd2c3h0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NjY5NjYwNCwiZXhwIjoyMDEyMjcyNjA0fQ.z8UmvcTJJwYmsxdNNSENIeXCgPAx4k-s-0cyzp0_D9o" ||
-      //         ""
-      //     );
-
-      //     const { data } = await supabaseAdmin
-      //       .from("opportunities")
-      //       .select("* WHERE APPROVAL TRUE")
-      //       .order("id");
-      //     console.log(data);
-      //     setRecRecords(data || []);
-      //   };
-
-      try {
-        // const { data, error } = await supabase
-        //   .from("opportunity_statuses")
-        //   .select("*")
-        //   .eq("approved", true)
-        //   .order("id");
-        setLoading(true);
-        const allApprovedOpportunities = await getAllApprovedOpportunities();
-        setRecRecords(allApprovedOpportunities);
-        setLoading(false);
-
-        // if (error) {
-        //   console.error("Error fetching data:", error);
-        //   // Handle error state or notify the user
-        // } else {
-        //   console.log("Fetched data:", data);
-        //   setRecRecords(data || []); // Set empty array if data is null
-        // }
-      } catch (error) {
-        console.error("Error in fetching data:", error);
-        // Handle error state or notify the user
-      }
-    };
+    fetchData();
+    // if (inView) {
+    //   fetchData();
+    // }
 
     if (searchQuery === null) {
       console.log("search query does not exist");
-      getData();
+      fetchData();
     }
-
-    console.log("useffect is triggered");
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -204,7 +207,7 @@ const SearchContainer = () => {
             </div>
           </div>
 
-          <main className="h-[800px]">
+          <main className="h-[800px] ">
             <header className="">
               <div className="mx-auto max-w-7xl p-8">
                 <div className="flex flex-row w-full gap-2 mb-4 bg-white shadow-xl p-4 rounded-md">
@@ -243,17 +246,11 @@ const SearchContainer = () => {
                 </div>
               </div>
             </header>
+
+
             <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll h-[550px] no-scrollbar sm:px-6 lg:px-8">
               <div className="">
                 {/* Your content */}
-                {loading && (
-                  <div className="flex flex-col justify-center items-center h-full w-full">
-                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-                    <p className="text-white text-2xl text-center my-4 font-semibold">
-                      Loading Data...
-                    </p>
-                  </div>
-                )}
 
                 {recRecords ? (
                   recRecords?.map((record) => (
@@ -266,8 +263,30 @@ const SearchContainer = () => {
                 ) : (
                   <div>No results found.</div>
                 )}
+                  {loading && (
+                    <div
+                      className="flex flex-col justify-center items-center h-full w-full"
+                    >
+                      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                      <p className="text-white text-2xl text-center my-4 font-semibold">
+                        Loading Data...
+                      </p>
+                    </div>
+                  )}
+                {/* <div
+                  ref={ref}
+                  className="flex flex-col justify-center items-center h-full w-full"
+                  >
+                  <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                  <p className="text-white text-2xl text-center my-4 font-semibold">
+                  Loading Data...
+                  </p>
+                </div> */}
               </div>
             </div>
+                {(stopLoading) && (
+                  <button onClick={fetchData}>Load More</button>
+                  )}
           </main>
         </div>
       </div>

@@ -46,6 +46,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   });
 
   async function handleFileChange(e: any) {
+    console.log(e.target.files);
+    
     if (e.target.files === null || e.target.files.length === 0) {
       // No files selected
       console.log('no files');
