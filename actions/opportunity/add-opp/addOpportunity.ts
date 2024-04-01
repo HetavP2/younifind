@@ -11,6 +11,7 @@ import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 import getOpportunity from "../get-opps/getOpportunity";
 import postToInstagram from "@/actions/createInstagramPost";
+import updateOppStatus from "./updateStatus";
 
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages?: FormDataEntryValue[];
@@ -65,13 +66,21 @@ const addOpportunity = async ({
   if (adminInfo !== null) {
     approved = true;
   }
+  
+  
   let id = parseInt(oppId);
   let oppExists = false;
+  let errorChangingStatus, data;
   const [opportunityDetails] = await getOpportunity(id);
+  // console.log(oppId);
+  
+  
 
   if (opportunityDetails !== undefined) {
     oppExists = true;
+    // const res = updateOppStatus(id);
   }
+  
 
     if (Number.isNaN(id)) {
       id = getRandomInt(999999999999999);
@@ -145,10 +154,14 @@ const addOpportunity = async ({
   //   "image prompt"
   // );
 
-  if (errorAddingOpp === null && uploadImagesStatus && emailSentStatus) {
+  if (
+    errorAddingOpp === null &&
+    uploadImagesStatus &&
+    emailSentStatus 
+  ) {
     return "SuccessfullyUpdatedAnOpportunity";
   } else {
-    return 'ErrorAddingOpportunity';
+    return "ErrorAddingOpportunity";
   }
 
 };

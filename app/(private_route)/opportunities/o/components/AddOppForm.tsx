@@ -3,6 +3,9 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -36,7 +39,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
     const typelabel = String(formData.get("typelabel"));
     const description = String(formData.get("description"));
     const opportunityImages = formData.getAll("opportunityImages");
-    
+
     const expiryDate = formData.get("expiryDate");
     const contactEmail = String(formData.get("contactEmail"));
 
@@ -61,6 +64,23 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
         ],
       }),
     });
+
+    // const supabase = createServerComponentClient({
+    //   cookies: cookies,
+    // });
+    // if (id) {
+    //   let oppId = parseInt(id);
+    //   const [opportunityDetails] = await getOpportunity(oppId);
+
+    //   if (opportunityDetails !== undefined) {
+    //     const { data, error } = await supabase
+    //       .from("opportunity_statuses")
+    //       .update({ approved: false })
+    //       .eq("opportunity_id", oppId).select();
+    //     console.log('hereeeee');
+    //     console.log(data);
+    //   }
+    // }
 
     const textModeration: any = await response.json();
 
