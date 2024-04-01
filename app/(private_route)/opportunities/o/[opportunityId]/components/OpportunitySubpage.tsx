@@ -23,12 +23,7 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = async ({
       <Navbar>
         <AuthLink session={session} />
       </Navbar>
-      <div className="bg-red-300 px-4 py-3 text-white w-full">
-        <p className="text-center text-sm font-medium">
-          Welcome to younifind's Pilot Program, in endorsed with the Peel
-          District School Board.
-        </p>
-      </div>
+
       <div className="flex w-full">
         <div className="w-full flex flex-col gap-4 items-center">
           <div className="mx-auto p-4">
