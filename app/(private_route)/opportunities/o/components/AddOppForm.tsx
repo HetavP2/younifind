@@ -1,3 +1,4 @@
+
 import React from "react";
 import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
@@ -9,6 +10,7 @@ import getOpportunity from "@/actions/opportunity/get-opps/getOpportunity";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
+  stopRecaptcha: any;
 }
 
 const AddOppForm: React.FC<AddOppFormProps> = async ({
@@ -17,6 +19,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   location,
   season,
   industry,
+  stopRecaptcha,
   isfor,
   mode,
   typelabel,
@@ -26,6 +29,17 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   contact_email,
   allOpportunityImages,
 }) => {
+  let recaptchaGood = false;
+  const handleCaptchaValidation = async (success: boolean) => {
+  "use server";
+
+    // Handle the success status here, for example:
+    if (success) {
+      // Do something if captcha validation is successful
+      recaptchaGood = true;
+    } else {
+    }
+  };
   const addOpp = async (formData: FormData) => {
     "use server";
 
@@ -86,7 +100,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (String(textModerationResponse) === "false") {
+    if (String(textModerationResponse) === "false" && recaptchaGood===true) {
       const submissionStatus = await addOpportunity({
         id: id || "a",
         title,
@@ -155,10 +169,12 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
                   isfor={isfor}
                   location={location}
                   mode={mode}
+                  stopRecaptcha={stopRecaptcha}
                   typelabel={typelabel}
                   expiry_date={expiry_date}
                   contact_email={contact_email}
                   oppImages={allOpportunityImages}
+                  handleCaptchaValidation={handleCaptchaValidation}
                 />
               </form>
             </div>

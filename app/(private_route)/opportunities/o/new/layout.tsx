@@ -6,8 +6,9 @@ import { cookies } from "next/headers";
 import ToasterProvider from "@/providers/ToasterProvider";
 import Script from "next/script";
 export const runtime = "edge";
+import dynamic from "next/dynamic";
 
-export default async function NewOpportunityLayout({
+async function NewOpportunityLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -47,3 +48,6 @@ export default async function NewOpportunityLayout({
     </html>
   );
 }
+export default dynamic(() => Promise.resolve(NewOpportunityLayout), {
+  ssr: false,
+});
