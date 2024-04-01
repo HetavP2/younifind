@@ -260,7 +260,7 @@ const SearchContainer = () => {
                 </div>
 
                 {trendingdata.map((trend) => (
-                  <div className="w-2/5 rounded-md h-full flex flex-col justify-center text-center gap-3 p-4 bg-white">
+                  <div key={trend.id} className="w-2/5 rounded-md h-full flex flex-col justify-center text-center gap-3 p-4 bg-white">
                     <h1 className="font-bold text-md">{trend.name}</h1>
                     <div className="w-3/4 mx-auto px-2 flex flex-row items-center justify-center gap-2">
                       <h2 className="text-sm font-semibold p-2 bg-slate-300 rounded-md">

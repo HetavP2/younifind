@@ -9,8 +9,8 @@ export default function Privacy() {
       </Navbar>
       <div className="bg-red-300 px-4 py-3 text-white w-full">
         <p className="text-center text-sm font-medium">
-          Welcome to younifind's Pilot Program, endorsed by the Peel District
-          School Board.
+          Welcome to younifind&apos;s Pilot Program, endorsed by the Peel
+          District School Board.
         </p>
       </div>
       <div className="flex w-full">
