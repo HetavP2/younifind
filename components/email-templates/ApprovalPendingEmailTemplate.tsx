@@ -3,50 +3,43 @@ import {
   Button,
   Container,
   Head,
-  Heading,
   Hr,
   Html,
   Img,
-  Link,
   Preview,
   Section,
   Text,
 } from "@react-email/components";
 import * as React from "react";
 
-
-
+const baseUrl = `https://www.younifind.ca`;
 
 export const ApprovalPendingEmailTemplate = () => (
   <Html>
     <Head />
-    <Preview>Opportunity Pending Approval</Preview>
+    <Preview>Explore futures, younifind your path.</Preview>
     <Body style={main}>
       <Container style={container}>
         <Img
-          // src={`${baseUrl}/static/linear-logo.png`} // put younifind logo
-          src="/public/images/younifind.png" // put younifind logo
-          width="42"
-          height="42"
-          alt="Linear"
+          src={`${baseUrl}/images/younifind.png`}
+          width="300"
+          height="100"
+          alt="younifind"
           style={logo}
         />
-        <Heading style={heading}>Opportunity Pending Approval</Heading>
-        <Section style={buttonContainer}>
-          <Button
-            style={button}
-            href="http://localhost:3000/adminPanel"
-          >
+        <Text style={paragraph}>Hi,</Text>
+        <Text style={paragraph}>An opportunity wants to get posted.</Text>
+        <Section style={btnContainer}>
+          <Button style={button} href="https://www.younifind.ca/adminPanel">
             Approve Now
           </Button>
         </Section>
         <Text style={paragraph}>
-          Please do your part in approving opportunities. Learn More.
+          Best,
+          <br />
+          younifind team
         </Text>
         <Hr style={hr} />
-        <Link href="http://localhost:3000" style={reportLink}>
-          younifind©
-        </Link>
       </Container>
     </Body>
   </Html>
@@ -54,72 +47,47 @@ export const ApprovalPendingEmailTemplate = () => (
 
 export default ApprovalPendingEmailTemplate;
 
-const logo = {
-  borderRadius: 21,
-  width: 42,
-  height: 42,
-};
-
 const main = {
   backgroundColor: "#ffffff",
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    '-apple-system,BlinkMacSystemFont,roboto-slab',
 };
 
 const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
-  width: "560px",
 };
 
-const heading = {
-  fontSize: "24px",
-  letterSpacing: "-0.5px",
-  lineHeight: "1.3",
-  fontWeight: "400",
-  color: "#484848",
-  padding: "17px 0 0",
+const logo = {
+  margin: "0 auto",
 };
 
 const paragraph = {
-  margin: "0 0 15px",
-  fontSize: "15px",
-  lineHeight: "1.4",
-  color: "#3c4149",
+  fontSize: "16px",
+  lineHeight: "26px",
 };
 
-const buttonContainer = {
-  padding: "27px 0 27px",
+const btnContainer = {
+  textAlign: "center" as const,
 };
 
 const button = {
-  backgroundColor: "#5e6ad2",
+  backgroundColor: "#0C234D",
   borderRadius: "3px",
-  fontWeight: "600",
   color: "#fff",
-  fontSize: "15px",
+  fontSize: "16px",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
-};
-
-const reportLink = {
-  fontSize: "14px",
-  color: "#b4becc",
+  padding: "12px",
 };
 
 const hr = {
-  borderColor: "#dfe1e4",
-  margin: "42px 0 26px",
+  borderColor: "#0C234D",
+  margin: "20px 0",
 };
 
-const code = {
-  fontFamily: "monospace",
-  fontWeight: "700",
-  padding: "1px 4px",
-  backgroundColor: "#dfe1e4",
-  letterSpacing: "-0.3px",
-  fontSize: "21px",
-  borderRadius: "4px",
-  color: "#3c4149",
+const footer = {
+  color: "#F7CE3D",
+  fontSize: "12px",
 };

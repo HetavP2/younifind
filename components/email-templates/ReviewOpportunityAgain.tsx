@@ -3,121 +3,134 @@ import {
   Button,
   Container,
   Head,
-  Heading,
   Hr,
   Html,
   Img,
   Link,
   Preview,
+  Row,
   Section,
   Text,
 } from "@react-email/components";
 import * as React from "react";
 
-export const ReviewOpportunityAgain = (content: string | undefined) => (
-  <Html>
-    <Head />
-    <Preview>Please review your opportunity again</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img
-          // src={`${baseUrl}/static/linear-logo.png`} // put younifind logo
-          src="/public/images/younifind.png" // put younifind logo
-          width="42"
-          height="42"
-          alt="Linear"
-          style={logo}
-        />
-        <Heading style={heading}>
-          Here is why it does not meet our standards:
-        </Heading>
-        <Heading style={heading}>{content}</Heading>
+const baseUrl = `https://www.younifind.ca`;
 
-        <Section style={buttonContainer}>
-          <Button style={button} href="http://localhost:3000/dashboard">
-            Make Changes Now
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          Please resubmit your opportunity again. Learn More.
-        </Text>
-        <Hr style={hr} />
-        <Link href="http://localhost:3000" style={reportLink}>
-          younifind©
-        </Link>
-      </Container>
-    </Body>
-  </Html>
-);
+export const ReviewOpportunityAgain = (content: string | undefined) => {
+  const previewText = `Needs review`;
 
-export default ReviewOpportunityAgain;
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
 
-const logo = {
-  borderRadius: 21,
-  width: 42,
-  height: 42,
+      <Body style={main}>
+        <Container style={container}>
+          <Section>
+            <Img
+              src={`${baseUrl}/images/younifind.png`}
+              width="96"
+              height="30"
+              alt="younifind"
+            />
+          </Section>
+          <Section style={{ paddingBottom: "20px" }}>
+            <Row>
+              <Text style={heading}>Please review your opportunity again</Text>
+              <Text style={paragraph}>
+                Here is why it does not meet our standards:
+              </Text>
+              <Text style={review}>{content}</Text>
+
+              <Button style={button} href="https://www.younifind.ca/dashboard">
+                Make Changes
+              </Button>
+            </Row>
+          </Section>
+
+          <Hr style={hr} />
+
+          {/* <Section>
+            <Row>
+              <Text style={{ ...paragraph, fontWeight: "700" }}>
+                Common questions
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/13" style={link}>
+                  How do reviews work?
+                </Link>
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/1257" style={link}>
+                  How do star ratings work?
+                </Link>
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/995" style={link}>
+                  Can I leave a review after 14 days?
+                </Link>
+              </Text>
+              <Hr style={hr} />
+              <Text style={footer}>
+                Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
+              </Text>
+              <Link href="https://airbnb.com" style={reportLink}>
+                Report unsafe behavior
+              </Link>
+            </Row>
+          </Section> */}
+        </Container>
+      </Body>
+    </Html>
+  );
 };
 
 const main = {
   backgroundColor: "#ffffff",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  fontFamily: "-apple-system,BlinkMacSystemFont,roboto-slab",
 };
 
 const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
-  width: "560px",
+  width: "580px",
+  maxWidth: "100%",
 };
 
 const heading = {
-  fontSize: "24px",
-  letterSpacing: "-0.5px",
+  fontSize: "32px",
   lineHeight: "1.3",
-  fontWeight: "400",
+  fontWeight: "700",
   color: "#484848",
-  padding: "17px 0 0",
 };
 
 const paragraph = {
-  margin: "0 0 15px",
-  fontSize: "15px",
+  fontSize: "18px",
   lineHeight: "1.4",
-  color: "#3c4149",
+  color: "#484848",
 };
 
-const buttonContainer = {
-  padding: "27px 0 27px",
+const review = {
+  ...paragraph,
+  padding: "24px",
+  backgroundColor: "#f2f3f3",
+  borderRadius: "4px",
 };
 
 const button = {
-  backgroundColor: "#5e6ad2",
+  backgroundColor: "#0C234D",
   borderRadius: "3px",
-  fontWeight: "600",
   color: "#fff",
-  fontSize: "15px",
+  fontSize: "18px",
+  paddingTop: "19px",
+  paddingBottom: "19px",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
-};
-
-const reportLink = {
-  fontSize: "14px",
-  color: "#b4becc",
+  width: "100%",
 };
 
 const hr = {
-  borderColor: "#dfe1e4",
-  margin: "42px 0 26px",
-};
-
-const code = {
-  fontFamily: "monospace",
-  fontWeight: "700",
-  padding: "1px 4px",
-  backgroundColor: "#dfe1e4",
-  letterSpacing: "-0.3px",
-  fontSize: "21px",
-  borderRadius: "4px",
-  color: "#3c4149",
+  borderColor: "#cccccc",
+  margin: "20px 0",
 };
