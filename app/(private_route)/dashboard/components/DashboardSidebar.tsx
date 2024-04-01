@@ -1,7 +1,7 @@
 "use client";
 
 import { HiOutlineHome } from "react-icons/hi";
-import { BiGlasses, BiSearch } from "react-icons/bi";
+import { BiCollection, BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
@@ -23,7 +23,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
           />
         </div>
 
-
         <div className="mt-6 text-md font-medium flex flex-col justify-start items-center w-3/4 border-gray-600  space-y-3 pb-5 ">
           <ul>
             <li className="my-6" key="Add Opportunity">
@@ -41,7 +40,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
                 className="bg-white py-2 px-6 w-full rounded-md text-royalblue flex jusitfy-start items-center space-x-6  focus:outline-none"
                 href="/dashboard"
               >
-                <BiGlasses className="text-xl mr-2" />
+                <BiCollection className="text-xl mr-2" />
                 Dashboard
               </Link>
             </li>
@@ -64,6 +63,5 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ children }) => {
     </div>
   );
 };
-
 
 export default DashboardSidebar;
