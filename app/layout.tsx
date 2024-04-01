@@ -146,7 +146,7 @@ export const metadata: Metadata = {
         height: 600,
       },
       {
-        url: "https://www.younifind.ca/images/younifindheptahedral.png",
+        url: "https://www.younifind.ca/images/younifind.png",
         width: 1800,
         height: 1600,
         alt: "younifind",
