@@ -135,7 +135,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "younifind",
-    description: "younifind© provides high school students with a massive catalogue of extracurricular activities that would interest them in areas such as software, finance and medicine. From internships to volunteer opportunities and even research in labs, high school students in all grades will be able to find the best extracurriculars in the Greater Toronto Area.",
+    description:
+      "younifind© provides high school students with a massive catalogue of extracurricular activities that would interest them in areas such as software, finance and medicine. From internships to volunteer opportunities and even research in labs, high school students in all grades will be able to find the best extracurriculars in the Greater Toronto Area.",
+    url: "https://www.younifind.ca",
+    siteName: "younifind",
+    images: [
+      {
+        url: "https://www.younifind.ca/images/younifind.png",
+        width: 800,
+        height: 600,
+      },
+      {
+        url: "https://www.younifind.ca/images/younifindheptahedral.png",
+        width: 1800,
+        height: 1600,
+        alt: "younifind",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
 };
 

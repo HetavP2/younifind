@@ -55,7 +55,7 @@ export default function HomePageContent() {
               whileHover={{ scale: 1.1 }}
               onHoverStart={(e) => {}}
               onHoverEnd={(e) => {}}
-              href="#email"
+              href="mailto:contact@younifind.ca"
               className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center  border  rounded-lg  focus:ring-4  text-white border-gray-700 hover:bg-gray-700 focus:ring-gray-800"
             >
               Need Help?
@@ -354,7 +354,7 @@ export default function HomePageContent() {
               </a>
               <a
                 id="email"
-                href="mailto:support@younifind.ca"
+                href="mailto:contact@younifind.ca"
                 className="text-gray-500 hover:text-white"
               >
                 <FaEnvelope size={20} />
