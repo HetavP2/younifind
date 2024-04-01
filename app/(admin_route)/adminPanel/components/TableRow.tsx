@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState, useEffect } from "react";
 import OppTextarea from "@/components/OppTextarea";
 import { BiLink } from "react-icons/bi";
@@ -9,6 +9,16 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Opportunity } from "@/types";
+
+import {
+  TERipple,
+  TEModal,
+  TEModalDialog,
+  TEModalContent,
+  TEModalHeader,
+  TEModalBody,
+  TEModalFooter,
+} from "tw-elements-react";
 
 interface TableRowProps extends Opportunity {}
 
@@ -62,7 +72,7 @@ const TableRow: React.FC<TableRowProps> = ({
       .update({ admin_notes: null })
       .eq("id", id)
       .select();
-//@ts-ignore
+    //@ts-ignore
     setOppStatus(checked);
 
     const { error: errorChangingStatus } = await supabase
@@ -101,7 +111,7 @@ const TableRow: React.FC<TableRowProps> = ({
       .select();
 
     if (error !== null) {
-      toast.error("Error Adding Notes! Please try again.");
+      toast.error("Error Adding Notes/Comments! Please try again.");
     }
   };
 
@@ -109,7 +119,9 @@ const TableRow: React.FC<TableRowProps> = ({
     const [{ admin_notes: adminNotes }] = await getOpportunity(parseInt(id));
 
     if (adminNotes === undefined || adminNotes === null) {
-      toast.error("Please add some notes before you send your message");
+      toast.error(
+        "Please add some notes/comments before you send your message"
+      );
       return;
     }
 
@@ -178,25 +190,53 @@ const TableRow: React.FC<TableRowProps> = ({
       ) : (
         <>
           <td className="px-6 py-4">
-            <OppTextarea
-              cols={900}
-              onChange={(e) => {
-                setAdminNotes(e.target.value);
-                handleOnChangeNotes(e.target.value);
-              }}
-              value={adminNotes}
-              placeholder="Add admin notes..."
-              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-royalyellow"
-            />
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <button
+              className="bg-royalyellow text-white font-semibold px-4 py-1 rounded-md"
+              onClick={() =>
+                (
+                  document.getElementById(`modal_${id}`) as HTMLDialogElement
+                )?.showModal()
+              }
+            >
+              View comments
+            </button>
+            <dialog id={`modal_${id}`} className="modal">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">
+                  Comments for:{" "}
+                  <span className=" text-royalyellow">{title}</span>
+                </h3>
+                <div className="py-4">
+                  <OppTextarea
+                    cols={900}
+                    onChange={(e) => {
+                      setAdminNotes(e.target.value);
+                      handleOnChangeNotes(e.target.value);
+                    }}
+                    value={adminNotes}
+                    placeholder="If there are any issues, concerns or questions with this opportunity, please add them here to resend and inform the user."
+                    className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-royalyellow"
+                  />
+                </div>
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn">Close</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </td>
           <td className="px-6 py-4">
             <button
               type="button"
               onClick={handleClick}
+              title="Resend your comments about this opportunity to this user."
               disabled={buttonDisabled}
-              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 transition duration-300"
+              className="text-white bg-royalblue border-royalyellow border-dashed font-semibold px-4 py-1 rounded-md transition duration-300"
             >
-              Resend for review
+              Resend comments
             </button>
           </td>
         </>

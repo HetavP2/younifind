@@ -12,7 +12,9 @@ const ResultCard: React.FC<ResultCardProps> = ({ recordData }) => {
         <div className="flex font-medium">
           {recordData.provider} - {recordData.industry}
         </div>
-        <div className="text-md mt-4">{recordData.description}</div>
+        <div className="text-md mt-4 line-clamp-3 pr-2">
+          {recordData.description}
+        </div>
       </div>
       <div
         className="w-1/3 bg-royalyellow pl-[20px] relative flex flex-col p-4 items-center justify-center rounded-2xl "
