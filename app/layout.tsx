@@ -141,12 +141,12 @@ export const metadata: Metadata = {
     siteName: "younifind",
     images: [
       {
-        url: "https://www.younifind.ca/images/younifind.png",
+        url: "https://www.younifind.ca/images/younifindwithbackground.png",
         width: 800,
         height: 600,
       },
       {
-        url: "https://www.younifind.ca/images/younifind.png",
+        url: "https://www.younifind.ca/images/younifindwithbackground.png",
         width: 1800,
         height: 1600,
         alt: "younifind",
