@@ -209,7 +209,7 @@ const SearchContainer = () => {
             </div>
           </div>
 
-          <main className="h-[800px] w-full">
+          <main className="h-full w-full pb-4">
             <header className="">
               <div className="mx-auto max-w-7xl p-8">
                 <div className="flex flex-row w-full gap-2 bg-white shadow-xl p-4 rounded-md">

@@ -45,7 +45,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({ className, session }) => {
   return session ? (
     <button
       onClick={handleSignOut}
-      className={`px-2 py-1 bg-royalyellow text-white` + className}
+      className={`px-2 py-1 bg-royalyellow text-royalblue` + className}
     >
       Logout
     </button>

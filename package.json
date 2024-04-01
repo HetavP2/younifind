@@ -46,6 +46,7 @@
     "sitemap": "^7.1.1",
     "stripe": "^14.5.0",
     "tailwind-merge": "^2.0.0",
+    "tw-elements-react": "^1.0.0-alpha2",
     "validator": "^13.11.0",
     "xmlbuilder2": "^3.1.1",
     "zustand": "^4.4.7"
@@ -60,6 +61,7 @@
     "@types/validator": "^13.11.7",
     "aedos": "^1.1.4",
     "autoprefixer": "^10.0.1",
+    "daisyui": "^4.9.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "next-sitemap": "^4.2.3",
