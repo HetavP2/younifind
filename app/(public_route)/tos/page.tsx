@@ -7,6 +7,12 @@ export default function TOS() {
       <Navbar>
         <AuthSystem className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" />
       </Navbar>
+      <div className="bg-red-300 px-4 py-3 text-white w-full">
+        <p className="text-center text-sm font-medium">
+          Welcome to younifind's Pilot Program, in partnership with the Peel
+          District School Board.
+        </p>
+      </div>
       <div className="flex w-full">
         <div className="w-3/5 flex mx-auto flex-col mt-8 gap-4 items-center">
           <h1 className="text-center my-2 font-bold text-2xl">

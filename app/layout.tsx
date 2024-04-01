@@ -18,7 +18,6 @@ const inter = Inter({ subsets: ["latin"] });
 // above is for favicon for samsung and apple and stuff
 export const runtime = "edge";
 
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.younifind.ca"),
   title: {
@@ -157,7 +156,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-royalblue`}>
         <ToasterProvider />
         <SupabaseProvider>
           <UserProvider>{children}</UserProvider>

@@ -35,7 +35,7 @@ const AuthLink: React.FC<AuthLinkProps> = ({ session }) => {
 
   return session ? (
     <button
-      className={`bg-royalyellow hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6  hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200`}
+      className={`bg-royalyellow hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6  hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-md transition duration-200`}
       onClick={handleSignOut}
     >
       Logout
@@ -43,7 +43,7 @@ const AuthLink: React.FC<AuthLinkProps> = ({ session }) => {
   ) : (
     <a
       href="/login"
-      className={`bg-royalyellow hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6  hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200`}
+      className={`bg-royalyellow hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6  hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-md transition duration-200`}
     >
       Login
     </a>

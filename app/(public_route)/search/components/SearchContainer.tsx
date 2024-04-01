@@ -7,8 +7,10 @@ import ResultCard from "./Result";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 import getSearchOpps from "@/actions/opportunity/get-opps/getSearchOpps";
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 import getLengthApprovedOpportunities from "@/actions/opportunity/get-opps/getLengthOfApprovedOpps";
+import trendingdata from "./trending.js";
+import { motion } from "framer-motion";
 
 const SearchContainer = () => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
@@ -207,13 +209,13 @@ const SearchContainer = () => {
             </div>
           </div>
 
-          <main className="h-[800px] ">
+          <main className="h-[800px] w-full">
             <header className="">
               <div className="mx-auto max-w-7xl p-8">
-                <div className="flex flex-row w-full gap-2 mb-4 bg-white shadow-xl p-4 rounded-md">
+                <div className="flex flex-row w-full gap-2 bg-white shadow-xl p-4 rounded-md">
                   <div className="flex self-stretch flex-1 p-3 border border-gray-200 rounded-md shadow-sm gap-x-4 lg:gap-x-6 focus-within:ring-0 focus-within:ring-offset-0 focus-within:border-indigo-300">
                     <form
-                      className="relative flex flex-1 outline-none"
+                      className="relative flex flex-1 outline-none "
                       onSubmit={(e) => {
                         e.preventDefault();
                       }}
@@ -239,14 +241,49 @@ const SearchContainer = () => {
                   {/* // Insert filters here */}
                   <button
                     onClick={handleSubmit}
-                    className="py-1 text-black bg-gray-200 rounded-md px-4"
+                    className="py-1 text-black font-bold bg-royalyellow rounded-md px-8 flex items-center justify-center"
                   >
-                    Search
+                    Search{" "}
+                    {/* <BiSearch
+                      className="text-lg text-royalblue font-semibold mx-1 pointer-events-none"
+                      aria-hidden="true"
+                    /> */}
                   </button>
                 </div>
               </div>
             </header>
 
+            <div className="mx-auto max-w-7xl px-8 ">
+              <div className="bg-royalyellow p-2 overflow-x-scroll flex md:flex-row flex-col gap-3 rounded-md h-full  md:h-[150px] w-full">
+                <div className="w-3/5 rounded-md h-full flex flex-col justify-center text-center p-4 px-14 bg-white">
+                  <h1 className="font-bold text-md">Trending Opportunities:</h1>
+                </div>
+
+                {trendingdata.map((trend) => (
+                  <div className="w-2/5 rounded-md h-full flex flex-col justify-center text-center gap-3 p-4 bg-white">
+                    <h1 className="font-bold text-md">{trend.name}</h1>
+                    <div className="w-3/4 mx-auto px-2 flex flex-row items-center justify-center gap-2">
+                      <h2 className="text-sm font-semibold p-2 bg-slate-300 rounded-md">
+                        {trend.tag1}
+                      </h2>
+                      <h2
+                        className={`text-sm font-semibold p-2 ${
+                          trend.tag2 == "Free" ? `bg-green-400` : `bg-blue-400`
+                        } rounded-md`}
+                      >
+                        {trend.tag2}
+                      </h2>
+                      <a
+                        href={trend.website}
+                        className="text-sm font-semibold p-2 text-white bg-royalblue rounded-md"
+                      >
+                        <button>view</button>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             <div className="mx-auto max-w-7xl bg-transparent overflow-y-scroll h-[550px] no-scrollbar sm:px-6 lg:px-8">
               <div className="">
@@ -263,16 +300,14 @@ const SearchContainer = () => {
                 ) : (
                   <div>No results found.</div>
                 )}
-                  {loading && (
-                    <div
-                      className="flex flex-col justify-center items-center h-full w-full"
-                    >
-                      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-                      <p className="text-white text-2xl text-center my-4 font-semibold">
-                        Loading Data...
-                      </p>
-                    </div>
-                  )}
+                {loading && (
+                  <div className="flex flex-col justify-center items-center h-full w-full">
+                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                    <p className="text-white text-2xl text-center my-4 font-semibold">
+                      Loading Data...
+                    </p>
+                  </div>
+                )}
                 {/* <div
                   ref={ref}
                   className="flex flex-col justify-center items-center h-full w-full"
@@ -284,9 +319,33 @@ const SearchContainer = () => {
                 </div> */}
               </div>
             </div>
-                {(stopLoading) && (
-                  <button onClick={fetchData}>Load More</button>
-                  )}
+            {stopLoading && (
+              <button onClick={fetchData}>
+                <div className="ml-4">
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    onHoverStart={(e) => {}}
+                    onHoverEnd={(e) => {}}
+                    href="/search"
+                    className="inline-flex items-center justify-center px-4 py-3 text-base font-medium text-center text-white rounded-lg bg-royalblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-900"
+                  >
+                    Load More Opportunities
+                    <svg
+                      className="w-5 h-5 ml-2 -mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </motion.a>
+                </div>
+              </button>
+            )}
           </main>
         </div>
       </div>
