@@ -520,15 +520,15 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         <br />
         {!stopRecaptcha && (
           <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCH_SITE_KEY || ""}
-          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
+            ref={recaptchaRef}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
           bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
           transition-all duration-150"
-          onChange={handleCaptchaChange}
+            onChange={handleCaptchaChange}
           />
-          )}
-          <br />
+        )}
+        <br />
         <button
           className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
