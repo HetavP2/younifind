@@ -133,6 +133,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon/favicon.ico",
   },
+  openGraph: {
+    title: "younifind",
+    description: "younifind© provides high school students with a massive catalogue of extracurricular activities that would interest them in areas such as software, finance and medicine. From internships to volunteer opportunities and even research in labs, high school students in all grades will be able to find the best extracurriculars in the Greater Toronto Area.",
+  },
 };
 
 export default function RootLayout({
