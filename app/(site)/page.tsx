@@ -21,8 +21,8 @@ export default async function Home() {
       </div>
       <div className="bg-red-300 px-4 py-3 text-white w-full">
         <p className="text-center text-sm font-medium">
-          Welcome to younifind's Pilot Program, in partnership with the Peel
-          District School Board.
+          Welcome to younifind's Pilot Program, endorsed by the Peel District
+          School Board.
         </p>
       </div>
       <HomePageContent />
