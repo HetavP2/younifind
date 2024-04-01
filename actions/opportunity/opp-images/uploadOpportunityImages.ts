@@ -25,12 +25,12 @@ const uploadOpportunityImages = async ({
       console.log("image checked. you're here.");
       console.log("image length is", (image as any).type);
 
-
+      if (!image || (image as any).size === 0) return;
       // check image or file size
-      if ((image as any).name === "undefined") {
-        console.log("empty file detected, skipping upload");
-        return;
-      }
+      // if ((image as any).name === "undefined") {
+      //   console.log("empty file detected, skipping upload");
+      //   return;
+      // }
 
       let random_uuid = crypto.randomUUID();
       const { data: oppImageData, error: oppImageError } =
