@@ -7,7 +7,6 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Metadata } from "next";
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -51,30 +50,13 @@ export default async function EditOpportunityPage({
     data: { session },
   } = await supabase.auth.getSession();
 
-
   if (!opportunityDetails || session?.user.id !== opportunityDetails.user_id) {
     notFound();
   }
 
   const data: any = await getOpportunityImages(oppId);
-let stopRecaptcha = false;
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-const { data: adminInfo, error } = await supabase
-  .from("admins")
-  .select()
-  //@ts-ignore
-  .filter("admin_id", "in", `(${user.id})`)
-  .single();
-
-if (adminInfo !== null) {
-  stopRecaptcha = true;
-}
   return (
     <AddOppForm
-      stopRecaptcha={stopRecaptcha}
       key={opportunityDetails.id}
       id={opportunityDetails.id}
       title={opportunityDetails.title}

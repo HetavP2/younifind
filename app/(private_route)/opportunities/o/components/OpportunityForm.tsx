@@ -6,35 +6,54 @@ import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
 import toast from "react-hot-toast";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
-  stopRecaptcha: any;
-  handleCaptchaValidation: any;
+  sendDataToParent: any;
 }
 
 const OpportunityForm: React.FC<OpportunityFormProps> = ({
   provider,
+  sendDataToParent,
   location,
-  handleCaptchaValidation,
   season,
-  stopRecaptcha,
   industry,
   isfor,
   mode,
   typelabel,
-  
   description,
   title,
   expiry_date,
   contact_email,
   oppImages,
 }) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  async function handleClick() {
+    //@ts-ignore
+    executeRecaptcha("enquiryFormSubmit").then(async (gReCaptchaToken) => {
+      // submitEnquiryForm(gReCaptchaToken);
+      const recaptchaRes = await submitEnquiryForm(gReCaptchaToken);
+      sendDataToParent(recaptchaRes);
+    });
+
+  }
+  const submitEnquiryForm = async (gReCaptchaToken: string) => {
+    const res = await fetch(`/api/gReCaptcha`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        gRecaptchaToken: gReCaptchaToken,
+      }),
+    });
+    const recaptchaRes = await res.json();
+    return recaptchaRes;
+  };
+
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
-  const recaptchaRef = useRef(null);
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
@@ -52,31 +71,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
-  
 
-  const handleCaptchaChange = async (value: any) => {
-    setCaptchaValue(value);
-    try {
-      const response = await fetch(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SEC_KEY}&response=${captchaValue}`,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-          },
-          method: "POST",
-        }
-      );
-
-      const captchaValidation = await response.json();
-      if (captchaValidation.success) {
-        await handleCaptchaValidation(true);
-      } else {
-        await handleCaptchaValidation(false);
-      }
-    } catch (error) {
-      console.log("error cap went wrong");
-    }
-  };
 
   async function handleFileChange(e: any) {
     console.log(e.target.files);
@@ -512,27 +507,17 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             >
               It can approximately 10 seconds to verify your files.
             </div>
+            <br />
 
             {/* ... (Remaining code for file upload) */}
           </div>
         </div>
 
-        <br />
-        {!stopRecaptcha && (
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600
-          bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear
-          transition-all duration-150"
-            onChange={handleCaptchaChange}
-          />
-        )}
-        <br />
         <button
           className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
           disabled={submitDisabled}
+          onClick={handleClick}
         >
           submit
         </button>

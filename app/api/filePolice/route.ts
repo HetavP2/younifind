@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
 
-const openai = new OpenAI();
 export const runtime = "edge";
 export async function POST(request: Request) {
   const fileData = await request.json();
-
   const { localFilePath } = fileData;
 
   try {
