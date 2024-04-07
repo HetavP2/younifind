@@ -31,7 +31,7 @@ const SearchContainer = () => {
   const supabase = createClientComponentClient<Database>();
 
   const getFromAndTo = () => {
-    const ITEM_PER_PAGE = 20;
+    const ITEM_PER_PAGE = 10;
     let from = page * ITEM_PER_PAGE;
     let to = from + ITEM_PER_PAGE;
 
@@ -260,7 +260,10 @@ const SearchContainer = () => {
                 </div>
 
                 {trendingdata.map((trend) => (
-                  <div key={trend.id} className="w-2/5 rounded-md h-full flex flex-col justify-center text-center gap-3 p-4 bg-white">
+                  <div
+                    key={trend.id}
+                    className="w-2/5 rounded-md h-full flex flex-col justify-center text-center gap-3 p-4 bg-white"
+                  >
                     <h1 className="font-bold text-md">{trend.name}</h1>
                     <div className="w-3/4 mx-auto px-2 flex flex-row items-center justify-center gap-2">
                       <h2 className="text-sm font-semibold p-2 bg-slate-300 rounded-md">
@@ -320,31 +323,29 @@ const SearchContainer = () => {
               </div>
             </div>
             {stopLoading && (
-              <button onClick={fetchData}>
-                <div className="ml-4">
-                  <motion.a
-                    whileHover={{ scale: 1.1 }}
-                    onHoverStart={(e) => {}}
-                    onHoverEnd={(e) => {}}
-                    href="/search"
-                    className="inline-flex items-center justify-center px-4 py-3 text-base font-medium text-center text-white rounded-lg bg-royalblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-900"
-                  >
-                    Load More Opportunities
-                    <svg
-                      className="w-5 h-5 ml-2 -mr-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </motion.a>
-                </div>
-              </button>
+              <motion.button
+                onClick={fetchData}
+                whileHover={{
+                  scale: 1.2,
+                }}
+                onHoverStart={(e) => {}}
+                onHoverEnd={(e) => {}}
+                className="inline-flex items-center justify-center px-4 py-3 text-base font-medium text-center text-white rounded-lg bg-royalblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-900"
+              >
+                Load More Opportunities
+                <svg
+                  className="w-5 h-5 ml-2 -mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </motion.button>
             )}
           </main>
         </div>
