@@ -141,11 +141,12 @@ const addOpportunity = async ({
   }
   
 
-  if (!approved) {
+  if (!approved && !oppExists) {
     const { error } = await supabase
-      .from("opportunity_statuses").update({ approved: false }).eq("opportunity_id", id);
-    
-    
+      .from("opportunity_statuses")
+      .update({ approved: false })
+      .eq("opportunity_id", id);
+
     emailSentStatus = await sendEmail({
       to: ["hetav.j.patel@gmail.com", "vangara.anirudhbharadwaj@gmail.com"],
       subject: "Please Approve Opportunity",

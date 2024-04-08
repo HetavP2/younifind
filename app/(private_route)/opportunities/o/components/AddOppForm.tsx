@@ -34,7 +34,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
   const addOpp = async (formData: FormData) => {
     "use server";
-    
 
     const title = String(formData.get("title"));
     const provider = String(formData.get("provider"));
@@ -76,38 +75,43 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (String(textModerationResponse) === "false" && String(recaptchaFailed) === "false") {
-      const submissionStatus = await addOpportunity({
-        id: id || "a",
-        title,
-        provider,
-        location,
-        season,
-        industry,
-        isfor,
-        mode,
-        typelabel,
-        description,
-        expiry_date: expiryDate,
-        allOpportunityImages: opportunityImages,
-        user_id: "acc",
-        type: "a",
-        contact_email: contactEmail,
-      });
-      //test
-      redirect(
-        `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
-      );
-    } else {
-      // alert(textModerationResponse)
-      console.log("BAD TEXT AND INPUT DTECTED");
-      console.log(String(textModerationResponse));
-      redirect(
-        `/dashboard?textStatus=${encodeURIComponent(
-          textModerationResponse ? textModerationResponse : "Bad Input"
-        )}`
-      );
+    if (String(recaptchaFailed) === "true") {
+      if (String(textModerationResponse) === "false") {
+        const submissionStatus = await addOpportunity({
+          id: id || "a",
+          title,
+          provider,
+          location,
+          season,
+          industry,
+          isfor,
+          mode,
+          typelabel,
+          description,
+          expiry_date: expiryDate,
+          allOpportunityImages: opportunityImages,
+          user_id: "acc",
+          type: "a",
+          contact_email: contactEmail,
+        });
+        //test
+        redirect(
+          `/dashboard?opportunityStatus=${encodeURIComponent(submissionStatus)}`
+        );
+      } else {
+        // alert(textModerationResponse)
+        console.log("BAD TEXT AND INPUT DTECTED");
+        console.log(String(textModerationResponse));
+        redirect(
+          `/dashboard?textStatus=${encodeURIComponent(
+            textModerationResponse ? textModerationResponse : "Bad Input"
+          )}`
+        );
+      }
     }
+
+
+    
   };
 
   return (
