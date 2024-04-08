@@ -75,7 +75,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (String(recaptchaFailed) === "false") {
+    if (String(recaptchaFailed) === "true") {
       if (String(textModerationResponse) === "false") {
         const submissionStatus = await addOpportunity({
           id: id || "a",
