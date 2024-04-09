@@ -204,7 +204,19 @@ const SearchContainer = () => {
                   <option value="Healthcare">Healthcare</option>
                   <option value="Finance">Finance</option>
                   <option value="STEM">STEM</option>
+                  <option value="SPORTS">Sports</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Career Development">Career Development</option>
+                  Community Development
+                  <option value="Community Development">
+                    Community Development
+                  </option>
+                  <option value="Trade">Trade</option>
+                  <option value="Other">Other</option>
                 </select>
+                <p className="text-center text-xs font-semibold text-royalblue">
+                  (Click on search after selecting filters)
+                </p>
               </div>
             </div>
           </div>

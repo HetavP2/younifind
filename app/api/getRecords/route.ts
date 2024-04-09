@@ -44,16 +44,16 @@ export async function GET(request: Request, context: any) {
   const embedding = responseData.data[0].embedding;
 
   const { data } = await supabase
-    .rpc("match_opportunities", {
+    .rpc("match_opportunities_two", {
       query_embedding: embedding,
       match_threshold: 0.2,
       match_count: 7,
     })
     .eq(mode ? "mode" : "", mode ? mode : "")
     .eq(isfor ? "isfor" : "", isfor ? isfor : "")
-    .eq(type ? "type" : "", type ? type : "");
-  // .eq(season ? "season" : "", season ? season : "")
-  // .eq(field ? "industry" : "", field ? field : "");
+    .eq(type ? "type" : "", type ? type : "")
+    .eq(season ? "season" : "", season ? season : "")
+    .eq(field ? "industry" : "", field ? field : "");
 
   console.log(data);
 
