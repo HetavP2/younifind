@@ -3,8 +3,6 @@ import addOpportunity from "@/actions/opportunity/add-opp/addOpportunity";
 import OpportunityForm from "./OpportunityForm";
 import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
-import GoogleCaptchaWrapper from "@/components/google-captcha-wrapper";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -75,7 +73,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (String(recaptchaFailed) === "true") {
+    if (recaptchaFailed) {
       if (String(textModerationResponse) === "false") {
         const submissionStatus = await addOpportunity({
           id: id || "a",
@@ -115,7 +113,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   };
 
   return (
-    <GoogleCaptchaWrapper>
       <div>
         <link
           rel="stylesheet"
@@ -167,7 +164,6 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
           </div>
         </section>
       </div>
-    </GoogleCaptchaWrapper>
   );
 };
 

@@ -24,7 +24,7 @@ export async function POST(request: Request, response: Response) {
     const captchaValidation: any = await res.json();
 
     const captchaValidationResponse = captchaValidation.success;
-
+    
     return NextResponse.json(captchaValidationResponse);
   } catch (error) {
     return NextResponse.json({ error });
