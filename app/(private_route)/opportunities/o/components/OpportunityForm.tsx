@@ -29,7 +29,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   oppImages,
 }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  async function handleClick() {
+  async function handleClick(e:any) {
+    e.preventDefault();
     //@ts-ignore
     executeRecaptcha("enquiryFormSubmit").then(async (gReCaptchaToken) => {
       // submitEnquiryForm(gReCaptchaToken);
@@ -525,7 +526,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
           disabled={submitDisabled}
-          onClick={handleClick}
+          onClick={(e) => handleClick(e)}
         >
           submit
         </button>
