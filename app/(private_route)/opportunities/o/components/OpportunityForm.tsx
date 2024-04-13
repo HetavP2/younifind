@@ -29,7 +29,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   oppImages,
 }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  async function handleClick(e:any) {
+  async function handleClick(e: any) {
     e.preventDefault();
     //@ts-ignore
     executeRecaptcha("enquiryFormSubmit").then(async (gReCaptchaToken) => {
@@ -37,7 +37,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
       const recaptchaRes = await submitEnquiryForm(gReCaptchaToken);
       sendDataToParent(recaptchaRes);
     });
-
   }
   const submitEnquiryForm = async (gReCaptchaToken: string) => {
     const res = await fetch(`/api/gReCaptcha`, {
@@ -72,7 +71,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
-
 
   async function handleFileChange(e: any) {
     console.log(e.target.files);
@@ -341,10 +339,10 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                   Community Development
                 </option>
                 <option value="Trade">Trade</option>
-                <option value="Other">Other</option>
                 <option value="Hospitality And Tourism">
                   Hospitality And Tourism
                 </option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
