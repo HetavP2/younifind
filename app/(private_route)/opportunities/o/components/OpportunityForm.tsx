@@ -323,7 +323,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                 style={{ fontFamily: "Verdana" }}
               >
                 <option value="">--Please choose an option--</option>
-                
                 <option value="Technology">Technology</option>
                 <option value="Education">Education</option>
                 <option value="Business">Business</option>
@@ -343,6 +342,9 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                 </option>
                 <option value="Trade">Trade</option>
                 <option value="Other">Other</option>
+                <option value="Hospitality And Tourism">
+                  Hospitality And Tourism
+                </option>
               </select>
             </div>
           </div>

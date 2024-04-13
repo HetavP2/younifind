@@ -213,6 +213,9 @@ const SearchContainer = () => {
                   </option>
                   <option value="Trade">Trade</option>
                   <option value="Other">Other</option>
+                  <option value="Hospitality And Tourism">
+                    Hospitality And Tourism
+                  </option>
                 </select>
                 <p className="text-center text-xs font-semibold text-royalblue">
                   (Click on search after selecting filters)
