@@ -28,7 +28,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
-  const recaptcha = useRef();
+  const recaptcha: any = useRef();
   async function handleClick(e: any) {
     //@ts-ignore
     const captchaValue = recaptcha.current.getValue();
