@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { Opportunity, OpportunityImages } from "@/types";
 import GoogleCaptchaWrapper from "@/components/google-captcha-wrapper";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import 'altcha';
 
 interface AddOppFormProps extends Partial<Opportunity> {
   allOpportunityImages: Array<OpportunityImages>;
@@ -75,7 +76,7 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
 
     const textModerationResponse = textModeration.choices[0].message.content;
 
-    if (String(recaptchaFailed) === "true") {
+    if (true) {
       if (String(textModerationResponse) === "false") {
         const submissionStatus = await addOpportunity({
           id: id || "a",
@@ -115,8 +116,8 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
   };
 
   return (
-    <GoogleCaptchaWrapper>
-      <div>
+    <div>
+
         <link
           rel="stylesheet"
           href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
@@ -153,7 +154,9 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
                     contact_email={contact_email}
                     oppImages={allOpportunityImages}
                     sendDataToParent={handleRecaptcha}
-                  />
+                />
+                <div>
+                </div>
                 </form>
               </div>
             </div>
@@ -166,8 +169,8 @@ const AddOppForm: React.FC<AddOppFormProps> = async ({
             </footer>
           </div>
         </section>
+        
       </div>
-    </GoogleCaptchaWrapper>
   );
 };
 

@@ -25,6 +25,7 @@
     "@uppy/tus": "^3.4.0",
     "@uppy/webcam": "^3.3.4",
     "ai": "^2.2.30",
+    "altcha": "^0.2.3",
     "bad-words": "^3.0.4",
     "crypto-js": "^4.2.0",
     "flowbite-react": "^0.7.0",
