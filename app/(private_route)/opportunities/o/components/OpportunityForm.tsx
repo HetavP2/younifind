@@ -6,7 +6,7 @@ import OppTextarea from "@/components/OppTextarea";
 import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
 import toast from "react-hot-toast";
-// import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
@@ -28,36 +28,35 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   contact_email,
   oppImages,
 }) => {
-  // const recaptcha = useRef()
+  const recaptcha: any = useRef();
+  async function handleClick(e: any) {
+    //@ts-ignore
+    const captchaValue = recaptcha.current.getValue();
+    if (!captchaValue) {
+      toast.error("Please verify the reCAPTCHA!");
+    } else {
+      const res = await fetch(`/api/gReCaptcha`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gRecaptchaToken: captchaValue,
+        }),
+      });
+      const recaptchaRes = await res.json();
+      if (recaptchaRes) {
+        // make form submission
+        sendDataToParent(true);
+        toast.success("Form submission successful!");
+      } else {
+        toast.error("reCAPTCHA validation failed!");
+      }
+    }
 
 
-  // async function handleClick(e: any) {
-  //   e.preventDefault();
-  //   //@ts-ignore
-  //   const captchaValue = recaptcha.current.getValue()
-  //   if (!captchaValue) {
-  //     toast.error('Please verify the reCAPTCHA!')
-  //   } else {
-  //     const res = await fetch(`/api/gReCaptcha`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         gRecaptchaToken: captchaValue,
-  //       }),
-  //     });
-  //     const recaptchaRes = await res.json();
-  //     sendDataToParent(recaptchaRes);
-  //     if (captchaValue) {
-  //     // make form submission
-  //     toast.success('Form submission successful!')
-  //   } else {
-  //     toast.error('reCAPTCHA validation failed!')
-  //   }
-  //   }
-  // }
-    
+  }
+
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
@@ -527,20 +526,18 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
             {/* ... (Remaining code for file upload) */}
           </div>
         </div>
-
-        {/* <ReCAPTCHA
-          ref={recaptcha.current}
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-        /> */}
-
-        {/* <button
+        <ReCAPTCHA
+          ref={recaptcha}
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+        />
+        <button
           className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
           disabled={submitDisabled}
           onClick={(e) => handleClick(e)}
         >
           submit
-        </button> */}
+        </button>
       </div>
     </>
   );
