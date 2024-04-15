@@ -141,17 +141,19 @@ const addOpportunity = async ({
   }
   
 
-  if (!approved && !oppExists) {
+  if (!approved) {
     const { error } = await supabase
       .from("opportunity_statuses")
       .update({ approved: false })
       .eq("opportunity_id", id);
+    if (!oppExists) {
+      emailSentStatus = await sendEmail({
+        to: ["hetav.j.patel@gmail.com", "vangara.anirudhbharadwaj@gmail.com"],
+        subject: "Please Approve Opportunity",
+        template: ApprovalPendingEmailTemplate(),
+      });
+    }
 
-    emailSentStatus = await sendEmail({
-      to: ["hetav.j.patel@gmail.com", "vangara.anirudhbharadwaj@gmail.com"],
-      subject: "Please Approve Opportunity",
-      template: ApprovalPendingEmailTemplate(),
-    });
   }
 
   // postToInstagram(
