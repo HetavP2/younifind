@@ -29,7 +29,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   oppImages,
 }) => {
   const recaptcha: any = useRef();
-  async function handleClick(e: any) {
+  async function handleClick() {
     //@ts-ignore
     const captchaValue = recaptcha.current.getValue();
     if (!captchaValue) {
@@ -518,14 +518,16 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
           </div>
         </div>
         <ReCAPTCHA
+          onChange={handleClick}
           ref={recaptcha}
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
         />
+        <br />
         <button
           className="bg-yellow-500 text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow-lg hover:shadow-md outline-none focus:outline-none mr-4 ease-linear transition-all duration-150"
           type="submit"
           disabled={submitDisabled}
-          onClick={(e) => handleClick(e)}
+          // onClick={(e) => handleClick(e)}
         >
           submit
         </button>
