@@ -31,10 +31,10 @@ export default async function DashboardOpportunityList() {
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
-      <div className="w-full">
+      <div className="w-full h-screen">
         <div className="flex flex-col items-center">
           <div className="w-4/5  py-8 mx-auto">
-            <div className="flex w-full justify-between items-center">
+            <div className="flex w-full h-full justify-between items-center">
               <div>
                 <p className="text-left font-semibold text-2xl">
                   Welcome, {session.user.user_metadata.full_name}
