@@ -63,7 +63,7 @@ export default async function DashboardOpportunityList() {
                       <a
                         href="/adminPanel"
                         target="_blank"
-                        className="bg-royalblue text-sm font-semibold text-white rounded-2xl p-1 shadow-xl flex items-center"
+                        className="bg-royalblue text-sm font-semibold text-white rounded-2xl pl-1 pr-2 shadow-xl flex items-center"
                       >
                         <MdOutlineAdminPanelSettings className="text-white font-semibold text-xl mr-2" />{" "}
                         Admin Panel
