@@ -37,11 +37,9 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
   },
   ref
 ) => {
-  
   const [oppImages, setOppImages] = useState(fileData);
   const [oppStatus, setOppStatus] = useState(approved);
   const router = useRouter();
-
 
   const handleDelete = async (e: any) => {
     e.preventDefault();
@@ -55,12 +53,8 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     }
   };
 
-  
-  
-  
-
   return (
-    <div className="bg-slate-100  flex rounded-md">
+    <div className="bg-slate-100 w-full flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
         {oppStatus ? <span>✅</span> : <span>🕔</span>}

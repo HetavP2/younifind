@@ -17,19 +17,28 @@ const DashboardPageContent: React.FC<DashboardPageContentProps> = ({
       <DashboardAlerts />
 
       <DashboardSidebar>
-        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded" />
+        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none font-semibold focus:text-indigo-400  text-gray-900 rounded" />
       </DashboardSidebar>
       <DashboardOpportunityList />
     </div>
   ) : (
-    <div>
-      <div className="w-2/3 mx-auto  p-4 text-center font-medium rounded-md">
-        No Opportunities Created Yet. <br />
-        <br /> Click <span></span>
-        <a className="text-royalyellow" href="/opportunities/o/new">
-          ADD <span></span>
-        </a>
-        to get started.
+    <div className="flex w-full">
+      <DashboardAlerts />
+
+      <DashboardSidebar>
+        <AuthSystem className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none font-semibold focus:text-indigo-400  text-gray-900 rounded" />
+      </DashboardSidebar>
+
+      <div className="w-full h-screen">
+        <div className="w-4/5  h-full mx-auto flex items-center justify-center py-16">
+          <div className="h-full overflow-y-auto flex flex-col gap-3">
+            <div className="bg-royalyellow hover:bg-royalblue transition linear duration-200 p-4 w-full rounded-md">
+              <h1 className="text-3xl text-center text-white">
+                You have no opportunities
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
