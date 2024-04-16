@@ -12,6 +12,8 @@ import {
   FaFilePen,
 } from "react-icons/fa6";
 
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+
 export default async function DashboardOpportunityList() {
   const supabase = createServerComponentClient({ cookies });
   const {
@@ -50,21 +52,35 @@ export default async function DashboardOpportunityList() {
               <span className="flex items-center">
                 {adminInfo ? (
                   <>
-                    <div className="badge badge-warning badge-lg mx-2 shadow-xl">
+                    <div className="badge badge-warning badge-lg mx-2 shadow-xl text-sm font-semibold">
                       Administrator
+                    </div>
+
+                    <div
+                      className="tooltip"
+                      data-tip="Access the Administrator Admin Panel to manage all opportunities."
+                    >
+                      <a
+                        href="/adminPanel"
+                        target="_blank"
+                        className="bg-royalblue text-sm font-semibold text-white rounded-2xl p-1 shadow-xl flex items-center"
+                      >
+                        <MdOutlineAdminPanelSettings className="text-white font-semibold text-xl mr-2" />{" "}
+                        Admin Panel
+                      </a>
                     </div>
 
                     <div
                       className="tooltip"
                       data-tip="As an admin, you do not require approval for your posted opportunities."
                     >
-                      <div className="bg-royalblue rounded-2xl p-1 shadow-xl">
+                      <div className="bg-royalblue rounded-2xl mx-2 p-1 shadow-xl">
                         <FaCircleInfo className="text-white font-semibold text-xl" />
                       </div>
                     </div>
                   </>
                 ) : (
-                  <div className="badge badge-success badge-lg mx-2 shadow-xl">
+                  <div className="badge badge-success badge-lg mx-2 shadow-xl text-sm font-semibold">
                     User
                   </div>
                 )}
