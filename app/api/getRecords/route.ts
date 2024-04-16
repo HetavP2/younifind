@@ -51,9 +51,9 @@ export async function GET(request: Request, context: any) {
     })
     .eq(mode ? "mode" : "", mode ? mode : "")
     .eq(isfor ? "isfor" : "", isfor ? isfor : "")
-    .eq(type ? "type" : "", type ? type : "");
-  // .eq(season ? "season" : "", season ? season : "")
-  // .eq(field ? "industry" : "", field ? field : "");
+    .eq(type ? "type" : "", type ? type : "")
+    .eq(season ? "season" : "", season ? season : "")
+    .eq(field ? "industry" : "", field ? field : "");
 
   console.log(data);
 
