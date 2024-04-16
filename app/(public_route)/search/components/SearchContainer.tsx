@@ -175,6 +175,9 @@ const SearchContainer = () => {
                 >
                   <option selected>Type</option>
                   <option>Work Opportunity</option>
+                  <option value="Volunteer Opportunity">
+                    Volunteer Opportunity
+                  </option>
                   <option>Credit Opportunity</option>
                 </select>
                 <select
