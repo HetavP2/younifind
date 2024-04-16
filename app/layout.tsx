@@ -172,7 +172,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} `}>
+      <body className={`${inter.className} dark:bg-white`}>
         <ToasterProvider />
         <SupabaseProvider>
           <UserProvider>{children}</UserProvider>

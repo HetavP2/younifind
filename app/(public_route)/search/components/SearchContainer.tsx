@@ -231,7 +231,7 @@ const SearchContainer = () => {
                 <div className="flex flex-row w-full gap-2 bg-white shadow-xl p-4 rounded-md">
                   <div className="flex self-stretch flex-1 p-3 border border-gray-200 rounded-md shadow-sm gap-x-4 lg:gap-x-6 focus-within:ring-0 focus-within:ring-offset-0 focus-within:border-indigo-300">
                     <form
-                      className="relative flex flex-1 outline-none "
+                      className="relative flex flex-1 outline-none dark:bg-white"
                       onSubmit={(e) => {
                         e.preventDefault();
                       }}
@@ -245,7 +245,7 @@ const SearchContainer = () => {
                       />
                       <input
                         id="search-field"
-                        className="block w-full placeholder:text-royalblue font-medium h-full py-0 pl-8 pr-0 border-0 outline-none text-md"
+                        className="block w-full placeholder:text-royalblue dark:bg-white font-medium h-full py-0 pl-8 pr-0 border-0 outline-none text-md"
                         placeholder="Find your next big thing."
                         onChange={(e) => setSearchQuery(e.target.value)}
                         type="search"
