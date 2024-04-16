@@ -57,7 +57,11 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
     <div className="bg-slate-100 w-full flex rounded-md">
       <div className="w-2/3 flex-column p-4 rounded-md">
         <h1 className="font-bold text-2xl ">{title}</h1>
-        {oppStatus ? <span>✅</span> : <span>🕔</span>}
+        {oppStatus ? (
+          <span>Approved ✅</span>
+        ) : (
+          <span>Pending Approval 🕔</span>
+        )}
         <div className="flex font-medium">
           {provider} - {industry}
         </div>
@@ -83,12 +87,9 @@ const OpportunityCard: React.FC<OpportunityCardProps> = (
           )}
         </div>
       </div>
-      <div
-        className="w-1/3 rounded-md bg-slate-200 pl-[20px] relative flex-column p-4 items-center justify-center"
-        style={{ borderTopLeftRadius: "80px", borderBottomLeftRadius: "90px" }}
-      >
+      <div className="w-1/3 rounded-md bg-slate-200 relative flex-column h-full my-auto p-4 items-center justify-center">
         {" "}
-        <div className=" w-full flex  justify-center">
+        <div className=" w-full flex items-center justify-center">
           <div className="flex flex-col items-center justify-center w-3/4 gap-2">
             <button
               onClick={(e) => handleDelete(e)}

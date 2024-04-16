@@ -32,7 +32,7 @@ export default async function DashboardOpportunityList() {
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
       <div className="w-full h-screen">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col w-full h-screen items-center">
           <div className="w-4/5  py-8 mx-auto">
             <div className="flex w-full h-full justify-between items-center">
               <div>
@@ -71,7 +71,7 @@ export default async function DashboardOpportunityList() {
               </span>
             </div>
           </div>
-          <div className="w-4/5  h-full mx-auto flex items-center justify-center py-16">
+          <div className="w-4/5 h-3/4 mx-auto flex items-center justify-center py-4">
             <div className="h-full w-full overflow-y-auto flex flex-col gap-3">
               {userOpportunities.length >= 1 ? (
                 userOpportunities.map(async (opportunity) => {
