@@ -31,7 +31,7 @@ export default async function DashboardOpportunityList() {
 
   if (userOpportunities && userOpportunities?.length >= 0 && session) {
     return (
-      <div className="w-full h-screen">
+      <div className="w-full">
         <div className="flex flex-col items-center">
           <div className="w-4/5  py-8 mx-auto">
             <div className="flex w-full justify-between items-center">
