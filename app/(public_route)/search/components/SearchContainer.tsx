@@ -160,6 +160,7 @@ const SearchContainer = () => {
                   <option selected>Mode</option>
                   <option>In-person</option>
                   <option>Online</option>
+                  <option>Hybrid</option>
                 </select>
                 <select
                   onChange={(e) => setStudentSelect(e.target.value)}
