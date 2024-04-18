@@ -64,7 +64,7 @@ export default function HomePageContent() {
             <br />
             <br />
             <br />
-            <form onSubmit={handleSubmit} className="inline-block">
+            {/* <form onSubmit={handleSubmit} className="inline-block">
               <label htmlFor="email" className="sr-only">
                 Subscribe to waitlist
               </label>
@@ -85,7 +85,7 @@ export default function HomePageContent() {
                   Subscribe
                 </button>
               </div>
-            </form>
+            </form> */}
             {/* //// */}
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
