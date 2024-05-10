@@ -1,5 +1,9 @@
 "use client";
 
+import { CiCalendarDate } from "react-icons/ci";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+
 import React, { useState, useRef } from "react";
 import OppInput from "./OppInput";
 import OppTextarea from "@/components/OppTextarea";
@@ -53,8 +57,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         toast.error("reCAPTCHA validation failed!");
       }
     }
-
-
   }
 
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
@@ -76,7 +78,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
-
 
   async function handleFileChange(e: any) {
     console.log(e.target.files);
@@ -284,16 +285,34 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               >
                 Expiry date
               </label>
-              <OppInput
-                id="date"
-                style={{ fontFamily: "Verdana" }}
-                type="datetime-local"
-                name="expiryDate"
-                value={oppData.expiry_date}
-                onChange={(e) =>
-                  setOppData({ ...oppData, expiry_date: e.target.value })
-                }
-              />
+              <div className="relative">
+                <OppInput
+                  id="date"
+                  style={{ fontFamily: "Verdana", paddingRight: "2.5rem" }} // Add right padding for the icon
+                  type="datetime-local"
+                  name="expiryDate"
+                  value={oppData.expiry_date}
+                  onChange={(e) =>
+                    setOppData({ ...oppData, expiry_date: e.target.value })
+                  }
+                />
+                <div
+                  style={{ fontFamily: "Verdana", pointerEvents: "none" }} // Add right padding for the icon
+                  className="absolute inset-y-0 mr-8 end-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                  <svg
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                  </svg>
+                </div>
+              </div>
+
+         
             </div>
           </div>
         </div>
@@ -378,7 +397,9 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               >
                 <option value="">--Please choose an option--</option>
                 <option value="Work Opportunity">Work Opportunity</option>
-                <option value="Volunteer Opportunity">Volunteer Opportunity</option>
+                <option value="Volunteer Opportunity">
+                  Volunteer Opportunity
+                </option>
                 <option value="Credit Opportunity">Credit Opportunity</option>
               </select>
             </div>
