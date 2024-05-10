@@ -180,6 +180,8 @@ const SearchContainer = () => {
                     Volunteer Opportunity
                   </option>
                   <option>Credit Opportunity</option>
+                  <option>Event</option>
+                  <option>Competition</option>
                 </select>
                 <select
                   onChange={(e) => setSeasonSelect(e.target.value)}
