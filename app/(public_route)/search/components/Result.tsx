@@ -35,7 +35,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ recordData }) => {
         </div>
         <div className="flex justify-evenly w-full mt-8">
           <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
-            {recordData.isfor}
+            {recordData.industry}
           </div>
 
           <div className="px-2 py-1 rounded-lg text-sm bg-royalblue text-white font-medium">
