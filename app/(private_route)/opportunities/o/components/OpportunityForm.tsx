@@ -318,7 +318,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         </div>
 
         <hr className="my-8 border-b-1 border-blueGray-300" />
-
         <h6 className="text-lg font-bold mb-6">Additional Details</h6>
         <div className="flex flex-wrap">
           <div className="w-full lg:w-12/12 px-4">
