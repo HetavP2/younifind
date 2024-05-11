@@ -90,7 +90,7 @@ export default async function DashboardOpportunityList() {
           <div className="w-4/5 h-3/4 mx-auto flex items-center justify-center py-4">
             <div className="h-full w-full overflow-y-auto flex flex-col gap-3">
               {userOpportunities.length >= 1 ? (
-                userOpportunities.map(async (opportunity) => {
+                userOpportunities?.reverse().map(async (opportunity) => {
                   const oppId = parseInt(opportunity.id);
                   const data = await getOpportunityImages(oppId);
                   const approved = await getOpportunityStatus(oppId);

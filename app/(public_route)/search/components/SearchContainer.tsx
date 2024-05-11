@@ -54,9 +54,9 @@ const SearchContainer = () => {
       const existingRecordIds = new Set(crecRecords.map((record) => record.id));
 
       // Filter out duplicates from allOpportunitiesToDisplay
-      const newOpportunities = allOpportunitiesToDisplay.filter(
-        (record) => !existingRecordIds.has(record.id)
-      );
+      const newOpportunities = allOpportunitiesToDisplay
+        .filter((record) => !existingRecordIds.has(record.id));
+        
 
       // Concatenate the existing records with the new ones
       return [...crecRecords, ...newOpportunities];
@@ -133,7 +133,7 @@ const SearchContainer = () => {
     );
     const data = await response.json();
     console.log(data.data);
-    setRecRecords(data.data);
+    setRecRecords(data?.data);
     setLoading(false);
   };
 
