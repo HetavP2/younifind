@@ -8,21 +8,24 @@ interface GetSearchOpportunity extends Opportunity {
   approved: boolean;
 }
 
-const getSearchOpps = async (lowerbound: number, upperbound: number): Promise<GetSearchOpportunity[]> => {
+const getSearchOpps = async (
+  lowerbound: number,
+  upperbound: number
+): Promise<GetSearchOpportunity[]> => {
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
-    
-    
-      const { data, error } = await supabase
-        .from("opportunities")
-        .select(
-          `
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select(
+      `
     *,
     opportunity_statuses (approved)
   `
-        )
-        .range(lowerbound, upperbound); // Retrieve all fields for opportunities
+    )
+    .range(lowerbound, upperbound)
+    .order("created_at", { ascending: false }); // Retrieve all fields for opportunities
 
   if (error) {
     throw error;
