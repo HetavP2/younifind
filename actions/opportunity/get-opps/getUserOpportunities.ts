@@ -15,7 +15,7 @@ const getUserOpportunities = async (): Promise<Opportunity[]> => {
     .from("opportunities")
     .select()
     .filter("user_id", "in", `(${session?.user.id})`)
-    .order("updated_at", { ascending: false });
+    .order("updated_at", { ascending: true });
 
   if (error) {
     console.error(error);
