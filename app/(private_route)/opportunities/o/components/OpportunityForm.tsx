@@ -35,6 +35,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
 }) => {
   const recaptcha: any = useRef();
   async function handleClick() {
+    setSubmitDisabled(true);
     //@ts-ignore
     const captchaValue = recaptcha.current.getValue();
     if (!captchaValue) {
@@ -54,6 +55,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         // make form submission
         sendDataToParent(true);
         toast.success("Verified!");
+        setSubmitDisabled(false);
       } else {
         toast.error("reCAPTCHA validation failed!");
       }
@@ -61,7 +63,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   }
 
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
