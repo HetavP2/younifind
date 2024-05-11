@@ -7,6 +7,7 @@ import { Opportunity, OpportunityImages } from "@/types";
 import ImageSelect from "./ImageSelect";
 import toast from "react-hot-toast";
 import ReCAPTCHA from "react-google-recaptcha";
+import { MdDateRange } from "react-icons/md";
 
 interface OpportunityFormProps extends Partial<Opportunity> {
   oppImages: Array<OpportunityImages>;
@@ -53,8 +54,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         toast.error("reCAPTCHA validation failed!");
       }
     }
-
-
   }
 
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
@@ -76,7 +75,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     contact_email: contact_email || "",
     type: "",
   });
-
 
   async function handleFileChange(e: any) {
     console.log(e.target.files);
@@ -284,16 +282,20 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               >
                 Expiry date
               </label>
-              <OppInput
-                id="date"
-                style={{ fontFamily: "Verdana" }}
-                type="datetime-local"
-                name="expiryDate"
-                value={oppData.expiry_date}
-                onChange={(e) =>
-                  setOppData({ ...oppData, expiry_date: e.target.value })
-                }
-              />
+              <div className="bg-red-500 p-2 z-40">
+                {/* <OppInput
+                  id="date"
+                  style={{ fontFamily: "Verdana" }}
+                  type="datetime-local"
+                  name="expiryDate"
+                  value={oppData.expiry_date}
+                  onChange={(e) =>
+                    setOppData({ ...oppData, expiry_date: e.target.value })
+                  }
+                  
+                /> */}
+                <input type="datetime-local" id="date" />
+              </div>
             </div>
           </div>
         </div>
@@ -525,7 +527,8 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               className="mt-1 text-sm text-gray-300 font-roboto-slab"
               id="user_avatar_help"
             >
-              It can approximately 10 seconds to verify your files.
+              It can approximately 10 seconds to verify your files/process your
+              opportunity application.
             </div>
             <br />
 
