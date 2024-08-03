@@ -70,6 +70,7 @@ export default async function EditOpportunityPage({
       typelabel={opportunityDetails.typelabel}
       expiry_date={opportunityDetails.expiry_date}
       contact_email={opportunityDetails.contact_email}
+      website={opportunityDetails.website}
       allOpportunityImages={data}
     />
   );

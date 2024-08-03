@@ -32,6 +32,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   expiry_date,
   contact_email,
   oppImages,
+  website,
 }) => {
   const recaptcha: any = useRef();
   async function handleClick() {
@@ -80,6 +81,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     expiry_date: String(expiry_date).slice(0, -9) || "",
     contact_email: contact_email || "",
     type: "",
+    website: website || "",
   });
 
   async function handleFileChange(e: any) {
@@ -249,6 +251,27 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                 value={oppData.contact_email}
                 onChange={(e) =>
                   setOppData({ ...oppData, contact_email: e.target.value })
+                }
+                style={{ fontFamily: "Verdana" }}
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2 font-roboto-slab"
+                htmlFor="grid-password"
+                style={{ color: "#D1D5DB" }}
+              >
+                Link (website or social media) - optional
+              </label>
+              <OppInput
+                id="website"
+                name="website"
+                required={false}
+                value={oppData.website}
+                onChange={(e) =>
+                  setOppData({ ...oppData, website: e.target.value })
                 }
                 style={{ fontFamily: "Verdana" }}
               />
