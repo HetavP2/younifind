@@ -95,6 +95,9 @@ export default async function AdminPanel() {
               Contact Email
             </th>
             <th scope="col" className="px-6 py-3">
+              Link (website or social media)
+            </th>
+            <th scope="col" className="px-6 py-3">
               Status
             </th>
           </tr>
@@ -118,6 +121,7 @@ export default async function AdminPanel() {
               expiry_date={opportunity.expiry_date}
               admin_notes={opportunity.admin_notes}
               contact_email={opportunity.contact_email}
+              website={opportunity.website}
             />
           ))}
         </tbody>

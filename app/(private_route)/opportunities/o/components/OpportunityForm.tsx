@@ -32,9 +32,11 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   expiry_date,
   contact_email,
   oppImages,
+  website,
 }) => {
   const recaptcha: any = useRef();
   async function handleClick() {
+    setSubmitDisabled(true);
     //@ts-ignore
     const captchaValue = recaptcha.current.getValue();
     if (!captchaValue) {
@@ -54,6 +56,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         // make form submission
         sendDataToParent(true);
         toast.success("Verified!");
+        setSubmitDisabled(false);
       } else {
         toast.error("reCAPTCHA validation failed!");
       }
@@ -61,7 +64,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
   }
 
   const [loadingFileChecking, setLoadingFileChecking] = useState(false);
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
   const [oppData, setOppData] = useState<Opportunity>({
     id: "",
@@ -78,6 +81,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
     expiry_date: String(expiry_date).slice(0, -9) || "",
     contact_email: contact_email || "",
     type: "",
+    website: website || "",
   });
 
   async function handleFileChange(e: any) {
@@ -252,6 +256,27 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
               />
             </div>
           </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2 font-roboto-slab"
+                htmlFor="grid-password"
+                style={{ color: "#D1D5DB" }}
+              >
+                Link (website or social media) - optional
+              </label>
+              <OppInput
+                id="website"
+                name="website"
+                required={false}
+                value={oppData.website}
+                onChange={(e) =>
+                  setOppData({ ...oppData, website: e.target.value })
+                }
+                style={{ fontFamily: "Verdana" }}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap">
@@ -332,7 +357,6 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
         </div>
 
         <hr className="my-8 border-b-1 border-blueGray-300" />
-
         <h6 className="text-lg font-bold mb-6">Additional Details</h6>
         <div className="flex flex-wrap">
           <div className="w-full lg:w-12/12 px-4">

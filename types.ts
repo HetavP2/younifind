@@ -23,6 +23,7 @@ export interface Opportunity {
   admin_notes?: string;
   contact_email?: string;
   updated_at?: string;
+  website?: string;
 }
 
 export interface OpportunityImages {

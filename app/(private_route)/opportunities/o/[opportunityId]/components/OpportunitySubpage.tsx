@@ -59,6 +59,11 @@ const OpportunitySubpage: React.FC<OpportunitySubpageProps> = async ({
             </h2>
             <p>{oppDetails.description}</p>
           </div>
+          <div className="w-2/5 mx-auto ">
+            <h2 className="text-royalyellow mb-4 flex justify-center ">
+              <a href={oppDetails.website} target="_blank">Check Us Out!</a>
+            </h2>
+          </div>
 
           <div className="">
             {/* <div className="flex flex-col">

@@ -37,6 +37,7 @@ const TableRow: React.FC<TableRowProps> = ({
   typelabel,
   admin_notes,
   contact_email,
+  website,
 }) => {
   const router = useRouter();
   const supabase = createClientComponentClient();
@@ -268,6 +269,7 @@ const TableRow: React.FC<TableRowProps> = ({
         )}
       </td>
       <td className="px-6 py-4 text-royalyellow">{contact_email}</td>
+      <td className="px-6 py-4 text-royalyellow">{website}</td>
 
       <td className="px-6 py-4">
         <div className="flex items-center">

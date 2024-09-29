@@ -10,8 +10,6 @@ import { Opportunity } from "@/types";
 import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 import getOpportunity from "../get-opps/getOpportunity";
-import postToInstagram from "@/actions/createInstagramPost";
-import updateOppStatus from "./updateStatus";
 
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages?: FormDataEntryValue[];
@@ -25,6 +23,7 @@ const addOpportunity = async ({
   industry,
   isfor,
   mode,
+  website,
   typelabel,
   description,
   allOpportunityImages,
@@ -116,6 +115,7 @@ const addOpportunity = async ({
       season,
       industry,
       isfor,
+      website,
       mode,
       type,
       typelabel,
