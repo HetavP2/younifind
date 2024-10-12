@@ -22,7 +22,7 @@ export async function POST(request: Request) {
               content: [
                 {
                   type: "text",
-                  text: "You are a content moderator. If there is any NSFW content, violence, weapons, racism, toxicity, sexist or any other harmful content in the image, please reply with only 'true' (has to be in lowercase). If there is no harmful content and the image does not contain any inappropriate content, please only reply with 'false' (has to be in lowercase).",
+                  text: "You are a content moderator. If there is any NSFW content, violence, weapons or any other 18+ content in the image, please reply with only 'true' (has to be in lowercase). If there is no harmful content and the image does not contain any inappropriate content, please only reply with 'false' (has to be in lowercase).",
                 },
                 {
                   type: "image_url",

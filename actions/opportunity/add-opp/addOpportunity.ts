@@ -11,6 +11,7 @@ import uploadOpportunityImages from "../opp-images/uploadOpportunityImages";
 import { ApprovalPendingEmailTemplate } from "@/components/email-templates/ApprovalPendingEmailTemplate";
 import getOpportunity from "../get-opps/getOpportunity";
 
+
 interface AddOpportunityProps extends Opportunity {
   allOpportunityImages?: FormDataEntryValue[];
 }

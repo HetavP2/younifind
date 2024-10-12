@@ -338,20 +338,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                 </div>
               </div>
 
-              <div className="bg-red-500 p-2 z-40">
-                {/* <OppInput
-                  id="date"
-                  style={{ fontFamily: "Verdana" }}
-                  type="datetime-local"
-                  name="expiryDate"
-                  value={oppData.expiry_date}
-                  onChange={(e) =>
-                    setOppData({ ...oppData, expiry_date: e.target.value })
-                  }
-                  
-                /> */}
-                <input type="datetime-local" id="date" />
-              </div>
+ */}
             </div>
           </div>
         </div>
