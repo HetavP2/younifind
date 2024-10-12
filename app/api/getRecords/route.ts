@@ -17,7 +17,7 @@ export async function GET(request: Request, context: any) {
   const season = url.searchParams.get("season");
   const field = url.searchParams.get("field");
   const query = url.searchParams.get("query");
-  console.log(mode, isfor, type, season, field, query);
+  console.log("filters, ", mode, isfor, type, season, field, query);
 
   const supabase = createClient(
     "https://qbfbghtpknhobofhpxfr.supabase.co/",
@@ -37,25 +37,48 @@ export async function GET(request: Request, context: any) {
     },
     body: JSON.stringify({
       input: query,
-      model: "text-embedding-ada-002",
+      model: "text-embedding-3-small",
     }),
   });
   const responseData = await response.json();
+  // console.log("embedding", responseData.data);
   const embedding = responseData.data[0].embedding;
+  // console.log("embedding", embedding);
 
-  const { data } = await supabase
-    .rpc("match_opportunities", {
-      query_embedding: embedding,
-      match_threshold: 0.2,
-      match_count: 7,
-    })
-    .eq(mode ? "mode" : "", mode ? mode : "")
-    .eq(isfor ? "isfor" : "", isfor ? isfor : "")
-    .eq(type ? "type" : "", type ? type : "")
-    .eq(season ? "season" : "", season ? season : "")
-    .eq(field ? "industry" : "", field ? field : "");
 
-  console.log(data);
+  // console.log("DATA", data);
+ let rpcCall = supabase.rpc("match_opportunities_two", {
+   query_embedding: embedding,
+   match_threshold: 0.2,
+   match_count: 7,
+ });
+
+ // Apply filters conditionally
+ if (mode) {
+   rpcCall = rpcCall.eq("mode", mode);
+ }
+ if (isfor) {
+   rpcCall = rpcCall.eq("isfor", isfor);
+ }
+ if (type) {
+   rpcCall = rpcCall.eq("type", type);
+ }
+ if (season) {
+   rpcCall = rpcCall.eq("season", season);
+ }
+ if (field) {
+   rpcCall = rpcCall.eq("industry", field);
+ }
+
+ const { data, error } = await rpcCall;
+
+ console.log("DATA", data);
+ if (error) {
+   console.error("Error fetching data", error);
+ }
+
+
+
 
   return NextResponse.json({
     data,

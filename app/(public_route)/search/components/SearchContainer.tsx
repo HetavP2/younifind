@@ -114,7 +114,7 @@ const SearchContainer = () => {
       return;
     }
     setLoading(true);
-    console.log(searchQuery);
+    console.log("SEARCH QUERY", searchQuery);
     console.log(
       `/api/getRecords?query=${encodeURIComponent(searchQuery)}` +
         modeSelectString +
