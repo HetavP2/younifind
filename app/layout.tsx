@@ -162,6 +162,7 @@ export default function RootLayout({
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
         />
+        
         <Script id="google-analytics">
           {`
           
@@ -171,6 +172,8 @@ export default function RootLayout({
           gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
           `}
         </Script>
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4098727976748290"
+     crossorigin="anonymous"></Script>
       </head>
       <body className={`${inter.className} dark:bg-white`}>
         <ToasterProvider />

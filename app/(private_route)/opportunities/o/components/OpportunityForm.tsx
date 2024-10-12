@@ -428,6 +428,7 @@ const OpportunityForm: React.FC<OpportunityFormProps> = ({
                 <option value="Credit Opportunity">Credit Opportunity</option>
                 <option value="Event">Event</option>
                 <option value="Competition">Competition</option>
+                <option value="Scholarship">Scholarship</option>
               </select>
             </div>
           </div>
