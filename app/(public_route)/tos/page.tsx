@@ -9,7 +9,7 @@ export default function TOS() {
       </Navbar>
       <div className="bg-red-300 px-4 py-3 text-white w-full">
         <p className="text-center text-sm font-medium">
-          Welcome to younifind&apos;s Pilot Program, in endorsed with the Peel
+          Welcome to younifind&apos;s, in endorsed with the Peel
           District School Board.
         </p>
       </div>
