@@ -276,7 +276,7 @@ const TableRow: React.FC<TableRowProps> = ({
           {oppStatus ? (
             <>
               <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-              <span className="text-green-500">Approved</span>
+              <span className="text-green-500">Approved.</span>
             </>
           ) : (
             <>
